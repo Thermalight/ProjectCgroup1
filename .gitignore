@@ -1,0 +1,11 @@
+node_modules/
+wwwroot/build/
+bin/
+obj/
+
+.vscode/
+.vs/
+
+.DS_Store
+
+.env
