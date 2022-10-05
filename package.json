@@ -26,7 +26,8 @@
     "cross-env": "^7.0.3",
     "jest": "^29.1.2",
     "jest-transform-stub": "^2.0.0",
-    "postcss-cli": "^10.0.0",
+    "postcss": "^8.4.17",
+    "postcss-cli": "^7.1.2",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -39,7 +40,6 @@
   },
   "dependencies": {
     "jest-environment-jsdom": "^29.1.2",
-    "postcss": "^7.0.39",
     "sirv-cli": "^2.0.0"
   }
 }
