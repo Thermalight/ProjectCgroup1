@@ -9,7 +9,7 @@
     "dev": "concurrently \"rollup -c -w\" \"npm run watch:tailwind\"",
     "start": "sirv public --no-clear",
     "serve": "serve public -p 80",
-    "test": "npx jest src",
+    "test": "npx jest tests",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
