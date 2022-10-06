@@ -42,7 +42,7 @@ public class MqttService
 
         if (notification != null)
         {
-            System.Console.WriteLine(JsonSerializer.Serialize(notification));
+            // System.Console.WriteLine(JsonSerializer.Serialize(notification));
         }
         await Task.Delay(1);
     }
