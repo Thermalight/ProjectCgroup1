@@ -2,6 +2,9 @@ using MQTTnet;
 using MQTTnet.Client;
 using System.Text;
 using System.Text.Json;
+using ChengetaWebApp.Api.Database.Models;
+
+namespace ChengetaWebApp.Api.Database;
 
 public class MqttService
 {
@@ -13,8 +16,8 @@ public class MqttService
         using (var mqttClient = mqttFactory.CreateMqttClient())
         {
             var mqttClientOptions = new MqttClientOptionsBuilder()
-                .WithTcpServer("", 1883)
-                .WithCredentials("", "")
+                .WithTcpServer(Environment.GetEnvironmentVariable("mqttip"), 1883)
+                .WithCredentials(Environment.GetEnvironmentVariable("mqttusername"), Environment.GetEnvironmentVariable("mqttpassword"))
                 .Build();
 
             mqttClient.ApplicationMessageReceivedAsync += e => MessageHandler(e);
