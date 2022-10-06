@@ -1,5 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<MqttService>();
+
 var app = builder.Build();
+
+app.Services.GetRequiredService<MqttService>().Start();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
