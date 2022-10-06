@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
+namespace ChengetaWebApp.Api.Database.Models;
+
 public class Notification
 {
     [Key]
