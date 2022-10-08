@@ -4,13 +4,18 @@ using System.Text;
 using System.Text.Json;
 using ChengetaWebApp.Api.Database.Models;
 
-namespace ChengetaWebApp.Api.Database;
+namespace ChengetaWebApp.Api.Services.MqttHandler;
 
 public class MqttService
 {
+    private readonly DatabaseService _databaseService;
+    public MqttService(DatabaseService databaseService)
+    {
+        _databaseService = databaseService;
+    }
     public void Start() => HandleMessages();
 
-    private static async Task HandleMessages()
+    private async Task HandleMessages()
     {
         var mqttFactory = new MqttFactory();
         using (var mqttClient = mqttFactory.CreateMqttClient())
@@ -35,14 +40,14 @@ public class MqttService
         }
     }
 
-    private static async Task MessageHandler(MqttApplicationMessageReceivedEventArgs args)
+    private async Task MessageHandler(MqttApplicationMessageReceivedEventArgs args)
     {
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         var notification = JsonSerializer.Deserialize<Notification>(Encoding.UTF8.GetString(args.ApplicationMessage.Payload), options);
 
         if (notification != null)
         {
-            // System.Console.WriteLine(JsonSerializer.Serialize(notification));
+            await _databaseService.AddNotificationAsync(notification);
         }
         await Task.Delay(1);
     }
