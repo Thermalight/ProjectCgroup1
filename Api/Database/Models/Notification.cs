@@ -13,7 +13,9 @@ public class Notification
     public double Longitude { get; set; }
     [JsonPropertyName("sound_type")]
     public string SoundType { get; set; }
+    public SoundPriority? Priority { get; set; }
     public int Probability { get; set; }
     public string Sound { get; set; }
-    public int StatusID  { get; set; }
+    public int StatusID  { get; set; } = 1;
+    public Status? Status { get; set; }
 }
