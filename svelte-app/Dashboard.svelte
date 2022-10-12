@@ -1,37 +1,3 @@
-<div class="sidebar"> 
-    <nav>
-        <!-- here we'll put in the links to the other pages in the hamburger menu, as well as any code styling the hamburger menu -->
-        <ul>
-            <li>
-                <!-- every list item wil be a link so <a></a> so to the dashboard, to the list of notivs, to user management or to settings -->
-                <a href="#">Dashboard</a>
-            </li>
-            <li>
-                <!-- every list item wil be a link so <a></a> so to the dashboard, to the list of notivs, to user management or to settings -->
-                <a href="#">Notifications</a>
-            </li>
-            <li>
-                <!-- every list item wil be a link so <a></a> so to the dashboard, to the list of notivs, to user management or to settings -->
-                <a href="#">User Management</a>
-            </li>
-            <li>
-                <!-- every list item wil be a link so <a></a> so to the dashboard, to the list of notivs, to user management or to settings -->
-                <a href="#">Settings</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-
-<nav class="navigation-bar">
-    <div class="hamburger-menu">
-        <button type="button"><span class="material-symbols-outlined"> menu </span></button>
-    </div>
-
-    <div class="logo">
-        <img src="images/icon.png" alt="Chengetta logo consisting of an elephant with the words Chengetta and wildlife underneath it"/>
-    </div>
-</nav>
-
 <div class="dashboard-content">
     <div class="map-header">
         <div class="sorted-button">
