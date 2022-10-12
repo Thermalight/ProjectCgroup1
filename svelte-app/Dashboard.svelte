@@ -24,7 +24,7 @@
 
 <nav class="navigation-bar">
     <div class="hamburger-menu">
-        <span class="material-symbols-outlined"> menu </span>
+        <button type="button"><span class="material-symbols-outlined"> menu </span></button>
     </div>
 
     <div class="logo">
@@ -36,7 +36,7 @@
     <div class="map-header">
         <div class="sorted-button">
             <!-- here we put the sorted button -->
-            <button type="button" class="rounded-full ..."><span class="material-symbols-outlined"> sort </span></button>
+            <button type="button" class="rounded-full ..." ><span class="material-symbols-outlined"> sort </span></button>
         </div>
 
         <h1> map </h1>
