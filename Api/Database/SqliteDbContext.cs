@@ -27,6 +27,11 @@ namespace ChengetaWebApp.Api.Database
                 .HasOne(s => s.User)
                 .WithOne(u => u.Subscriber)
                 .HasForeignKey<Subscriber>(s => s.UserID);
+
+            modelBuilder.Entity<Subscriber>()
+                .HasOne(s => s.Priority)
+                .WithMany(p => p.Subscribers)
+                .HasForeignKey(s => s.MinimumPriority);
         }
         
         public static SqliteDbContext Create()

@@ -8,5 +8,6 @@ public class Subscriber
     public int ID { get; set; }
     public Guid UserID { get; set; }
     public User User { get; set; }
-    public int MinimumPriority { get; set; } = 0;
+    public string MinimumPriority { get; set; } = "unknown";
+    public SoundPriority Priority { get; set; }
 }
