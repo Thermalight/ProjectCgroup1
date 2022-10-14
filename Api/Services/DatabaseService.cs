@@ -25,8 +25,8 @@ public class DatabaseService
         await dbContext.SaveChangesAsync();
 
         // create all statustypes
-        await dbContext.AddAsync(new Status(){Description="A ranger is checking out the event", Name="Being handled"});
         await dbContext.AddAsync(new Status(){Description="The notification is not being handled yet", Name="Not handled"});
+        await dbContext.AddAsync(new Status(){Description="A ranger is checking out the event", Name="Being handled"});
         await dbContext.AddAsync(new Status(){Description="The event has been closed", Name="Handled"});
         await dbContext.AddAsync(new Status(){Description="The notification was not what it appeared to be", Name="False alarm"});
         await dbContext.SaveChangesAsync();
