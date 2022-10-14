@@ -1,22 +1,39 @@
 <script>
+    import { slide } from 'svelte/transition';
     import Notification from "./Notification.svelte"
     
-    var notifications;
-    fetch("https://localhost/notifications", {
+    let notifications;
+    let loading = true;
+    let refreshRate = 10000;
+
+    let clear
+    $: {
+        clearInterval(clear)
+        clear = setInterval(getEvents, refreshRate)
+    }
+
+    function getEvents() {
+        fetch("https://localhost/notifications", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => notifications = data)
-        .then(() => console.log(notifications));
+            .then(response => response.json())
+            .then(data => notifications = data)
+            .then(() => loading = false);
+    }
+    
 </script>
-<div class="list">
-    {#if notifications != null}
+<div class="list" transition:slide>
+    {#if notifications != null && !loading}
         {#each notifications as event}
-            <Notification event={event}/>
+            <div transition:slide>
+                <Notification event={event}/>
+            </div>
         {/each}
+    {:else}
+        <div>Loading...</div>
     {/if}
 </div>
 <style>
