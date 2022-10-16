@@ -51,7 +51,7 @@ public class DatabaseService
         return notifications;
     }
 
-    public async Task<IResult> UpdateNotificationStatus(Guid id, int status) {
+    public async Task<IResult> UpdateNotificationStatusAsync(Guid id, int status) {
         var DbContext = new SqliteDbContext();
         var notification = await DbContext.Notifications.FindAsync(id);
         if (notification == null)

@@ -46,7 +46,7 @@ app.UseEndpoints(endpoints =>
     });
     endpoints.MapPost("/notifications", async (string id, int status) =>
     {
-        var result = await _databaseService.UpdateNotificationStatus(Guid.Parse(id), status);
+        var result = await _databaseService.UpdateNotificationStatusAsync(Guid.Parse(id), status);
         return result;
     });
 });
