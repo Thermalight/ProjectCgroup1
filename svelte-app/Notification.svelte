@@ -20,18 +20,18 @@
 {#if event != null}
     <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
         <div class="content">
-            <p>{event.sound_type}</p>
+            <p class="font-bold">{event.sound_type}</p>
             <Status status={event.StatusID} GUID={event.Guid}/>
-            <p>latitude: {round(event.Latitude)}</p>
-            <p>longitude: {round(event.Longitude)}</p>
+            <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
+            <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
             {#if !open}
-                <span class="absolute left-1/2">open</span>
+                <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">expand_more</span>
             {:else}
                 <div transition:slide>
-                    <p>Probability {event.Probability}</p>
-                    <p>Node {event.NodeID}</p>
+                    <p class="text-gray-400">Probability: {event.Probability}</p>
+                    <p class="text-gray-400">Node: {event.NodeID}</p>
                 </div>
-                <span class="absolute left-1/2">close</span>
+                <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">expand_less</span>
             {/if}
             <p class="text-right">{hours}:{minutes}</p>
         </div>
