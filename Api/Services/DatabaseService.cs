@@ -50,4 +50,16 @@ public class DatabaseService
         notifications.Reverse();
         return notifications;
     }
+
+    public async Task<IResult> UpdateNotificationStatus(Guid id, int status) {
+        var DbContext = new SqliteDbContext();
+        var notification = await DbContext.Notifications.FindAsync(id);
+        if (notification == null)
+            return Results.NotFound();
+
+        notification.StatusID = status;
+        await DbContext.SaveChangesAsync();
+
+        return Results.NoContent();
+    }
 }
