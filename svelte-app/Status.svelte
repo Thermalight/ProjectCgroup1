@@ -1,5 +1,7 @@
 <script>
     export let status;
+    export let GUID;
+
     let table = {
         1 : "Not handled",
         2 : "Being handled",
@@ -17,7 +19,9 @@
 
     function changeStatus() {
         status = 1 + status % getDictLength(table);
-        // TODO: request database update with current status
+        fetch(`https://localhost/notifications?id=${GUID}&status=${status}`, {
+            method: 'POST',
+        });
     }
 </script>
 <p on:click|stopPropagation={changeStatus} class="{table[status]} status absolute right-6 px-2 rounded-full">{table[status]}</p>
