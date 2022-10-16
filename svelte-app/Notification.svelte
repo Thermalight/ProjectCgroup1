@@ -21,7 +21,7 @@
     <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
         <div class="content">
             <p>{event.sound_type}</p>
-            <Status status={event.StatusID} />
+            <Status status={event.StatusID} GUID={event.Guid}/>
             <p>latitude: {round(event.Latitude)}</p>
             <p>longitude: {round(event.Longitude)}</p>
             {#if !open}
