@@ -44,6 +44,11 @@ app.UseEndpoints(endpoints =>
         context.Response.Headers.Add("Content-Type", "application/json");
         await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllNotifications()));
     });
+    endpoints.MapPost("/notifications", async (string id, int status) =>
+    {
+        var result = await _databaseService.UpdateNotificationStatus(Guid.Parse(id), status);
+        return result;
+    });
 });
 
 app.Run();
