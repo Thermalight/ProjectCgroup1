@@ -7,11 +7,20 @@
         4 : "False alarm",
     }
 
+    function getDictLength(dict) {
+        var count = 0;
+        for (var item in dict) {
+            if (dict.hasOwnProperty(item)) count++;
+        }
+        return count
+    }
+
     function changeStatus() {
-        status += 1;
+        status = 1 + status % getDictLength(table);
+        // TODO: request database update with current status
     }
 </script>
-<p on:click={changeStatus} class="{table[status]} status absolute right-6 px-2 rounded-full">{table[status]}</p>
+<p on:click|stopPropagation={changeStatus} class="{table[status]} status absolute right-6 px-2 rounded-full">{table[status]}</p>
 
 <style>
     .status {
