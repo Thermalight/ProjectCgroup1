@@ -50,4 +50,21 @@ public class DatabaseService
         notifications.Reverse();
         return notifications;
     }
+    public bool UserAuthentication(string FunctionUsername, string FunctionPassword, HttpContext context)
+    {
+        using var DbContext = new SqliteDbContext();
+        var user = (from item in DbContext.Users
+                    where item.Username == FunctionUsername && item.Password == FunctionPassword
+                    select item).FirstOrDefault();
+        if (user != null)
+        {
+            context.Response.Cookies.Append("Username",user.Username.ToString());
+            Console.WriteLine(context.Request.Cookies["Username"]);
+            context.Response.Cookies.Append("Admin",user.IsAdmin.ToString());
+            Console.WriteLine(context.Request.Cookies["Admin"]);
+            return true;
+        }
+        
+        return false;
+    }
 }

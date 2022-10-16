@@ -2,6 +2,8 @@ using ChengetaWebApp.Api.Services;
 using ChengetaWebApp.Api.Services.MqttHandler;
 using System.Text.Json;
 
+using Bcrypt = BCrypt.Net.BCrypt;
+
 if (File.Exists("./.env"))
 {
     foreach (var line in File.ReadAllLines("./.env"))
@@ -20,6 +22,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<DatabaseService>();
 builder.Services.AddSingleton<MqttService>();
+builder.Services.AddAuthentication().AddCookie();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -43,6 +47,13 @@ app.UseEndpoints(endpoints =>
     {
         context.Response.Headers.Add("Content-Type", "application/json");
         await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllNotifications()));
+    });
+    endpoints.MapPost("/login", async context=>
+    {
+        // var DbService = new DatabaseService();
+        // DbService.Setup();
+        await context.Response.WriteAsync(_databaseService.UserAuthentication(context.Request.Form["Username"],Bcrypt.HashPassword(context.Request.Form["Password"]),context).ToString());
+
     });
 });
 

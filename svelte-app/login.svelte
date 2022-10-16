@@ -24,15 +24,15 @@
             <h1 class="text-2xl text-white m-auto">Log in</h1>
         </div>
         <div style="height: 89%;"class="grid w-4/5 content-center m-auto py-16">
-            <form>
+            <form autocomplete="off" method="POST" action="/login" name="login">
                 <div class="flex relative z-0 mb-6 w-full group">
                     <span class="material-symbols-outlined m-auto text-white">mail</span>
-                    <input type="email" name="floating_email" id="floating_email" class="block  w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer h-9 ml-3" placeholder="Email address" required>
+                    <input type="Text" name="Username" id="Username" class="block  w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer h-9 ml-3" placeholder="Email address" required>
                 </div>
                 
                 <div class="flex relative z-0 mb-6 w-full group">
                     <span class="material-symbols-outlined m-auto text-white">lock</span>
-                    <input { type } name="floating_password" on:input={ onInput } id="floating_password" class=" text-white ml-3 mr-1 block  w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Password" required>
+                    <input { type } name="Password" on:input={ onInput } id="Password" class=" text-white ml-3 mr-1 block  w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Password" required>
                     <button type="button" class="btn border-none customButton" on:click="{ () => seePassword = !seePassword }">
                         {#if seePassword}
                             <!-- see -->
