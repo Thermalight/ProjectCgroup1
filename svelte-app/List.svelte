@@ -4,7 +4,7 @@
     
     let notifications;
     let loading = true;
-    let refreshRate = 10000;
+    let refreshRate = 1000;
 
     let clear
     $: {
