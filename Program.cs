@@ -50,10 +50,17 @@ app.UseEndpoints(endpoints =>
     });
     endpoints.MapPost("/login", async context=>
     {
+        // Console.WriteLine(context.Request.Cookies.All((a)=> {Console.WriteLine($"{a.Key}:{a.Value}");return true;}));
         // var DbService = new DatabaseService();
         // DbService.Setup();
-        await context.Response.WriteAsync(_databaseService.UserAuthentication(context.Request.Form["Username"],Bcrypt.HashPassword(context.Request.Form["Password"]),context).ToString());
 
+        if (_databaseService.UserAuthentication(context.Request.Form["Username"],context.Request.Form["Password"],context))
+        {
+            context.Response.Redirect("../");
+        }else
+        {
+            context.Response.Redirect("../");
+        }
     });
 });
 
