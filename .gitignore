@@ -10,4 +10,4 @@ obj/
 .DS_Store
 
 .env
-*.db
+*.db*

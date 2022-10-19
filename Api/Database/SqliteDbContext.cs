@@ -5,11 +5,11 @@ namespace ChengetaWebApp.Api.Database
 {
     public class SqliteDbContext : DbContext
     {
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Subscriber> Subscribers { get; set; }
-        public DbSet<SoundPriority> Priorities { get; set; }
-        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Notification>? Notifications { get; set; }
+        public DbSet<User>? Users { get; set; }
+        public DbSet<Subscriber>? Subscribers { get; set; }
+        public DbSet<SoundPriority>? Priorities { get; set; }
+        public DbSet<Status>? Statuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

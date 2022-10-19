@@ -7,7 +7,7 @@ public class Status
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ID { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public List<Notification> Notifications { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public List<Notification>? Notifications { get; set; }
 }
