@@ -59,10 +59,10 @@ public class DatabaseService
         {
             context.Response.Cookies.Append("Username",FunctionUsername);
             context.Response.Cookies.Append("Admin",user.IsAdmin.ToString());
-            context.Response.Cookies.Append("LoggedIn","1");
+            context.Response.Cookies.Append("LoggedIn","True");
             return true;
         }
-        context.Response.Cookies.Append("LoggedIn","0");
+        context.Response.Cookies.Append("LoggedIn","False");
         
         return false;
     }
