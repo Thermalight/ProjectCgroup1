@@ -24,15 +24,13 @@
             <Status status={event.StatusID} GUID={event.Guid}/>
             <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
             <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
-            {#if !open}
-                <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">expand_more</span>
-            {:else}
+            {#if open}
                 <div transition:slide>
                     <p class="text-gray-400">Probability: {event.Probability}</p>
                     <p class="text-gray-400">Node: {event.NodeID}</p>
                 </div>
-                <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">expand_less</span>
             {/if}
+            <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
             <p class="text-right">{hours}:{minutes}</p>
         </div>
     </div>
