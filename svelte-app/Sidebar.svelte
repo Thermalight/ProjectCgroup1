@@ -36,7 +36,7 @@
                 </li>
                 {/if}
                 <li>
-                    <a on:click={close} href="#">Settings</a>
+                    <a on:click={close} href="settings">Settings</a>
                 </li>
             </ul>
         </nav>
