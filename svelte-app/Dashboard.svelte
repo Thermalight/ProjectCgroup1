@@ -1,3 +1,13 @@
+<script>
+    import Navbar from './Navbar.svelte'
+    import Sidebar from './Sidebar.svelte'
+
+    let open = false
+</script>
+
+<Sidebar bind:open/>
+<Navbar bind:sidebar={open}/>
+
 <div class="dashboard-content">
     <div class="map-header">
         <div class="sorted-button">

@@ -1,6 +1,6 @@
 <script>
     import Hamburger from './Hamburger.svelte'
-    export let sidebar = false
+    export let sidebar;
 </script>
 
 <header class="flex justify-between p-2 items-center text-gray-600 ">
