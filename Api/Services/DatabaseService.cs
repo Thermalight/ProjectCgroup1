@@ -62,4 +62,16 @@ public class DatabaseService
 
         return Results.NoContent();
     }
+
+    public async Task<bool> AddUser(GetUser newUser)
+    {
+        var dbContext = new SqliteDbContext();
+        User User = new(newUser);
+        dbContext.Add(User);
+        var result = await dbContext.SaveChangesAsync();
+
+        if (result == 1)
+            return true;
+        return false;
+    }
 }

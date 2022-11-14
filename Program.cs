@@ -1,4 +1,5 @@
-using ChengetaWebApp.Api.Services;
+﻿using ChengetaWebApp.Api.Services;
+using ChengetaWebApp.Api.Database.Models;
 using ChengetaWebApp.Api.Services.MqttHandler;
 using System.Text.Json;
 
@@ -48,6 +49,12 @@ app.UseEndpoints(endpoints =>
     {
         var result = await _databaseService.UpdateNotificationStatusAsync(Guid.Parse(id), status);
         return result;
+    });
+    endpoints.MapPost("/user", async (GetUser user) => {
+        var result = await _databaseService.AddUser(user);
+        if (result)
+            return Results.Ok();
+        return Results.UnprocessableEntity();
     });
 });
 
