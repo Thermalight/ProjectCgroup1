@@ -48,6 +48,7 @@ app.UseEndpoints(endpoints =>
         context.Response.Headers.Add("Content-Type", "application/json");
         await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllNotifications()));
     });
+
     endpoints.MapPost("/login", async context=>
     {
         if (_databaseService.UserAuthentication(context.Request.Form["Username"],context.Request.Form["Password"],context))
@@ -57,6 +58,11 @@ app.UseEndpoints(endpoints =>
         {
             context.Response.Redirect("../");
         }
+    });
+    endpoints.MapPost("/notifications", async (string id, int status) =>
+    {
+        var result = await _databaseService.UpdateNotificationStatusAsync(Guid.Parse(id), status);
+        return result;
     });
 });
 
