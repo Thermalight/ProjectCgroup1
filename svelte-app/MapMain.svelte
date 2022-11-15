@@ -8,7 +8,8 @@ let map = L.map(L.DomUtil.create("div"), {
     center: [0, 0],
     zoom: 0,
 }).setView([-0.6955588075932391, 22.583414923387544],13);
-
+var marker = L.marker([-0.6955588075932391, 22.583414923387544]).addTo(map);
+marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
 onMount(() => {
