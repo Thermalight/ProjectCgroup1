@@ -56,6 +56,11 @@ app.UseEndpoints(endpoints =>
             return Results.Ok();
         return Results.UnprocessableEntity();
     });
+    endpoints.MapGet("/users", async context =>
+    {
+        context.Response.Headers.Add("Content-Type", "application/json");
+        await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllUsers()));
+    });
 });
 
 app.Run();

@@ -4,19 +4,22 @@
 {#if event != null}
     <div>
         <div class="content">
-            <p>username: {event.Username}</p>
-            <p>email: {event.Email}</p>
+            <p class="text-white">username: {event.Username}</p>
+            <p class="text-white">email: {event.Email}</p>
             {#if event.IsAdmin == false || event.IsAdmin == null}
-                <p>is admin: no</p>
+                <p class="text-white">is admin: no</p>
             {:else}
-                <p>is admin: yes</p>
+            <p class="text-white">is admin: yes</p>
             {/if}
             {#if event.Subscriber == null}
-                <p>is subscribed: no</p>
+            <p class="text-white">is subscribed: no</p>
             {:else}
-                <p>is subscribed: yes</p>
+            <p class="text-white">is subscribed: yes</p>
             {/if}
         </div>
     </div>
 {/if}
+
+
+
 

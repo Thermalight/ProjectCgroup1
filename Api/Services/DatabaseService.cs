@@ -74,4 +74,13 @@ public class DatabaseService
             return true;
         return false;
     }
+    public List<User> GetAllUsers()
+    {
+        using var DbContext = new SqliteDbContext();
+        var users = DbContext.Users.ToList();
+        users.Reverse();
+        return users;
+    }
+
+
 }
