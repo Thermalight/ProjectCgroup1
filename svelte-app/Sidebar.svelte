@@ -1,5 +1,5 @@
 <script>
-    export let open = false
+    export let open;
 </script>
 
 <aside class="absolute bg-gray-200 w-200 h-full" class:open>
