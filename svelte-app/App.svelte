@@ -1,7 +1,6 @@
 <script>
     export let name;
-    import UserManagement from "./user-management.svelte";
-
+    import UserManagement from "./UserManagement.svelte";
 </script>
 <style global lang="postcss">
 
@@ -9,6 +8,5 @@
 <main>
     <!-- <h1>Hello {name}!</h1> -->
     <UserManagement/> 
-  
 </main>
 
