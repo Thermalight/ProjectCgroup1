@@ -74,13 +74,18 @@ public class DatabaseService
             return true;
         return false;
     }
-    public List<User> GetAllUsers()
+    public List<UserDto> GetAllUsers()
     {
         using var DbContext = new SqliteDbContext();
-        var users = DbContext.Users.ToList();
-        users.Reverse();
+        var queriable = DbContext.Users.AsQueryable();
+
+        var users = queriable.Select(u => new UserDto() {
+            Username = u.Username,
+            Email = u.Email,
+            IsAdmin = u.IsAdmin,
+            IsSubscribed = u.Subscriber != null
+        }).ToList();
+
         return users;
     }
-
-
 }
