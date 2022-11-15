@@ -1,35 +1,20 @@
 <script>
-    import Navbar from './Navbar.svelte'
+    import List from './List.svelte';
+    import MapMain from './MapMain.svelte';
+    let mapComponent
 </script>
-<!-- <Navbar/> -->
-<div class="dashboard-content">
-    <div class="map-header">
-        <div class="sorted-button">
-            <button type="button" class="rounded-full ..." ><span class="material-symbols-outlined"> sort </span></button>
+<div class="h-full w-full">
+    <div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
+        <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
+            <h1 class="text-2xl text-white m-auto">Dashboard</h1>
         </div>
-
-        <h1> map </h1>
-
-        <div class="filter-button">
-            <button type="button" class="rounded-full ..."><span class="material-symbols-outlined"> filter_alt </span></button>
-        </div>
-    </div>
-
-    <div class="placeholder-map">
-        <p> this is a placeholder map </p>
-    </div>
-
-    <div class="placeholder-list-of-notifications">
-        <div class="scroll-bar"> 
-            <p> scrolly scrolly </p>
-        </div>
-
-        <div class="placeholder-notification-1">
-            <p> this is placeholder notification 1 </p>
+        <div style="height: 100%;Width: 100%;"class="flex flex-col">
+            <div style="height: 40%;Width: 100%;" class="block">
+                <MapMain bind:this={mapComponent}/>
+            </div>
+            <div style="height: 50%; Width: 100%;" class="relative overflow-auto" >
+                <List {mapComponent} />
+            </div>
         </div>
     </div>
-</div>
-
-<div class="footer">
-    <p> this is a footer </p>
 </div>
