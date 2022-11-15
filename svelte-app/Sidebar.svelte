@@ -1,4 +1,5 @@
 <script>
+    import Link from "./Link.svelte"
     export let open;
 </script>
 
@@ -6,10 +7,10 @@
     <nav class="p-12 text-xl">
         <ul>
             <li>
-                <a href="#">Dashboard</a>
+                <Link href="/">Dashboard</Link>
             </li>
             <li>
-                <a href="#">Notifications</a>
+                <Link href="notificationpage">Notifications</Link>
             </li>
             <li>
                 <a href="#">User Management</a>
@@ -17,18 +18,18 @@
             <li>
                 <a href="#">Settings</a>
             </li>
-        
-</ul>
+        </ul>
     </nav>
 </aside>
 
 <style>
     aside {
         left: -100%;
-        transition: left 0.3s ease-in-out
+        transition: left 0.3s ease-in-out;
+        border-radius: 0 40px 0 0;
     }
     
     .open {
-        left: 0
+        left: 0;
     }
 </style>
