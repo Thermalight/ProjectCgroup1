@@ -1,14 +1,8 @@
 <script>
     import Navbar from './Navbar.svelte'
-    import Sidebar from './Sidebar.svelte'
-
-    let open = false
 </script>
-
-<Sidebar bind:open/>
-<Navbar bind:sidebar={open}/>
-
 <div class="dashboard-content">
+    <Navbar/>
     <div class="map-header">
         <div class="sorted-button">
             <button type="button" class="rounded-full ..." ><span class="material-symbols-outlined"> sort </span></button>
