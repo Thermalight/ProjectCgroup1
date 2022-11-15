@@ -1,11 +1,13 @@
 <script>
     import Hamburger from './Hamburger.svelte'
-    export let sidebar = false
+    import Sidebar from './Sidebar.svelte'
+    let sidebar = false
 </script>
 
 <header class="flex justify-between p-2 items-center text-gray-600 ">
     <nav class="flex">
         <Hamburger bind:open={sidebar}/>
+        <Sidebar bind:open={sidebar}/>
     </nav>
 
     <div class="logo w-7 h-7...">
