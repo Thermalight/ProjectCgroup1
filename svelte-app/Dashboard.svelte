@@ -1,4 +1,8 @@
+<script>
+    import Navbar from './Navbar.svelte'
+</script>
 <div class="dashboard-content">
+    <Navbar/>
     <div class="map-header">
         <div class="sorted-button">
             <button type="button" class="rounded-full ..." ><span class="material-symbols-outlined"> sort </span></button>
