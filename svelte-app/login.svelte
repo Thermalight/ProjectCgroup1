@@ -1,5 +1,8 @@
 <script>
   import { dataset_dev, element } from "svelte/internal";
+  import goToPage from "./goToPage.js";
+  import Banner from "./Banner.svelte";
+    
 
 
     let seePassword = false;
@@ -42,6 +45,8 @@
         if (getCookie("LoggedIn") == "False") {
             seeError = "block";
             deleteCookie("LoggedIn");
+        }else{
+            goToPage("dashboard");
         }
     }
     else {
@@ -60,6 +65,7 @@
         background-color: transparent;
     }
 </style>
+<Banner/>
 <div class="h-full">
     <div style="background-color:#363e4c;"class="block  h-4/6 w-5/6 m-auto rounded-2xl">
         <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
