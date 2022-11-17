@@ -15,7 +15,7 @@ public class User
     public User() {}
     public User(GetUser newUser)
     {
-        GUID = newUser.GUID;
+        GUID = Guid.NewGuid();
         Username = newUser.Username;
         Password = newUser.Password;
         Email = newUser.Email;
