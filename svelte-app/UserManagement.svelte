@@ -2,25 +2,22 @@
     import User from './User.svelte';
     import Input from './Input.svelte';
     let searchTerm = "";
-    let addUsersJson = {username : "", password: "", email: ""};
-
-    function newUserAdded() {
-        console.log("Logged in with: ",addUsersJson);
-    }
+    let UserJson = {username : "", password: "", email: "", IsAdmin: true};
+	
+	async function submitHandler() {
+		const response = await fetch("https://localhost/user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: UserJson.json(),
+        });
+        return await response.json();
+	}
 
     export async function loadUsers () { 
         const response = await fetch("https://localhost/users", {
             method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        return await response.json();
-    }
-
-    export async function addUsers () { 
-        const response = await fetch("https://localhost/user", {
-            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -47,11 +44,11 @@
 <!-- AddUsers -->
 <p class="text-white"> -------------------</p>
 
-<form on:sumbit|preventDefault={newUserAdded}>
-    <Input label="Username" bind:value={addUsersJson.username}/>
-    <Input type="password" label="Password" bind:value={addUsersJson.password}/>
-    <Input type="email" label="Email" bind:value={addUsersJson.email}/>
-    <button>Add Account</button>
+<form on:submit|preventDefault={submitHandler}>
+    <Input label="Username" bind:value={UserJson.username} />
+    <Input type="password" label="Password" bind:value={UserJson.password} />
+    <Input type="email" label="Email" bind:value={UserJson.email}/>
+    <button>click</button>
 </form>
 <!-- <p class="text-white">{addUsersJson}</p> -->
 <p class="text-white"> -------------------</p>
