@@ -10,7 +10,7 @@
             headers: {
                 "Content-Type": "application/json",
             },
-            body: UserJson.json(),
+            body: JSON.stringify(UserJson),
         });
         return await response.json();
 	}
