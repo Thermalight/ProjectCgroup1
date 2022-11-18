@@ -1,6 +1,7 @@
 <script>
     import { slide } from 'svelte/transition';
     import Notification from "./Notification.svelte"
+    import Navbar from './Navbar.svelte'
     
     let notifications;
     let loading = true;
@@ -33,6 +34,7 @@
     }
     
 </script>
+<Navbar/>
 <div class="list" transition:slide>
     {#if notifications != null && !loading}
         {#each notifications as event}
