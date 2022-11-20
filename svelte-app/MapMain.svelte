@@ -1,6 +1,6 @@
 <script >
 import L from "leaflet";
-import onMount  from "svelte";
+import { onMount } from 'svelte';
 
 let mapContainer;
 const returnNada = () => '';
