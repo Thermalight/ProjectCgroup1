@@ -1,7 +1,7 @@
 <script>
     import Navbar from './Navbar.svelte'
 </script>
-<Navbar/>
+<!-- <Navbar/> -->
 <div class="dashboard-content">
     <div class="map-header">
         <div class="sorted-button">
