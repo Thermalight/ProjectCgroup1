@@ -1,26 +1,33 @@
 <script>
     import Link from "./Link.svelte"
     export let open;
+
+    const close = () => open = false;
 </script>
 
-<aside class="absolute bg-gray-200 w-200 h-full" class:open>
-    <nav class="p-12 text-xl">
-        <ul>
-            <li>
-                <Link href="/">Dashboard</Link>
-            </li>
-            <li>
-                <Link href="notificationpage">Notifications</Link>
-            </li>
-            <li>
-                <a href="#">User Management</a>
-            </li>
-            <li>
-                <a href="#">Settings</a>
-            </li>
-        </ul>
-    </nav>
-</aside>
+<div>
+    { #if open }
+    <div class="w-screen h-screen absolute -z-10 bg-black opacity-60 top-0 left-0" on:click={close} />
+    { /if }
+    <aside class="absolute bg-gray-200 w-200 h-full" class:open>
+        <nav class="p-12 text-xl">
+            <ul>
+                <li>
+                    <Link href="/">Dashboard</Link>
+                </li>
+                <li>
+                    <Link href="notificationpage">Notifications</Link>
+                </li>
+                <li>
+                    <a href="#">User Management</a>
+                </li>
+                <li>
+                    <a href="#">Settings</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+</div>
 
 <style>
     aside {

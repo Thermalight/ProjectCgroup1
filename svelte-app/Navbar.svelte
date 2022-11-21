@@ -6,8 +6,6 @@
 </script>
 
 <div>
-  
-    
     <div class="flex justify-between p-2 items-center text-gray-600 w-screen">
         <nav class="flex">
             <Hamburger bind:open={sidebar}/>
