@@ -34,7 +34,7 @@
     }
     
 </script>
-<Navbar/>
+<!-- <Navbar/> -->
 <div class="list" transition:slide>
     {#if notifications != null && !loading}
         {#each notifications as event}
