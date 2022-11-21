@@ -1,9 +1,6 @@
 <script >
 import L from "leaflet";
 import { onMount } from 'svelte';
-import List from './List.svelte';
-import { slide } from 'svelte/transition';
-import Notification from "./Notification.svelte"
 
 export let mapComponent
 let notifications;
@@ -73,7 +70,7 @@ export function addLocation(Latitude,Longitude){
     // }
     // marker = L.marker([Latitude, Longitude]).addTo(map);
     // marker.bindPopup(Latitude+", "+Longitude);
-    map.setView([Latitude, Longitude],9);
+    map.flyTo([Latitude, Longitude],9);
 }
 
 </script>
