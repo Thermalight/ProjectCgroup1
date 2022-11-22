@@ -2,12 +2,11 @@
 import L from "leaflet";
 import { onMount } from 'svelte';
 
-export let mapComponent
 let notifications;
 let loading = true;
 let refreshRate = 1000;
 let statusName = "Not handled";
-
+let array = []
 let clear
 $: {
     clearInterval(clear)
@@ -72,7 +71,28 @@ export function addLocation(Latitude,Longitude){
     // marker.bindPopup(Latitude+", "+Longitude);
     map.flyTo([Latitude, Longitude],9);
 }
-
+// if (notifications != null && !loading){
+//     notifications.forEach(notification => {
+//         if (notification.StatusID == 1){
+//             statusName = "Not handled"
+//         }
+//         else if (notification.StatusID == 2){
+//             statusName = "Being handled"
+//         }
+//         else if (notification.StatusID == 3){
+//             statusName = "Handled"
+//         }
+//         else if (notification.StatusID == 4)
+//             statusName = "False alarm"
+//         else{
+//             statusName = "Not handled"
+//         }
+            
+//             (L.marker([notification.Latitude, notification.Longitude]).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map)
+//             array.push(notification.Guid)
+//             console.log(array)
+//     });
+// }
 </script>
 
 <style>
@@ -95,7 +115,11 @@ export function addLocation(Latitude,Longitude){
             {:else}
                 {statusName = "Not handled"}
             {/if}
-            {returnNada((L.marker([notification.Latitude, notification.Longitude]).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
+            {#if !array.includes(notification.Guid)}
+                {returnNada((L.marker([notification.Latitude, notification.Longitude]).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
+                {array.push(notification.Guid)}
+                {console.log(array)}
+            {/if}
         {/each}
     {/if}
 
