@@ -13,16 +13,16 @@
         <nav class="p-12 text-xl">
             <ul>
                 <li>
-                    <Link href="/">Dashboard</Link>
+                    <Link on:click={close} href="/">Dashboard</Link>
                 </li>
                 <li>
-                    <Link href="notificationpage">Notifications</Link>
+                    <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
                 <li>
-                    <a href="#">User Management</a>
+                    <a on:click={close} href="#">User Management</a>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a on:click={close} href="#">Settings</a>
                 </li>
             </ul>
         </nav>
