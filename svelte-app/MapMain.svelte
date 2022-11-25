@@ -1,13 +1,18 @@
 <script >
 import L from "leaflet";
 import { onMount } from 'svelte';
+import { redIcon, orangeIcon, yellowIcon, greyIcon } from './leaflet-color-markers'
 
 let notifications;
 let loading = true;
 let refreshRate = 1000;
 let statusName = "Not handled";
 let array = []
+let arrayPins = []
 let clear
+let marker 
+let color = greyIcon
+
 $: {
     clearInterval(clear)
     clear = setInterval(getEvents, refreshRate)
@@ -40,16 +45,6 @@ let map = L.map(L.DomUtil.create("div"), {
     zoom: 0,
 }).setView([-0.6955588075932391, 22.583414923387544],7);
 
-// export async function loadNotifications() { 
-//     const response = await fetch("https://localhost/notifications", {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//     });
-//     return response.json();
-// }
-
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
 onMount(() => {
@@ -62,37 +57,18 @@ onMount(() => {
     document.getElementsByClassName( 'leaflet-control-zoom' )[0].style.display = 'none';
 });
 
-var marker 
-export function addLocation(Latitude,Longitude){
-    // if (marker != null) {
-    //     map.removeLayer(marker)
-    // }
-    // marker = L.marker([Latitude, Longitude]).addTo(map);
-    // marker.bindPopup(Latitude+", "+Longitude);
+
+export function flyToLocation(Latitude,Longitude){
     map.flyTo([Latitude, Longitude],9);
 }
-// if (notifications != null && !loading){
-//     notifications.forEach(notification => {
-//         if (notification.StatusID == 1){
-//             statusName = "Not handled"
-//         }
-//         else if (notification.StatusID == 2){
-//             statusName = "Being handled"
-//         }
-//         else if (notification.StatusID == 3){
-//             statusName = "Handled"
-//         }
-//         else if (notification.StatusID == 4)
-//             statusName = "False alarm"
-//         else{
-//             statusName = "Not handled"
-//         }
-            
-//             (L.marker([notification.Latitude, notification.Longitude]).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map)
-//             array.push(notification.Guid)
-//             console.log(array)
-//     });
-// }
+
+function removeAllLocations(){
+    if (arrayPins != null){
+        arrayPins.forEach(element => {
+            map.removeLayer(element)
+        });
+    }
+}
 </script>
 
 <style>
@@ -115,10 +91,20 @@ export function addLocation(Latitude,Longitude){
             {:else}
                 {statusName = "Not handled"}
             {/if}
+            {#if notification.sound_type == "gunshot"}
+                {color = redIcon}
+            {:else if notification.sound_type == "animal"}
+                {color = yellowIcon}
+            {:else if notification.sound_type == "vehicle"}
+                {color = orangeIcon}
+            {:else}
+                {color = greyIcon}
+            {/if}
             {#if !array.includes(notification.Guid)}
-                {returnNada((L.marker([notification.Latitude, notification.Longitude]).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
+
+                {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: color}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
+                {arrayPins.push(marker)}
                 {array.push(notification.Guid)}
-                {console.log(array)}
             {/if}
         {/each}
     {/if}

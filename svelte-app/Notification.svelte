@@ -18,7 +18,7 @@
 </script>
 
 {#if event != null}
-    <div on:click={mapComponent.addLocation(event.Latitude, event.Longitude)}>
+    <div on:click={mapComponent.flyToLocation(event.Latitude, event.Longitude)}>
         <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
             <div class="content">
                 <p class="font-bold">{event.sound_type}</p>
