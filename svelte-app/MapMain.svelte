@@ -4,14 +4,17 @@ import { onMount } from 'svelte';
 import { redIcon, orangeIcon, yellowIcon, greyIcon } from './leaflet-color-markers'
 
 let notifications;
+
 let loading = true;
 let refreshRate = 1000;
-let statusName = "Not handled";
+let statusName;
 let array = []
 let arrayPins = []
+let mapDict = {};
+let statusDict = {};
 let clear
 let marker 
-let color = greyIcon
+let color = greyIcon;
 
 $: {
     clearInterval(clear)
@@ -38,7 +41,6 @@ function getEvents() {
         .finally
 }
 let mapContainer;
-let interval;
 const returnNada = () => '';
 let map = L.map(L.DomUtil.create("div"), {
     center: [0, 0],
@@ -66,6 +68,10 @@ function removeAllLocations(){
     if (arrayPins != null){
         arrayPins.forEach(element => {
             map.removeLayer(element)
+            array = []
+            arrayPins = []
+            mapDict = {};
+            statusDict = {};
         });
     }
 }
@@ -89,7 +95,14 @@ function removeAllLocations(){
             {:else if notification.StatusID == 4}
                 {statusName = "False alarm"}
             {:else}
-                {statusName = "Not handled"}
+            {statusName = "Not handled"}
+            {/if}
+            {#if color == null}
+                {color = greyIcon}
+            {/if}
+            {#if array.includes(notification.Guid) && statusDict[notification.Guid] != statusName  && statusName != null}
+                {mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName).update()}
+                {statusDict[notification.Guid] = statusName}
             {/if}
             {#if notification.sound_type == "gunshot"}
                 {color = redIcon}
@@ -101,13 +114,14 @@ function removeAllLocations(){
                 {color = greyIcon}
             {/if}
             {#if !array.includes(notification.Guid)}
-
                 {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: color}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
-                {arrayPins.push(marker)}
-                {array.push(notification.Guid)}
+                {returnNada(arrayPins.push(marker))}
+                {returnNada(array.push(notification.Guid))}
+                {returnNada(mapDict[notification.Guid] = marker)}
+                {returnNada(statusDict[notification.Guid] = statusName)}
             {/if}
         {/each}
-    {/if}
+        {/if}
 
 </div>
 
