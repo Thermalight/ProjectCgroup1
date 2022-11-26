@@ -1,5 +1,17 @@
 <script>
     import Link from "./Link.svelte"
+    function getCookie(name) {
+        const cDecoded = decodeURIComponent(document.cookie);
+        const cArray = cDecoded.split("; ")
+        let result = null;
+        cArray.forEach(Element =>{
+            if (Element.indexOf(name) == 0) {
+                result = Element.substring(name.length+1);
+            }
+        })
+        console.log(result);
+        return result;
+    }
     export let open;
 
     const close = () => open = false;
@@ -18,9 +30,11 @@
                 <li>
                     <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
+                {#if getCookie("Admin") == "True"}
                 <li>
                     <a on:click={close} href="#">User Management</a>
                 </li>
+                {/if}
                 <li>
                     <a on:click={close} href="#">Settings</a>
                 </li>
