@@ -14,8 +14,6 @@
 
     $currentPage = location.pathname.split(/[/?#]/g)[1];
     $: document.title = ($currentPage || "home");
-    export let name;
-    import DashboardData from "./Dashboard.svelte";
 </script>
 <style global lang="postcss">
 
@@ -30,6 +28,3 @@
     <svelte:component this={routes[$currentPage.toLowerCase()]} />
 </main>
 
-<!-- <main class="h-screen w-screen">
-    <DashboardData/>
-</main> -->
