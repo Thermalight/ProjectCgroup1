@@ -19,7 +19,9 @@
 
 </style>
 <header>
-    <Navbar/>
+    {#if $currentPage.toLowerCase() != "login"}
+        <Navbar/>
+    {/if}
 </header>
 <main>
     <svelte:component this={routes[$currentPage.toLowerCase()]} />
