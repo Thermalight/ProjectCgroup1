@@ -15,7 +15,7 @@
     $currentPage = location.pathname.split(/[/?#]/g)[1];
     $: document.title = ($currentPage || "home");
     export let name;
-    import DashboardData from "./DashboardData.svelte";
+    import DashboardData from "./Dashboard.svelte";
 </script>
 <style global lang="postcss">
 
