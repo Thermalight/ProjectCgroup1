@@ -7,14 +7,14 @@ let notifications;
 
 let loading = true;
 let refreshRate = 1000;
-let statusName;
+var statusName;
 let array = []
 let arrayPins = []
 let mapDict = {};
 let statusDict = {};
 let clear
 let marker 
-let color = greyIcon;
+var color = greyIcon;
 
 $: {
     clearInterval(clear)
@@ -75,6 +75,38 @@ function removeAllLocations(){
         });
     }
 }
+function checkStatus(status){
+    if (status == 1){
+        return "Not handled"
+    }
+    else if (status == 2){
+        return "Being handled"
+    }
+    else if (status == 3){
+
+        return "Handled"
+    }
+    else if (status == 4){
+        return "False alarm"
+    }
+    else{
+        return "Not handled"
+    }
+}
+function checkColor(functionColor){
+    if (functionColor == "gunshot"){
+        return redIcon
+    }
+    else if (functionColor == "animal"){
+        return yellowIcon
+    }
+    else if (functionColor == "vehicle"){
+        return orangeIcon
+    }
+    else{
+        return greyIcon
+    }
+}
 </script>
 
 <style>
@@ -86,39 +118,17 @@ function removeAllLocations(){
 <div class="map rounded-lg" bind:this="{mapContainer}">
     {#if notifications != null && !loading}
         {#each notifications as notification}
-            {#if notification.StatusID == 1}
-                {statusName = "Not handled"}
-            {:else if notification.StatusID == 2}
-                {statusName = "Being handled"}
-            {:else if notification.StatusID == 3}
-                {statusName = "Handled"}
-            {:else if notification.StatusID == 4}
-                {statusName = "False alarm"}
-            {:else}
-            {statusName = "Not handled"}
-            {/if}
-            {#if color == null}
-                {color = greyIcon}
-            {/if}
-            {#if array.includes(notification.Guid) && statusDict[notification.Guid] != statusName  && statusName != null}
-                {mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName).update()}
-                {statusDict[notification.Guid] = statusName}
-            {/if}
-            {#if notification.sound_type == "gunshot"}
-                {color = redIcon}
-            {:else if notification.sound_type == "animal"}
-                {color = yellowIcon}
-            {:else if notification.sound_type == "vehicle"}
-                {color = orangeIcon}
-            {:else}
-                {color = greyIcon}
+            
+            {#if array.includes(notification.Guid) && statusDict[notification.Guid] != checkStatus(notification.StatusID)}
+                {mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID)).update()}
+                {statusDict[notification.Guid] = checkStatus(notification.StatusID)}
             {/if}
             {#if !array.includes(notification.Guid)}
-                {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: color}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+statusName)).addTo(map))}
+                {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: checkColor(notification.sound_type)}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID))).addTo(map))}
                 {returnNada(arrayPins.push(marker))}
                 {returnNada(array.push(notification.Guid))}
                 {returnNada(mapDict[notification.Guid] = marker)}
-                {returnNada(statusDict[notification.Guid] = statusName)}
+                {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
             {/if}
         {/each}
         {/if}
