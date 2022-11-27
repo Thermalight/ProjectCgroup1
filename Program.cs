@@ -56,6 +56,12 @@ app.UseEndpoints(endpoints =>
             return Results.Ok();
         return Results.UnprocessableEntity();
     });
+    endpoints.MapDelete("/user", async (Guid userGuid) => {
+        var result = await _databaseService.DeleteUser(userGuid);
+        if (result)
+            return Results.Ok();
+        return Results.NotFound();
+    });
 });
 
 app.Run();
