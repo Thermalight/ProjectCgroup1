@@ -44,6 +44,12 @@ self.addEventListener("fetch", event => {
                 return response;
             }
             throw new Error("Network request failed");
+        }).catch(async () => {
+            const response = await caches.match(event.request, { ignoreSearch: true });
+            if (response)
+                return response;
+            if (new URL(event.request.url).pathname.split("/").pop().indexOf(".") < 0)
+                return caches.match("/");
         })
     );
 });
