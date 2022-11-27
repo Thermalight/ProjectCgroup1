@@ -74,6 +74,18 @@ public class DatabaseService
             return true;
         return false;
     }
+
+    public async Task<bool> DeleteUser(Guid userGuid)
+    {
+        var dbContext = new SqliteDbContext();
+        User User = dbContext.Users.Single(u => u.GUID == userGuid);
+        dbContext.Remove(User);
+        var result = await dbContext.SaveChangesAsync();
+
+        if (result == 1)
+            return true;
+        return false;
+    }
     public List<UserDto> GetAllUsers()
     {
         using var DbContext = new SqliteDbContext();
