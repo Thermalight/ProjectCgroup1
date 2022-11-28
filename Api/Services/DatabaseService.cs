@@ -54,7 +54,7 @@ public class DatabaseService
     {
         using var DbContext = new SqliteDbContext();
         var user = (from item in DbContext.Users
-                    where item.Username == FunctionUsername
+                    where item.Email == FunctionUsername
                     select item).FirstOrDefault();
         if (user != null && Bcrypt.Verify(FunctionPassword,user.Password))
         {
