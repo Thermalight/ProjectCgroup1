@@ -9,7 +9,7 @@
             <h1 class="text-2xl text-white m-auto">Dashboard</h1>
         </div>
         <div style="height: 100%;Width: 100%;"class="flex flex-col">
-            <div style="height: 40%;Width: 100%;" class="block">
+            <div style="height: 40%;Width: 100%; z-index: 1;" class="block">
                 <MapMain bind:this={mapComponent}/>
             </div>
             <div style="height: 50%; Width: 100%;" class="relative overflow-auto" >
