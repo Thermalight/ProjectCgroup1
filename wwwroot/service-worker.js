@@ -7,8 +7,12 @@ self.addEventListener("install", (event) => {
             const cache = await caches.open(CACHE_NAME);
             return await cache.addAll(
                 [
-                    // all directories to cache
                     "/",
+                    "/images/icon.png",
+                    "https://fonts.googleapis.com/icon?family=Material+Icons",
+                    "/global.css",
+                    "/build/bundle.css",
+                    "/build/bundle.js"
                 ].map((url) => new Request(url, { cache: "reload" }))
             );
         })()
