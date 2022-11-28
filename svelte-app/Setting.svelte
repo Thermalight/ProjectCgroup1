@@ -1,6 +1,9 @@
 <h1>Settings</h1>
 <p>At this page you can change the settings.</p>
 <h1>Notifications</h1>
+<label for="probability"> Probability</label>
+<input type="range" id="probability" min="0" max="100" value="50" oninput="rangeValue.innerText = this.value">
+<p id="rangeValue">50</p>
 <label for="e-mail"> E-mail notification</label>
 <input type="checkbox" id="e-mail" name="e-mail">
 <label for="push"> Push notification</label>
