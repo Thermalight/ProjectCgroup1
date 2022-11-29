@@ -71,16 +71,16 @@ app.UseEndpoints(endpoints =>
             return Results.Ok();
         return Results.UnprocessableEntity();
     });
-    endpoints.MapGet("/users", async context =>
-    {
-        context.Response.Headers.Add("Content-Type", "application/json");
-        await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllUsers()));
-    });
     endpoints.MapDelete("/user/{guid}", async (Guid guid) => {
         var result = await _databaseService.DeleteUser(guid);
         if (result)
             return Results.Ok();
         return Results.NotFound();
+    });
+    endpoints.MapGet("/users", async context =>
+    {
+        context.Response.Headers.Add("Content-Type", "application/json");
+        await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllUsers()));
     });
 });
 
