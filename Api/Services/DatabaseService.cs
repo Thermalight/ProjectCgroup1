@@ -78,13 +78,12 @@ public class DatabaseService
     public async Task<bool> DeleteUser(Guid userGuid)
     {
         var dbContext = new SqliteDbContext();
-        User User = dbContext.Users.Single(u => u.GUID == userGuid);
+        User? User = dbContext.Users.Where(u => u.GUID == userGuid).FirstOrDefault();
+        if (User == null)
+            return false;
         dbContext.Remove(User);
-        var result = await dbContext.SaveChangesAsync();
-
-        if (result == 1)
-            return true;
-        return false;
+        dbContext.SaveChanges();
+        return true;
     }
     public List<UserDto> GetAllUsers()
     {
@@ -95,6 +94,7 @@ public class DatabaseService
             Username = u.Username,
             Email = u.Email,
             IsAdmin = u.IsAdmin,
+            Guid = u.GUID,
             IsSubscribed = u.Subscriber != null
         }).ToList();
 
