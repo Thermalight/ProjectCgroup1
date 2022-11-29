@@ -37,17 +37,6 @@
         return await response.json();
 	}
 
-    function isAdmin() {
-        if (test == "true") {
-            UserJson.IsAdmin = true
-        }
-        else {
-           UserJson.IsAdmin = false
-        }
-        test = ""
-        return 
-    }
-
 </script>
 
 <div >
