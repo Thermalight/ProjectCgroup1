@@ -28,17 +28,14 @@
         return await response.json();
     }
 
-    // async function deleteUser() {
-	// 	const response = await fetch("https://localhost/user", {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: //iets hier,
-    //     });
-    //     location.reload();
-    //     return await response.json();
-	// }
+    async function deleteUser(guid) {
+		const response = await fetch("https://localhost/user/" + guid, {
+            method: "DELETE",
+        });
+        console.log(guid)
+        location.reload();
+        return await response.json();
+	}
 
     function isAdmin() {
         if (test == "true") {
@@ -61,13 +58,12 @@
     </div>
     <div>
         <!-- input form to add users -->
-        <form on:submit={submitHandler} class="mt-6">
+        <form on:submit|preventDefault={submitHandler} class="mt-6">
             <Input type="text" label="Username" bind:value={UserJson.username} />
             <Input type="password" label="Password" bind:value={UserJson.password} />
             <Input type="email" label="Email" bind:value={UserJson.email}/>
-            <!-- <label class="text-white" for="isadmin">Is Admin: </label> -->
-            <Input type="checkbox" label="isAdmin" bind:value={UserJson.IsAdmin}/>
-            <!-- <input type="checkbox" id="isadmin" name="isadmin" value={UserJson.IsAdmin = true}<br> -->
+            <label class="text-white" for="isadmin">Is Admin: </label>
+            <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
             <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
         </form>
     </div>
@@ -82,6 +78,7 @@
             {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
                 <div>
                     <User user={user} /><br>
+                    <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
                 </div>
             {/if}
         {/each}
