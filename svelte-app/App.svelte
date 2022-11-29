@@ -23,6 +23,8 @@
         <Navbar/>
     {/if}
 </header>
-<main>
+
+<main class="h-screen w-screen">
     <svelte:component this={routes[$currentPage.toLowerCase()]} />
 </main>
+

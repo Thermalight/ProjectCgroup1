@@ -80,7 +80,7 @@
             <form autocomplete="off" method="POST" action="/login" name="login">
                 <div class="flex relative z-0 mb-6 w-full group">
                     <span class="material-symbols-outlined m-auto text-white">mail</span>
-                    <input type="Text" name="Username" id="Username" class="block  w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer h-9 ml-3" placeholder="Email address" required>
+                    <input type="email" name="Username" id="Username" class="block  w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer h-9 ml-3" placeholder="Email address" required>
                 </div>
                 
                 <div class="flex relative z-0 mb-6 w-full group">

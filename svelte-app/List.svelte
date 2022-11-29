@@ -1,7 +1,7 @@
 <script>
     import { slide } from 'svelte/transition';
     import Notification from "./Notification.svelte"
-    import Navbar from './Navbar.svelte'
+    export let mapComponent
     
     let notifications;
     let loading = true;
@@ -39,7 +39,7 @@
     {#if notifications != null && !loading}
         {#each notifications as event}
             <div transition:slide>
-                <Notification event={event}/>
+                <Notification {mapComponent} event={event}/>
             </div>
         {/each}
     {:else}

@@ -1,7 +1,7 @@
 <script>
     import { slide } from 'svelte/transition';
     import Status from './Status.svelte'
-
+    export let mapComponent
     export let event;
     let open = false
     let time = new Date(event.Time*1000)
@@ -18,20 +18,22 @@
 </script>
 
 {#if event != null}
-    <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
-        <div class="content">
-            <p class="font-bold">{event.sound_type}</p>
-            <Status status={event.StatusID} GUID={event.Guid}/>
-            <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
-            <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
-            {#if open}
-                <div transition:slide>
-                    <p class="text-gray-400">Probability: {event.Probability}</p>
-                    <p class="text-gray-400">Node: {event.NodeID}</p>
-                </div>
-            {/if}
-            <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
-            <p class="text-right">{hours}:{minutes}</p>
+    <div on:click={mapComponent.flyToLocation(event.Latitude, event.Longitude)}>
+        <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
+            <div class="content">
+                <p class="font-bold">{event.sound_type}</p>
+                <Status status={event.StatusID} GUID={event.Guid}/>
+                <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
+                <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
+                {#if open}
+                    <div transition:slide>
+                        <p class="text-gray-400">Probability: {event.Probability}</p>
+                        <p class="text-gray-400">Node: {event.NodeID}</p>
+                    </div>
+                {/if}
+                <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
+                <p class="text-right">{hours}:{minutes}</p>
+            </div>
         </div>
     </div>
 {/if}

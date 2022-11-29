@@ -17,11 +17,11 @@
     const close = () => open = false;
 </script>
 
-<div>
+<div class="z-50">
     { #if open }
     <div class="w-screen h-screen absolute -z-10 bg-black opacity-60 top-0 left-0" on:click={close} />
     { /if }
-    <aside class="absolute bg-gray-200 w-200 h-full" class:open>
+    <aside class="absolute bg-gray-200 w-200 h-full top-0 bottom-0" class:open>
         <nav class="p-12 text-xl">
             <ul>
                 <li>
