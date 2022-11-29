@@ -34,15 +34,11 @@
     <div on:click={mapComponent.flyToLocation(event.Latitude, event.Longitude)}>
         <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
             <div class="content">
-                <!-- <audio class="player" src="{event.Sound}"></audio> -->
                 <button 
                 on:click={toggleSound} 
-                class="border-transparent focus:border-transparent focus:ring-0 " 
-                onclick="document.getElementByClassName('player').{ play ? "pause" : "play" }()">
+                class="border-transparent focus:border-transparent focus:ring-0">
                         <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
                 </button>
-
-                
 
                 <p class="font-bold">{event.sound_type}</p>
                 <Status status={event.StatusID} GUID={event.Guid}/>
