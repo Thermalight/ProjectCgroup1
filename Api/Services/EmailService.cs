@@ -45,7 +45,7 @@ public class EmailService
         mail.Body = htmlBody;
         SmtpServer.Port = 587;
         SmtpServer.UseDefaultCredentials = false;
-        SmtpServer.Credentials = new System.Net.NetworkCredential("chengeta_guns@hotmail.com", "PASSWORD!@#$%");
+        SmtpServer.Credentials = new System.Net.NetworkCredential("chengeta_guns@hotmail.com", Environment.GetEnvironmentVariable("emailpassword"));
         SmtpServer.EnableSsl = true;
         SmtpServer.Send(mail);
     }
