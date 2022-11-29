@@ -76,8 +76,8 @@ app.UseEndpoints(endpoints =>
         context.Response.Headers.Add("Content-Type", "application/json");
         await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllUsers()));
     });
-    endpoints.MapDelete("/user", async (Guid userGuid) => {
-        var result = await _databaseService.DeleteUser(userGuid);
+    endpoints.MapDelete("/user/{guid}", async (Guid guid) => {
+        var result = await _databaseService.DeleteUser(guid);
         if (result)
             return Results.Ok();
         return Results.NotFound();
