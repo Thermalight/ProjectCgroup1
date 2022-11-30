@@ -24,13 +24,8 @@
             .then(data => notifications = data)
             .then(() => {
                 loading = false;
-                refreshRate = 1000;
+                refreshRate = 60000;
             })
-            .catch((e) => {
-                console.log(e);
-                refreshRate = 10000;
-            })
-            .finally
     }
     
 </script>
