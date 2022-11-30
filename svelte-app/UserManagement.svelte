@@ -14,7 +14,6 @@
             },
             body: JSON.stringify(UserJson),
         });
-        location.reload();
         return await response.json();
 	}
 
