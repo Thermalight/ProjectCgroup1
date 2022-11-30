@@ -11,7 +11,7 @@ public class DatabaseService
     public async void Setup()
     {
         if(File.Exists(DBLocation))
-            File.Delete(DBLocation);
+            return;
 
         using SqliteDbContext dbContext = new SqliteDbContext();
         using var transaction = dbContext.Database.BeginTransaction();
