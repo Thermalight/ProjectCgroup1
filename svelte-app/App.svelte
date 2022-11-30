@@ -5,10 +5,12 @@
     import Login from "./login.svelte";
     import Root from "./root.svelte";
     import Navbar from './Navbar.svelte'
+    import UserManagement from "./UserManagement.svelte"
     let routes = {
         "notificationpage": List,
         "dashboard": Dashboard,
         "login":Login,
+        "usermanagement": UserManagement,
         "": Root
     }
 
