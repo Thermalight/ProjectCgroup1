@@ -32,7 +32,7 @@ function getEvents() {
         .then(data => notifications = data)
         .then(() => {
             loading = false;
-            refreshRate = 1000;
+            refreshRate = 60000;
         })
         .catch((e) => {
             console.log(e);
@@ -131,7 +131,7 @@ function checkColor(functionColor){
                 {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
             {/if}
         {/each}
-        {/if}
+    {/if}
 
 </div>
 
