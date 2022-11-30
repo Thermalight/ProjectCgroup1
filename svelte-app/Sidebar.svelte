@@ -36,11 +36,7 @@
                 </li>
                 {/if}
                 <li>
-<<<<<<< HEAD
                     <Link on:click={close} href="settings">Settings</Link>
-=======
-                    <a on:click={close} href="settings">Settings</a>
->>>>>>> 341c182 (Opzet gemaakt voor de settingspage)
                 </li>
             </ul>
         </nav>
