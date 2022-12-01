@@ -77,6 +77,13 @@ app.UseEndpoints(endpoints =>
             return Results.Ok();
         return Results.NotFound();
     });
+    endpoints.MapPut("/user", async (UpdateUser user) =>
+    {
+        var result = await _databaseService.UpdateUser(user);
+        if (result)
+            return Results.Ok();
+        return Results.UnprocessableEntity();
+    });
     endpoints.MapGet("/users", async context =>
     {
         context.Response.Headers.Add("Content-Type", "application/json");
