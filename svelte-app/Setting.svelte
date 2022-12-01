@@ -1,31 +1,54 @@
-<h1>Settings</h1>
-<p>At this page you can change the settings.</p>
-<h1>Volume</h1>
-<label for="volume"> Volume</label>
-<input type="range" id="volume" min="0" max="100" value="50" oninput="rangeValue1.innerText = this.value">
-<p id="rangeValue1">50</p>
-<h1>Notifications</h1>
-<label for="probability"> Probability</label>
-<input type="range" id="probability" min="0" max="100" value="50" oninput="rangeValue2.innerText = this.value">
-<p id="rangeValue2">50</p>
-<p>Of which status category do you want notifications? Select your options:</p>
-<label for="status1"> Gunshot</label>
-<input type="checkbox" id="status1" name="status1" value="Gunshot">
-<label for="status2"> Car</label>
-<input type="checkbox" id="status2" name="status2" value="Car">
-<label for="status3"> Unknown</label>
-<input type="checkbox" id="status3" name="status3" value="Unknown">
-<label for="e-mail"> E-mail notification</label>
-<input type="checkbox" id="e-mail" name="e-mail">
-<label for="push"> Push notification</label>
-<input type="checkbox" id="push" name="push">
-<h1>E-mail</h1>
-<label for="email">E-mailadres for notification:</label>
-<input type="email" id="email" name="email">
-<h1>Theme</h1>
-<input list="theme">
-<datalist id="theme">
-    <option value="Dark">
-    <option value="Light">
-</datalist><br><br>
-<input type="submit" value="Submit">
+<div class="h-full w-full">
+    <div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
+        <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
+            <h1 class="text-2xl text-white m-auto">Settings</h1>
+        </div>
+        <form method="POST" action="/settings" name="settings">
+            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                <label for="large-range" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Sound <p id="soundValue" class="text-white inline-block">50</p></label>
+                <input  id="medium-range" type="range" oninput="soundValue.innerText = this.value"min="0" max="100" value="50" step="1" class="range m-auto w-5/6 h-2 mb-6 rounded-lg ">
+            </div>
+            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                <label for="large-range" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">probability <p id="probabilityValue" class="text-white inline-block">50</p></label>
+                <input id="medium-range" type="range" oninput="probabilityValue.innerText = this.value"min="0" max="100" value="50" step="1" class="range m-auto w-5/6 h-2 mb-6 rounded-lg ">
+            </div>
+            <div style="background-color:#111727;" class="m-6 flex  content-center">
+                <label for="large-range" class="block my-2 ml-4 text-sm font-medium dark:text-white text-white text-center w-1/2 ">E-mail priority :</label>
+                <select class="block w-1/2 text-center bg-white border focus:outline-none transition-none ">
+                    <option class="text-center" value="Gunshot">Gunshot</option>
+                    <option class="text-center" value="Car">Car</option>
+                    <option class="text-center" value="Unknown">Unknown</option>
+                </select>
+            </div>
+            <div style="background-color:#111727;" class="m-6 flex  content-center">
+                <label for="large-range" class="block my-2 ml-4 text-sm font-medium dark:text-white text-white text-center w-1/2">Select theme :</label>
+                <select disabled class="block w-1/2 text-center appearance-none bg-white border focus:outline-none ">
+                    <option class="text-center" value="Dark">Dark</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-center ">
+                <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="link-checkbox" class="ml-2 text-sm font-medium text-white">receive email notifications.</label>
+            </div>
+            <div class="flex align-items justify-content mt-10">
+                <button style="background-color:#111727"type="submit" class="  text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 border-none m-auto p-auto">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+ .range{
+    background-color: #fff;
+    accent-color: #363e4c;
+}
+
+.range::-webkit-slider-thumb{
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    box-shadow: -5px 0 0 5px #363e4c, inset 0 0 0 40px #363e4c, inset 0 0 0 40px #363e4c;
+    background-color: #fff;
+    
+} 
+</style>
