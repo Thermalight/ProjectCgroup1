@@ -102,6 +102,19 @@ public class DatabaseService
         dbContext.SaveChanges();
         return true;
     }
+
+    public async Task<bool> UpdateUser(UpdateUser updatedUser)
+    {
+        var dbContext = new SqliteDbContext();
+        User User = new(updatedUser);
+        dbContext.Update(User);
+        var result = await dbContext.SaveChangesAsync();
+
+        if (result == 1)
+            return true;
+        return false;
+    }
+
     public List<UserDto> GetAllUsers()
     {
         using var DbContext = new SqliteDbContext();
