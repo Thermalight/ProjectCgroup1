@@ -1,9 +1,13 @@
 <h1>Settings</h1>
 <p>At this page you can change the settings.</p>
+<h1>Volume</h1>
+<label for="volume"> Volume</label>
+<input type="range" id="volume" min="0" max="100" value="50" oninput="rangeValue1.innerText = this.value">
+<p id="rangeValue1">50</p>
 <h1>Notifications</h1>
 <label for="probability"> Probability</label>
-<input type="range" id="probability" min="0" max="100" value="50" oninput="rangeValue.innerText = this.value">
-<p id="rangeValue">50</p>
+<input type="range" id="probability" min="0" max="100" value="50" oninput="rangeValue2.innerText = this.value">
+<p id="rangeValue2">50</p>
 <p>Of which status category do you want notifications? Select your options:</p>
 <label for="status1"> Gunshot</label>
 <input type="checkbox" id="status1" name="status1" value="Gunshot">
