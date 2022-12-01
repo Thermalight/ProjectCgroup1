@@ -17,6 +17,7 @@
                 <select class="block w-1/2 text-center bg-white border focus:outline-none transition-none ">
                     <option class="text-center" value="Gunshot">Gunshot</option>
                     <option class="text-center" value="Car">Car</option>
+                    <option class="text-center" value="Animal">Animal</option>
                     <option class="text-center" value="Unknown">Unknown</option>
                 </select>
             </div>
@@ -49,6 +50,5 @@
     border-radius: 20px;
     box-shadow: -5px 0 0 5px #363e4c, inset 0 0 0 40px #363e4c, inset 0 0 0 40px #363e4c;
     background-color: #fff;
-    
 } 
 </style>
