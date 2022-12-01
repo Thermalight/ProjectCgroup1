@@ -21,4 +21,13 @@ public class User
         Email = newUser.Email;
         IsAdmin = newUser.IsAdmin;
     }
+
+    public User(UpdateUser newUser)
+    {
+        GUID = Guid.NewGuid();
+        Username = newUser.Username;
+        Password = newUser.Password;
+        Email = newUser.Email;
+        IsAdmin = newUser.IsAdmin;
+    }
 }
