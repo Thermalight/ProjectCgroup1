@@ -2,7 +2,10 @@
     let open = false;
     let useRange = false;
     let range = -1
+    let loading
+    let refreshRate = 1000;
     export let notifications;
+    export let changed
 
     function getEvents() {
         fetch("https://localhost/limitnotifications?"+ new URLSearchParams({
@@ -27,6 +30,7 @@
 
     function onSave(){
         notifications = getEvents()
+        changed = !changed
     }
 </script>
 
