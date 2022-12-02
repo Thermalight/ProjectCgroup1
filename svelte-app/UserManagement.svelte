@@ -37,19 +37,6 @@
         return await response.json();
 	}
 
-    // async function updateUser() {
-    //     // let updateUserJson = {username: user.Username, password: user.password, email: user.email, IsAdmin: user.IsAdmin};
-    //     console.log(updateUserJson)
-	// 	const response = await fetch("https://localhost/user", {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(updateUserJson),
-    //     });
-    //     return await response.json();
-	// }
-
     function updateFormHandler(user) {
         console.log(user)
         updateUserJson = {username: user.Username, email: user.Email, IsAdmin: user.IsAdmin, Guid: user.Guid};
