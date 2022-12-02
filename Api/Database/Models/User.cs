@@ -24,7 +24,7 @@ public class User
 
     public User(UpdateUser newUser)
     {
-        GUID = Guid.NewGuid();
+        GUID = newUser.GUID;
         Username = newUser.Username;
         Password = newUser.Password;
         Email = newUser.Email;
