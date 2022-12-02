@@ -1,9 +1,11 @@
 <script>
     import User from './User.svelte';
     import Input from './Input.svelte';
+    import UpdateUserForm from './UpdateUserForm.svelte';
     let searchTerm = "";
-    let test = ""
+    let updateUserFormOpen = false
     let UserJson = {username : "", password: "", email: "", IsAdmin: false};
+    let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
 	
 	async function submitHandler() {
         console.log(UserJson)
@@ -32,10 +34,27 @@
             method: "DELETE",
         });
         console.log(guid)
-        location.reload();
         return await response.json();
 	}
 
+    // async function updateUser() {
+    //     // let updateUserJson = {username: user.Username, password: user.password, email: user.email, IsAdmin: user.IsAdmin};
+    //     console.log(updateUserJson)
+	// 	const response = await fetch("https://localhost/user", {
+    //         method: "PUT",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(updateUserJson),
+    //     });
+    //     return await response.json();
+	// }
+
+    function updateFormHandler(user) {
+        console.log(user)
+        updateUserJson = {username: user.Username, email: user.Email, IsAdmin: user.IsAdmin, Guid: user.Guid};
+        updateUserFormOpen = !updateUserFormOpen;
+    }
 </script>
 
 <div >
@@ -56,20 +75,27 @@
         </form>
     </div>
 
+    {#if updateUserFormOpen}
+        <UpdateUserForm user={updateUserJson}/>
+    {/if}
+
     <br><hr>
     <p class="text-white">Users:</p>
     <!-- display users -->
     {#await loadUsers()}
         <p class="text-white">waiting...</p>
     {:then data}
-        {#each data as user}
-            {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
-                <div>
-                    <User user={user} /><br>
-                    <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
-                </div>
-            {/if}
-        {/each}
+        <div class="users">
+            {#each data as user}
+                {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
+                    <div>
+                        <User user={user} /><br>
+                        <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
+                        <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button>
+                    </div>
+                {/if}
+            {/each}
+        </div>
     {:catch error}
         <p>An error occurred!</p>
         {console.log(error)}
