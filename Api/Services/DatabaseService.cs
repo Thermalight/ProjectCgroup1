@@ -11,7 +11,7 @@ public class DatabaseService
     public async void Setup()
     {
         if(File.Exists(DBLocation))
-            File.Delete(DBLocation);
+            return;
 
         using SqliteDbContext dbContext = new SqliteDbContext();
         using var transaction = dbContext.Database.BeginTransaction();
@@ -106,8 +106,23 @@ public class DatabaseService
     public async Task<bool> UpdateUser(UpdateUser updatedUser)
     {
         var dbContext = new SqliteDbContext();
-        User User = new(updatedUser);
-        dbContext.Update(User);
+
+        User UserUpdated = new(updatedUser);
+        User targetUser = dbContext.Users.Single(user => user.GUID == UserUpdated.GUID);
+
+        if (targetUser == null)
+            return false;
+
+        if (string.IsNullOrEmpty(updatedUser.Username))
+            updatedUser.Username = targetUser.Username;
+
+        if (string.IsNullOrEmpty(updatedUser.Password))
+            updatedUser.Password = targetUser.Password;
+
+        if (string.IsNullOrEmpty(updatedUser.Email))
+            updatedUser.Email = targetUser.Email;
+
+        dbContext.Entry(targetUser).CurrentValues.SetValues(updatedUser);
         var result = await dbContext.SaveChangesAsync();
 
         if (result == 1)
