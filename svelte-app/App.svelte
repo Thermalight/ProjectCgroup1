@@ -1,6 +1,6 @@
 <script>
     import Dashboard from "./Dashboard.svelte"
-    import List from "./List.svelte"
+    import List from "./ListDashboard.svelte"
     import Setting from "./Setting.svelte";
     import { currentPage } from "./stores.js";
     import Login from "./login.svelte";
