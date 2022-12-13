@@ -43,7 +43,37 @@
         updateUserFormOpen = !updateUserFormOpen;
     }
 </script>
+<div class="h-full">
+    <div style="background-color:#363e4c;"class="block  h-4/6 w-5/6 m-auto rounded-2xl">
+        <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
+        </div>
+        <div style="height: 89%;"class="grid w-4/5 content-center m-auto py-16">
+            <form method="POST" action= "/usermanagement" name="usermanagement">
+                <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                    <label for="Add users" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add users <p id="addUsers" class="text-white inline-block">test</p></label>
+                    <p id="addUsername" class="text-white inline-block">Add username</p><input  id="Add username" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="addPassword" class="text-white inline-block">Add password</p><input  id="Add password" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="addEmail" class="text-white inline-block">Add e-mail</p><input  id="Add e-mail" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="addIsAdmin" class="text-white inline-block">Is admin [Add checkmarkbox thingy]</p>
+                </div>
+                <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                    <label for="Delete users" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Delete users <p id="deleteUsers" class="text-white inline-block">test</p></label>
+                    <p id="Show users" class="text-white inline-block">There should be users here idk how</p>
+                </div>
+                <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                    <label for="Update users" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Update users <p id="updateUsers" class="text-white inline-block">test</p></label>
+                    <p id="Show users" class="text-white inline-block">List of users you want to change, idk how</p>
+                    <p id="changeUsername" class="text-white inline-block">Change username</p><input  id="Change username" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="changePassword" class="text-white inline-block">Change password</p><input  id="Change password" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="changeEmail" class="text-white inline-block">Change e-mail</p><input  id="Change e-mail" type="text" class="block mb-2 text-sm font-medium dark:text-white text-black text-center">
+                    <p id="changeIsAdmin" class="text-white inline-block">Change is admin [Add checkmarkbox thingy]</p>
 
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 <div >
     <div>
         <!-- input field to filter users -->
