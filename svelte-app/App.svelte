@@ -1,6 +1,7 @@
 <script>
     import Dashboard from "./Dashboard.svelte"
     import List from "./List.svelte"
+    import Setting from "./Setting.svelte";
     import { currentPage } from "./stores.js";
     import Login from "./login.svelte";
     import Root from "./root.svelte";
@@ -9,6 +10,7 @@
     let routes = {
         "notificationpage": List,
         "dashboard": Dashboard,
+        "settings":Setting,
         "login":Login,
         "usermanagement": UserManagement,
         "": Root

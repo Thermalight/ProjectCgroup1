@@ -9,11 +9,9 @@ namespace ChengetaWebApp.Api.Services.MqttHandler;
 public class MqttService
 {
     private readonly DatabaseService _databaseService;
-    private readonly EmailService _emailService;
-    public MqttService(DatabaseService databaseService, EmailService emailService)
+    public MqttService(DatabaseService databaseService)
     {
         _databaseService = databaseService;
-        _emailService = emailService;
     }
     public void Start() => HandleMessages();
 
@@ -50,7 +48,6 @@ public class MqttService
         if (notification != null)
         {
             await _databaseService.AddNotificationAsync(notification);
-            _emailService.MailSubscribers(notification);
         }
         await Task.Delay(1);
     }
