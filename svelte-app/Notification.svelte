@@ -3,7 +3,10 @@
     import Status from './Status.svelte'
     export let mapComponent
     export let event;
+    var audio = new Audio(event.Sound);
+    audio.volume = 0.1
     let open = false
+    let play = false
     let time = new Date(event.Time*1000)
     let hours = time.getHours()
     let minutes = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()
@@ -15,12 +18,28 @@
     function toggle() {
         open = !open
     }
+    function toggleSound() {
+        play = !play
+
+        if (play) {
+            audio.play();
+        } else {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }
 </script>
 
 {#if event != null}
     <div on:click={mapComponent.flyToLocation(event.Latitude, event.Longitude)}>
         <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
             <div class="content">
+                <button 
+                on:click={toggleSound} 
+                class="border-transparent focus:border-transparent focus:ring-0">
+                        <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
+                </button>
+
                 <p class="font-bold">{event.sound_type}</p>
                 <Status status={event.StatusID} GUID={event.Guid}/>
                 <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
@@ -61,4 +80,13 @@
     .unknown {
         border-bottom: 2px solid grey;
     }
+    button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    }   
 </style>
