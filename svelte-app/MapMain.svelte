@@ -89,12 +89,11 @@ function checkColor(functionColor){
         width: 100%;
     }
 </style>
-<div class="map rounded-lg" bind:this="{mapContainer}">
+<div class="map rounded-lg" bind:this="{mapContainer}"></div>
 
     {#if changedNotifications}
         {removeAllLocations()}
     {/if}
-    {console.log(notifications)}
     {#if notifications != null}
         {#each notifications as notification}
             {#if array.includes(notification.Guid) && statusDict[notification.Guid] != checkStatus(notification.StatusID)}
@@ -111,5 +110,5 @@ function checkColor(functionColor){
         {/each}
     {/if}
 
-</div>
+
 

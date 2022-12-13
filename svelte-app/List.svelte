@@ -12,6 +12,7 @@
 
     const handleSubmit = () =>{
         addNotifs(notifications, true)
+        changed = !changed
     }
 
     let clear
@@ -46,7 +47,6 @@
     <Filter bind:notifications={notifications} bind:changed={changed}/>
     {#if changed}
         {handleSubmit()}
-        {changed = !changed}
     {/if}
         {#each notifications as event}
             <div transition:slide>
