@@ -51,6 +51,14 @@ app.UseEndpoints(endpoints =>
         await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllNotifications()));
     });
 
+    endpoints.MapGet("/limitnotifications", async context =>
+    {
+        int parsed = Int32.Parse(context.Request.Query["limit"]);
+        int limit = parsed > 0 ? parsed : 10;
+        context.Response.Headers.Add("Content-Type", "application/json");
+        await context.Response.WriteAsync(JsonSerializer.Serialize(_databaseService.GetAllNotifications().Take(limit)));
+    });
+
     endpoints.MapPost("/login", async context=>
     {
         if (_databaseService.UserAuthentication(context.Request.Form["Username"],context.Request.Form["Password"],context))

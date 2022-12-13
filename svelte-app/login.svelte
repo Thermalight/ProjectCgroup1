@@ -23,7 +23,6 @@
                 result = Element.substring(name.length+1);
             }
         })
-        console.log(result);
         return result;
     }
     //make cookie

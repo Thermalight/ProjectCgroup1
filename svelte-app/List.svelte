@@ -1,11 +1,19 @@
 <script>
     import { slide } from 'svelte/transition';
     import Notification from "./Notification.svelte"
+    import Filter from "./Filter.svelte"
     export let mapComponent
     
     let notifications;
     let loading = true;
     let refreshRate = 1000;
+    export let addNotifs
+    let changed
+
+    const handleSubmit = () =>{
+        addNotifs(notifications, true)
+        changed = !changed
+    }
 
     let clear
     $: {
@@ -21,9 +29,13 @@
             }
         })
             .then(response => response.json())
-            .then(data => notifications = data)
+            .then(data => {
+                notifications = data
+                changed = true
+            })
             .then(() => {
                 loading = false;
+                changed = true
                 refreshRate = 60000;
             })
     }
@@ -32,9 +44,13 @@
 <!-- <Navbar/> -->
 <div class="list" transition:slide>
     {#if notifications != null && !loading}
+    <Filter bind:notifications={notifications} bind:changed={changed}/>
+    {#if changed}
+        {handleSubmit()}
+    {/if}
         {#each notifications as event}
             <div transition:slide>
-                <Notification {mapComponent} event={event}/>
+                <Notification {mapComponent} event={event} />
             </div>
         {/each}
     {:else}

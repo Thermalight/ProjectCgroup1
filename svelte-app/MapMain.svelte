@@ -3,44 +3,16 @@ import L from "leaflet";
 import { onMount } from 'svelte';
 import { redIcon, orangeIcon, yellowIcon, greyIcon } from './leaflet-color-markers'
 
-let notifications;
+export let notifications;
+export let changedNotifications = false
 
-let loading = true;
-let refreshRate = 1000;
-var statusName;
 let array = []
 let arrayPins = []
 let mapDict = {};
 let statusDict = {};
-let clear
 let marker 
-var color = greyIcon;
-
-$: {
-    clearInterval(clear)
-    clear = setInterval(getEvents, refreshRate)
-}
-
-function getEvents() {
-    fetch("https://localhost/notifications", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => notifications = data)
-        .then(() => {
-            loading = false;
-            refreshRate = 1000;
-        })
-        .catch((e) => {
-            console.log(e);
-            refreshRate = 10000;
-        })
-        .finally
-}
 let mapContainer;
+
 const returnNada = () => '';
 let map = L.map(L.DomUtil.create("div"), {
     center: [0, 0],
@@ -59,21 +31,23 @@ onMount(() => {
     document.getElementsByClassName( 'leaflet-control-zoom' )[0].style.display = 'none';
 });
 
-
 export function flyToLocation(Latitude,Longitude){
     map.flyTo([Latitude, Longitude],9);
 }
-
 function removeAllLocations(){
     if (arrayPins != null){
         arrayPins.forEach(element => {
             map.removeLayer(element)
-            array = []
-            arrayPins = []
-            mapDict = {};
-            statusDict = {};
         });
     }
+    array = []
+    arrayPins = []
+    mapDict = {};
+    statusDict = {};
+    console.log(arrayPins)
+    changedNotifications = false
+    console.log("deleted")
+    
 }
 function checkStatus(status){
     if (status == 1){
@@ -115,13 +89,16 @@ function checkColor(functionColor){
         width: 100%;
     }
 </style>
-<div class="map rounded-lg" bind:this="{mapContainer}">
-    {#if notifications != null && !loading}
+<div class="map rounded-lg" bind:this="{mapContainer}"></div>
+
+    {#if changedNotifications}
+        {removeAllLocations()}
+    {/if}
+    {#if notifications != null}
         {#each notifications as notification}
-            
             {#if array.includes(notification.Guid) && statusDict[notification.Guid] != checkStatus(notification.StatusID)}
-                {mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID)).update()}
-                {statusDict[notification.Guid] = checkStatus(notification.StatusID)}
+                {returnNada(mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID)).update())}
+                {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
             {/if}
             {#if !array.includes(notification.Guid)}
                 {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: checkColor(notification.sound_type)}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID))).addTo(map))}
@@ -131,7 +108,7 @@ function checkColor(functionColor){
                 {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
             {/if}
         {/each}
-        {/if}
+    {/if}
 
-</div>
+
 

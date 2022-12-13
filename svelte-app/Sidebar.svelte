@@ -9,7 +9,6 @@
                 result = Element.substring(name.length+1);
             }
         })
-        console.log(result);
         return result;
     }
     export let open;
