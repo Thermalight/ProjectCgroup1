@@ -79,4 +79,70 @@ public class DatabaseService
 
         return Results.NoContent();
     }
+
+    public async Task<bool> AddUser(GetUser newUser)
+    {
+        var dbContext = new SqliteDbContext();
+        User User = new(newUser);
+        dbContext.Add(User);
+        var result = await dbContext.SaveChangesAsync();
+
+        if (result == 1)
+            return true;
+        return false;
+    }
+
+    public async Task<bool> DeleteUser(Guid userGuid)
+    {
+        var dbContext = new SqliteDbContext();
+        User? User = dbContext.Users.Where(u => u.GUID == userGuid).FirstOrDefault();
+        if (User == null)
+            return false;
+        dbContext.Remove(User);
+        dbContext.SaveChanges();
+        return true;
+    }
+
+    public async Task<bool> UpdateUser(UpdateUser updatedUser)
+    {
+        var dbContext = new SqliteDbContext();
+
+        User UserUpdated = new(updatedUser);
+        User targetUser = dbContext.Users.Single(user => user.GUID == UserUpdated.GUID);
+
+        if (targetUser == null)
+            return false;
+
+        if (string.IsNullOrEmpty(updatedUser.Username))
+            updatedUser.Username = targetUser.Username;
+
+        if (string.IsNullOrEmpty(updatedUser.Password))
+            updatedUser.Password = targetUser.Password;
+
+        if (string.IsNullOrEmpty(updatedUser.Email))
+            updatedUser.Email = targetUser.Email;
+
+        dbContext.Entry(targetUser).CurrentValues.SetValues(updatedUser);
+        var result = await dbContext.SaveChangesAsync();
+
+        if (result == 1)
+            return true;
+        return false;
+    }
+
+    public List<UserDto> GetAllUsers()
+    {
+        using var DbContext = new SqliteDbContext();
+        var queriable = DbContext.Users.AsQueryable();
+
+        var users = queriable.Select(u => new UserDto() {
+            Username = u.Username,
+            Email = u.Email,
+            IsAdmin = u.IsAdmin,
+            Guid = u.GUID,
+            IsSubscribed = u.Subscriber != null
+        }).ToList();
+
+        return users;
+    }
 }

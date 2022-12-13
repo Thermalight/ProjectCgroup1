@@ -30,13 +30,14 @@
                 <li>
                     <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
-                {#if getCookie("Admin") == "True"}
+                <!-- {#if getCookie("Admin") == "True"} -->
                 <li>
-                    <a on:click={close} href="#">User Management</a>
+                    <Link on:click={close} href="usermanagement">User Management</Link>
                 </li>
-                {/if}
+                <!-- {/if} -->
                 <li>
-                    <a on:click={close} href="#">Settings</a>
+                    <Link on:click={close} href="dashboard">Settings</Link>
+                    <!-- <a on:click={close} href="/">Settings</a> -->
                 </li>
             </ul>
         </nav>
