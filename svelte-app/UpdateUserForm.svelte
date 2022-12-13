@@ -1,8 +1,17 @@
 <script>
     import Input from './Input.svelte';
     export let user;
+    let pass = "";
+    let passConfirm = "";
+    let test = false;
 
-    async function updateUser() {
+    async function submitHandler() {
+        if (pass == passConfirm && pass && passConfirm) {
+            user.password = passConfirm;
+        } 
+        else {
+            return;
+        }
         console.log(user)
 		const response = await fetch("https://localhost/user", {
             method: "PUT",
@@ -13,14 +22,18 @@
         });
         return await response.json();
 	}
+   
 </script>
 
 <div>
     <aside>
-        <form on:submit|preventDefault={updateUser} class="mt-6">
+        <form on:submit|preventDefault={submitHandler} class="mt-6">
             <input type="hidden" bind:value={user.Guid}/>
             <Input type="text" label="Username" bind:value={user.username} />
-            <Input type="password" label="Password" bind:value={user.password} />
+            <Input type="password" label="Password" bind:value={pass} />
+            {#if pass}
+                <Input type="password" label="Confirm Password" bind:value={passConfirm} />
+            {/if}
             <Input type="email" label="Email" bind:value={user.email}/>
             <label class="text-white" for="isadmin">Is Admin: </label>
             <input type="checkbox" label="isAdmin" bind:checked={user.IsAdmin}/><br>
