@@ -21,6 +21,7 @@ if (File.Exists("./.env"))
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<EmailService>();
 builder.Services.AddSingleton<DatabaseService>();
 builder.Services.AddSingleton<MqttService>();
 builder.Services.AddAuthentication().AddCookie();
