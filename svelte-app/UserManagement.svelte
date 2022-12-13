@@ -49,56 +49,62 @@
     </div>
     <div>
         <!-- input field to filter users -->
-            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name </p>
-                <p class="text-white inline-block">Type in username:</p>
-                <input bind:value={searchTerm} type="Text" />
-    </div>
+        <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+            <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name </p>
+            <p class="text-white inline-block">Type in username:</p>
+            <input bind:value={searchTerm} type="Text" />
         </div>
+    </div>
     <div>
         <!-- input form to add users -->
-            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
-        <form on:submit|preventDefault={submitHandler} class="mt-6">
-            <Input type="text" label="Username" bind:value={UserJson.username} />
-            <Input type="password" label="Password" bind:value={UserJson.password} />
-            <Input type="email" label="Email" bind:value={UserJson.email}/>
-            <label class="text-white" for="isadmin">Is Admin: </label>
-            <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
-            <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
-        </form>
-    </div>
+        <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+            <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
+            <form on:submit|preventDefault={submitHandler} class="mt-6">
+                <Input type="text" label="Username" bind:value={UserJson.username} />
+                <Input type="password" label="Password" bind:value={UserJson.password} />
+                <Input type="email" label="Email" bind:value={UserJson.email}/>
+                <label class="text-white" for="isadmin">Is Admin: </label>
+                <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
+                <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
+            </form>
         </div>
+    </div>
 
     {#if updateUserFormOpen}
             <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
                 <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Update user </p>
-        <UpdateUserForm user={updateUserJson}/>
+                <UpdateUserForm user={updateUserJson}/>
             </div>
     {/if}
 
-    <br><hr>
-        <!-- <p class="text-white">Users:</p> -->
-        <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-            <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Users:</p>
-    <!-- display users -->
-    {#await loadUsers()}
-        <p class="text-white">waiting...</p>
-    {:then data}
-        <div class="users">
+    <!-- <br><hr> -->
+    <div style="background-color:#111727; height: 30%;" class="m-6 mb-0 content-center overflow-auto">
+        <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Users:</p>
+        <!-- display users -->
+        {#await loadUsers()}
+            <p class="text-white">waiting...</p>
+        {:then data}
+        <div class="user  overflow-auto">
             {#each data as user}
                 {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
                     <div>
-                        <User user={user} /><br>
+                        <User user={user} />
                         <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
                         <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button>
-                    </div>
+                        
+                    </div><br>
                 {/if}
             {/each}
         </div>
-    {:catch error}
-        <p>An error occurred!</p>
-        {console.log(error)}
-    {/await}
+        {:catch error}
+            <p>An error occurred!</p>
+            {console.log(error)}
+        {/await}
+    </div>
 </div>
-</div>
+<style>
+    #users{
+        width: inherit;
+        height: inherit;
+    }
+</style>
