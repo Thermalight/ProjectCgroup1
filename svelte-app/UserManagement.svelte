@@ -50,8 +50,9 @@
     <div>
         <!-- input field to filter users -->
             <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name <p class="text-white inline-block">Type in username:</p>
-        <input bind:value={searchTerm} type="Text" />
+                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name </p>
+                <p class="text-white inline-block">Type in username:</p>
+                <input bind:value={searchTerm} type="Text" />
     </div>
         </div>
     <div>
