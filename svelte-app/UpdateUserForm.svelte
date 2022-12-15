@@ -3,7 +3,6 @@
     export let user;
     let pass = "";
     let passConfirm = "";
-    let test = false;
 
     async function submitHandler() {
         if (pass == passConfirm && pass && passConfirm) {
