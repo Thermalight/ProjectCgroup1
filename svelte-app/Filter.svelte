@@ -6,6 +6,7 @@
     export let changed
     export let filterBool = false
     export let handleSubmit
+    
     const returnNada = () => '';
     function getEvents() {
         fetch("https://localhost/limitnotifications?"+ new URLSearchParams({
@@ -25,18 +26,17 @@
     function openFilter(){
         open = !open;
     }
-
+    
     function onSave(){
         notifications = getEvents()
         changed = !changed
         filterBool = true
-        
     }
 </script>
 
 <div>
     <button class="bg-white" on:click={openFilter}>settings</button>
-    { #if changed && filterBool}
+    { #if changed && filterBool }
         {returnNada(handleSubmit())}
     { /if }
     { #if open}

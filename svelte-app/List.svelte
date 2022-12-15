@@ -9,11 +9,13 @@
     let loading = true;
     let refreshRate = 1000;
     export let addNotifs
-    let changed = false
+    let changed
     let filterBool = false
-    let initial = true
 
-
+    let handleSubmit = () =>{
+        addNotifs(notifications, true)
+        changed = !changed
+    }
 
     let clear
     $: {
@@ -43,17 +45,11 @@
 		    clearInterval(clear);
 	    });
     }
-    let handleSubmit = () =>{
-        addNotifs(notifications, true)
-        changed = false
-        initial = false
-    }
 </script>
-<!-- <Navbar/> -->
 <div class="list" transition:slide>
     {#if notifications != null && !loading}
-        <Filter bind:notifications={notifications} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit}/>
-        {#if changed && !filterBool || initial}
+        <Filter bind:notifications={notifications} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
+        {#if changed && !filterBool}
             {handleSubmit()}
         {/if}
         {#each notifications as event}
