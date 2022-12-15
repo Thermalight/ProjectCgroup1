@@ -5,8 +5,8 @@
     let passConfirm = "";
 
     async function submitHandler() {
-        if (pass == passConfirm && pass && passConfirm) {
-            user.password = passConfirm;
+        if (pass == "" || (pass == passConfirm && pass && passConfirm)) {
+            user.password = pass;
         } 
         else {
             return;
