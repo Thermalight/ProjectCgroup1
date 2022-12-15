@@ -90,8 +90,7 @@
                     <div>
                         <User user={user} />
                         <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
-                        <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button>
-                        
+                        <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button> 
                     </div><br>
                 {/if}
             {/each}
