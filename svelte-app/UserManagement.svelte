@@ -4,6 +4,7 @@
     import UpdateUserForm from './UpdateUserForm.svelte';
     let searchTerm = "";
     let updateUserFormOpen = false
+    let addUserFormOpen = false
     let UserJson = {username : "", password: "", email: "", IsAdmin: false};
     let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
 	
@@ -57,17 +58,20 @@
     </div>
     <div>
         <!-- input form to add users -->
-        <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-            <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
-            <form on:submit|preventDefault={submitHandler} class="mt-6">
-                <Input type="text" label="Username" bind:value={UserJson.username} />
-                <Input type="password" label="Password" bind:value={UserJson.password} />
-                <Input type="email" label="Email" bind:value={UserJson.email}/>
-                <label class="text-white" for="isadmin">Is Admin: </label>
-                <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
-                <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
-            </form>
-        </div>
+        <button class="text-white" type="submit"on:click={() => addUserFormOpen = !addUserFormOpen}>add user</button>
+        {#if addUserFormOpen}
+            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
+                <form on:submit|preventDefault={submitHandler} class="mt-6">
+                    <Input type="text" label="Username" bind:value={UserJson.username} />
+                    <Input type="password" label="Password" bind:value={UserJson.password} />
+                    <Input type="email" label="Email" bind:value={UserJson.email}/>
+                    <label class="text-white" for="isadmin">Is Admin: </label>
+                    <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
+                    <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
+                </form>
+            </div>
+        {/if}
     </div>
 
     {#if updateUserFormOpen}
