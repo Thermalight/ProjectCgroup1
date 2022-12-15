@@ -1,7 +1,6 @@
 <script>
     import List from './List.svelte';
     import MapMain from './MapMain.svelte';
-    import Notification from './Notification.svelte';
     let mapComponent
     let notifications
     export let changedNotifications
