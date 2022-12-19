@@ -6,7 +6,7 @@
     
     let notifications;
     let loading = true;
-    let refreshRate = 1000;
+    let refreshRate = 60000;
     export let addNotifs
     let changed
 
@@ -36,7 +36,6 @@
         .then(() => {
             loading = false;
             changed = true
-            refreshRate = 60000;
         })
 
         onDestroy(() => {
