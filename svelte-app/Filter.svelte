@@ -2,8 +2,6 @@
     let open = false;
     let useRange = false;
     let range = -1
-    let loading
-    let refreshRate = 1000;
     export let notifications;
     export let changed
 
@@ -16,12 +14,8 @@
                 'Content-Type': 'application/json'
             },
         })
-            .then(response => response.json())
-            .then(data => notifications = data)
-            .then(() => {
-                loading = false;
-                refreshRate = 60000;
-            })
+        .then(response => response.json())
+        .then(data => notifications = data)
     }
 
     function openFilter(){

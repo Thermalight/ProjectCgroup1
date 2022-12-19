@@ -28,16 +28,20 @@
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                notifications = data
-                changed = true
-            })
-            .then(() => {
-                loading = false;
-                changed = true
-                refreshRate = 60000;
-            })
+        .then(response => response.json())
+        .then(data => {
+            notifications = data
+            changed = true
+        })
+        .then(() => {
+            loading = false;
+            changed = true
+            refreshRate = 60000;
+        })
+
+        onDestroy(() => {
+		    clearInterval(clear);
+	    });
     }
     
 </script>
