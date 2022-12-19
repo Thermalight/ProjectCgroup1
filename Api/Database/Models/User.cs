@@ -22,12 +22,12 @@ public class User
         IsAdmin = newUser.IsAdmin;
     }
 
-    public User(UpdateUser newUser)
+    public User(UpdateUser updatedUser)
     {
-        GUID = newUser.GUID;
-        Username = newUser.Username;
-        Password = newUser.Password;
-        Email = newUser.Email;
-        IsAdmin = newUser.IsAdmin;
+        GUID = updatedUser.GUID;
+        Username = updatedUser.Username;
+        Password = updatedUser.Password;
+        Email = updatedUser.Email;
+        IsAdmin = updatedUser.IsAdmin;
     }
 }
