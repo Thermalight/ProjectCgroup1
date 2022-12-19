@@ -21,14 +21,6 @@
         return await response.json();
         }
         return;
-		// const response = await fetch("https://localhost/user", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(UserJson),
-        // });
-        // return await response.json();
 	}
 
     export async function loadUsers() { 
