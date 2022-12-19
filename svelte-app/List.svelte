@@ -6,7 +6,7 @@
     
     let notifications;
     let loading = true;
-    let refreshRate = 60000;
+    let refreshRate = 1000;
     export let addNotifs
     let changed
 
@@ -36,11 +36,12 @@
         .then(() => {
             loading = false;
             changed = true
+            refreshRate = 60000;
         })
 
         onDestroy(() => {
-            clearInterval(clear);
-        });
+		    clearInterval(clear);
+	    });
     }
     
 </script>
