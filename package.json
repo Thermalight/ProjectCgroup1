@@ -5,7 +5,7 @@
   "scripts": {
     "watch:tailwind": "postcss wwwroot/tailwind.css -o wwwroot/index.css -w",
     "build:tailwind": "cross-env NODE_ENV=production postcss wwwroot/tailwind.css -o wwwroot/index.css",
-    "build": "npm run build:rollup -c",
+    "build": "rollup -c",
     "dev": "concurrently \"rollup -c -w\" \"npm run watch:tailwind\"",
     "start": "sirv public --no-clear",
     "serve": "serve public -p 80",
