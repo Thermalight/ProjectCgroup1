@@ -84,6 +84,7 @@ public class DatabaseService
     {
         var dbContext = new SqliteDbContext();
         User User = new(newUser);
+        User.Password = Bcrypt.HashPassword(User.Password);
         dbContext.Add(User);
         var result = await dbContext.SaveChangesAsync();
 
@@ -116,8 +117,13 @@ public class DatabaseService
         if (string.IsNullOrEmpty(updatedUser.Username))
             updatedUser.Username = targetUser.Username;
 
-        if (string.IsNullOrEmpty(updatedUser.Password))
+        if (string.IsNullOrEmpty(updatedUser.Password)){
             updatedUser.Password = targetUser.Password;
+        }
+
+        else {
+            updatedUser.Password = Bcrypt.HashPassword(updatedUser.Password);
+        }
 
         if (string.IsNullOrEmpty(updatedUser.Email))
             updatedUser.Email = targetUser.Email;
