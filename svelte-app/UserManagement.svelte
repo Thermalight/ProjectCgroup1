@@ -46,23 +46,23 @@
 </script>
 <div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
     <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
-        <h1 class="text-2xl text-white m-auto">Users management</h1>
+        <h1 class="text-2xl text-white m-auto">User management</h1>
     </div>
-    <div>
+    <!-- <div> -->
         <!-- input field to filter users -->
-        <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
+        <!-- <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
             <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name </p>
             <p class="text-white inline-block">Type in username:</p>
             <input bind:value={searchTerm} type="Text" />
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> -->
     <div>
         <!-- input form to add users -->
-        <button class="text-white" type="submit"on:click={() => addUserFormOpen = !addUserFormOpen}>add user</button>
+        <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none mx-6 mt-6 p-auto" type="submit"on:click={() => addUserFormOpen = !addUserFormOpen}>add user</button>
         {#if addUserFormOpen}
             <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
                 <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
-                <form on:submit|preventDefault={submitHandler} class="mt-6">
+                <form on:submit|preventDefault={submitHandler} class="pl-4 my-6 mr-6">
                     <Input type="text" label="Username" bind:value={UserJson.username} />
                     <Input type="password" label="Password" bind:value={UserJson.password} />
                     <Input type="email" label="Email" bind:value={UserJson.email}/>
@@ -72,6 +72,17 @@
                 </form>
             </div>
         {/if}
+        <div>
+        <!-- input field to filter users -->
+            <div style="background-color:#111727;" class="mx-6 mt-6 grid rounded-2xl content-center">
+                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Filter by name </p>
+                <label class="pl-4 mb-6" for="">
+                <p class="text-white">Type in username:</p>
+                <input bind:value={searchTerm} type="text" />
+                </label>
+            </div>
+        </div>
+
     </div>
 
     {#if updateUserFormOpen}
@@ -81,21 +92,20 @@
             </div>
     {/if}
 
-    <!-- <br><hr> -->
-    <div style="background-color:#111727; height: 30%;" class="m-6 mb-0 content-center overflow-auto">
-        <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Users:</p>
+    <div style="background-color:#363e4c; height: 55%;" class="m-6 mb-0 content-center overflow-auto">
+        <!-- <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Users:</p> -->
         <!-- display users -->
         {#await loadUsers()}
             <p class="text-white">waiting...</p>
         {:then data}
-        <div class="user  overflow-auto">
+        <div class="user overflow-auto">
             {#each data as user}
                 {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
-                    <div>
+                    <div class="userEntry p-4 text-white bg-primary-dark mb-2 mt-2 rounded-lg">
                         <User user={user} />
                         <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
                         <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button> 
-                    </div><br>
+                    </div>
                 {/if}
             {/each}
         </div>
