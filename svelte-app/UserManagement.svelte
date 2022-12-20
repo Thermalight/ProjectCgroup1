@@ -46,7 +46,7 @@
 </script>
 <div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
     <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
-        <h1 class="text-2x1 text-white m -auto">Users management</h1>
+        <h1 class="text-2xl text-white m-auto">Users management</h1>
     </div>
     <div>
         <!-- input field to filter users -->
