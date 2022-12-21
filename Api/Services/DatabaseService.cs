@@ -46,8 +46,7 @@ public class DatabaseService
     {
         using var DbContext = new SqliteDbContext();
         var notifications = DbContext.Notifications.ToList();
-        notifications.Reverse();
-        return notifications;
+        return notifications.OrderByDescending(x => x.Time).ToList();
     }
 
     public bool UserAuthentication(string FunctionUsername, string FunctionPassword, HttpContext context)
