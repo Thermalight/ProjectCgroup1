@@ -79,17 +79,17 @@
                 </form>
             </div>
         {/if}
-    <div>
-    <!-- input field to filter users -->
-    <div style="background-color:#111727;" class="mx-6 mt-6 grid rounded-2xl content-center">
-        <p class="block mb-2 font-medium dark:text-white text-white text-center">Filter by name </p>
-        <label class="p-auto m-auto content-center" for="">
-            <p class="text-white text-center text-sm">Type in username:</p>
-            <input class="mb-2" bind:value={searchTerm} type="text" />
-        </label>
+        <div>
+            <!-- input field to filter users -->
+            <div style="background-color:#111727;" class="mx-6 mt-6 grid rounded-2xl content-center">
+                <p class="block mb-2 font-medium dark:text-white text-white text-center">Filter by name </p>
+                <label class="p-auto m-auto content-center" for="">
+                    <p class="text-white text-center text-sm">Type in username:</p>
+                    <input class="mb-2" bind:value={searchTerm} type="text" />
+                </label>
+            </div>
+        </div>
     </div>
-    </div>
-</div>
 
     {#if updateUserFormOpen}
         <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
