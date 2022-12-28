@@ -10,7 +10,9 @@
     let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
 	
 	async function submitHandler() {
-		const response = await fetch("https://localhost/user", {
+        console.log(UserJson)
+        if (UserJson.username && UserJson.password && UserJson.email) {
+            const response = await fetch("https://localhost/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -18,6 +20,8 @@
             body: JSON.stringify(UserJson),
         });
         return await response.json();
+        }
+        return;
 	}
 
     export async function loadUsers() { 

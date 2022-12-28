@@ -2,6 +2,7 @@
     import { slide } from 'svelte/transition';
     import Notification from "./Notification.svelte"
     import Filter from "./Filter.svelte"
+    import { onDestroy } from 'svelte';
     export let mapComponent
     
     let notifications;
