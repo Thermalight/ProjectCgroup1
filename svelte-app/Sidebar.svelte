@@ -29,11 +29,11 @@
                 <li>
                     <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
-                <!-- {#if getCookie("Admin") == "True"} -->
+                {#if getCookie("Admin") == "True"}
                 <li>
                     <Link on:click={close} href="usermanagement">User Management</Link>
                 </li>
-                <!-- {/if} -->
+                {/if}
                 <li>
                     <Link on:click={close} href="settings">Settings</Link>
                 </li>
