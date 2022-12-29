@@ -30,9 +30,9 @@
                     <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
                 {#if getCookie("Admin") == "True"}
-                <li>
-                    <Link on:click={close} href="usermanagement">User Management</Link>
-                </li>
+                    <li>
+                        <Link on:click={close} href="usermanagement">User Management</Link>
+                    </li>
                 {/if}
                 <li>
                     <Link on:click={close} href="settings">Settings</Link>
