@@ -111,8 +111,8 @@
                     {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
                         <div class="userEntry p-4 text-white bg-primary-dark mb-2 mt-2 rounded-lg">
                             <User user={user} />
-                            <button class="text-white" type="submit" on:click={() => deleteUser(user.Guid)}>x</button>
-                            <button class="text-white" type="submit"on:click={() => updateFormHandler(user)}>update</button> 
+                            <button class="text-white border-transparent focus:border-transparent focus:ring-0" type="submit" on:click={() => deleteUser(user.Guid)}><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-white border-transparent focus:border-transparent focus:ring-0 pl-5" type="submit"on:click={() => updateFormHandler(user)}><span class="material-symbols-outlined">manage_accounts</span></button> 
                         </div>
                     {/if}
                 {/each}
