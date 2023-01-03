@@ -10,7 +10,6 @@
     let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
 	
 	async function submitHandler() {
-        console.log(UserJson)
         if (UserJson.username && UserJson.password && UserJson.email) {
             const response = await fetch("https://localhost/user", {
             method: "POST",
@@ -42,7 +41,6 @@
 	}
 
     function updateFormHandler(user) {
-        console.log(user)
         updateUserJson = {username: user.Username, email: user.Email, IsAdmin: user.IsAdmin, Guid: user.Guid};
         updateUserFormOpen = !updateUserFormOpen;
         formsClosed = !formsClosed;

@@ -11,7 +11,6 @@
         else {
             return;
         }
-        console.log(user)
 		const response = await fetch("https://localhost/user", {
             method: "PUT",
             headers: {
