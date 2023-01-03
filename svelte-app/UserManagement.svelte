@@ -8,7 +8,6 @@
     let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
 	
 	async function submitHandler() {
-        console.log(UserJson)
 		const response = await fetch("https://localhost/user", {
             method: "POST",
             headers: {
@@ -33,12 +32,10 @@
 		const response = await fetch("https://localhost/user/" + guid, {
             method: "DELETE",
         });
-        console.log(guid)
         return await response.json();
 	}
 
     function updateFormHandler(user) {
-        console.log(user)
         updateUserJson = {username: user.Username, email: user.Email, IsAdmin: user.IsAdmin, Guid: user.Guid};
         updateUserFormOpen = !updateUserFormOpen;
     }
@@ -98,7 +95,6 @@
         </div>
         {:catch error}
             <p>An error occurred!</p>
-            {console.log(error)}
         {/await}
     </div>
 </div>
