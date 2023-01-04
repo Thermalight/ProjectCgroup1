@@ -44,9 +44,7 @@ function removeAllLocations(){
     arrayPins = []
     mapDict = {};
     statusDict = {};
-    console.log(arrayPins)
     changedNotifications = false
-    console.log("deleted")
     
 }
 function checkStatus(status){

@@ -1,10 +1,13 @@
 <script>
     let open = false;
     let useRange = false;
-    let range = -1
     export let notifications;
     export let changed
-
+    export let filterBool = false
+    export let handleSubmit
+    export let range
+    
+    const returnNada = () => '';
     function getEvents() {
         fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
             limit: useRange ? range : 10
@@ -16,25 +19,40 @@
         })
         .then(response => response.json())
         .then(data => notifications = data)
+        .then(() => changed = true)
+
     }
 
     function openFilter(){
         open = !open;
     }
-
+    
     function onSave(){
         notifications = getEvents()
-        changed = !changed
+        filterBool = true
+    }
+
+    $: {
+        if (!useRange){
+            range = 10
+        }
     }
 </script>
 
 <div>
-    <button on:click={openFilter}>settings</button>
+    <p class="text-white">Max notifications: {range}</p>
+    <button style="height: 24px;" class="bg-white border-0 border-transparent focus:border-transparent focus:ring-0" on:click={openFilter}><span class="material-symbols-outlined">settings</span></button>
+    { #if changed && filterBool }
+        {returnNada(handleSubmit())}
+        {returnNada(changed = false)}
+    { /if }
     { #if open}
         <div>
             <input type="checkbox" bind:checked={useRange}>
-            <input type="range" min="1" max="100" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
         </div>
-        <button on:click={() => onSave()}>Save</button>
+        <button class="bg-white" on:click={() => {
+            onSave()
+        }}>Save</button>
     { /if }
 </div>

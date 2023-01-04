@@ -7,9 +7,6 @@
     audio.volume = 0.1
     let open = false
     let play = false
-    let time = new Date(event.Time*1000)
-    let hours = time.getHours()
-    let minutes = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()
     
     function round(number) {
         return Math.round(number*100000)/100000
@@ -51,7 +48,7 @@
                     </div>
                 {/if}
                 <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
-                <p class="text-right">{hours}:{minutes}</p>
+                <p class="text-right">{new Date(event.Time*1000).getHours()}:{new Date(event.Time*1000).getMinutes() < 10 ? "0" + new Date(event.Time*1000).getMinutes() : new Date(event.Time*1000).getMinutes()}</p>
             </div>
         </div>
     </div>
