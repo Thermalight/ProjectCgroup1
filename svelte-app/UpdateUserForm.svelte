@@ -3,11 +3,10 @@
     export let user;
     let pass = "";
     let passConfirm = "";
-    let test = false;
 
     async function submitHandler() {
-        if (pass == passConfirm && pass && passConfirm) {
-            user.password = passConfirm;
+        if (pass == "" || (pass == passConfirm && pass && passConfirm)) {
+            user.password = pass;
         } 
         else {
             return;
@@ -27,7 +26,7 @@
 
 <div>
     <aside>
-        <form on:submit|preventDefault={submitHandler} class="mt-6">
+        <form on:submit|preventDefault={submitHandler} class="pl-4 my-6 mr-6">
             <input type="hidden" bind:value={user.Guid}/>
             <Input type="text" label="Username" bind:value={user.username} />
             <Input type="password" label="Password" bind:value={pass} />
