@@ -31,12 +31,6 @@ public class UserController : ControllerBase
     [Route("/users")]
     public IActionResult AddUser([FromBody] GetUser user)
     {
-        // log all the user fields
-        Console.WriteLine(user.Username);
-        Console.WriteLine(user.Password);
-        Console.WriteLine(user.Email);
-        Console.WriteLine(user.IsAdmin);
-
         var result = _databaseService.AddUser(user);
         if (result)
             return Ok();
