@@ -39,8 +39,7 @@ public class EmailService
         htmlBody = @$"
             <h1>{notification.SoundType}</h1>
             <p>A {notification.SoundType} has been detected at<br>latutude: {notification.Latitude}<br>longitude: {notification.Longitude}</p>
-            <a href='https://www.chengeta.xyz'>Go to dashboard</a><br>
-            <img src='https://ichef.bbci.co.uk/images/ic/976xn/p08h0lkd.jpg' style = 'width: 500px'>
+            <a href='https://thechengeta.tech'>Go to dashboard</a><br>
         ";
         mail.Body = htmlBody;
         SmtpServer.Port = 587;

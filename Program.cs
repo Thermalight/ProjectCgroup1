@@ -32,6 +32,7 @@ app.Services.GetRequiredService<DatabaseService>().Setup();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseEndpoints(endpoints =>

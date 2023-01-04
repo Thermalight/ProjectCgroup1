@@ -11,7 +11,7 @@
         else {
             return;
         }
-		const response = await fetch("https://localhost/user", {
+		const response = await fetch("https://" + window.location.host + "/user", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

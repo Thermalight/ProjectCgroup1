@@ -1,10 +1,10 @@
 <script>
     import { slide } from 'svelte/transition';
+    import { onDestroy, onMount } from 'svelte';
     import Notification from "./Notification.svelte"
     import Filter from "./Filter.svelte"
-    import { onDestroy } from 'svelte';
     export let mapComponent
-    
+
     let notifications;
     let loading = true;
     let refreshRate = 1000;
@@ -24,7 +24,7 @@
     }
 
     function getEvents() {
-        fetch("https://localhost/notifications", {
+        fetch("https://" + window.location.host + "/notifications", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,11 +40,11 @@
             changed = true
             refreshRate = 60000;
         })
-
-        onDestroy(() => {
-		    clearInterval(clear);
-	    });
     }
+
+    onDestroy(() => {
+        clearInterval(clear);
+    });
 </script>
 <div class="list" transition:slide>
     {#if notifications != null && !loading}

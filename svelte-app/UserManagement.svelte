@@ -11,7 +11,7 @@
 	
 	async function submitHandler() {
         if (UserJson.username && UserJson.password && UserJson.email) {
-            const response = await fetch("https://localhost/user", {
+            const response = await fetch("https://" + window.location.host + "/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,7 @@
 	}
 
     export async function loadUsers() { 
-        const response = await fetch("https://localhost/users", {
+        const response = await fetch("https://" + window.location.host + "/users", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@
     }
 
     async function deleteUser(guid) {
-		const response = await fetch("https://localhost/user/" + guid, {
+		const response = await fetch("https://" + window.location.host + "/user/" + guid, {
             method: "DELETE",
         });
         return await response.json();
