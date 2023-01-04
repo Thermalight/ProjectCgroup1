@@ -44,7 +44,7 @@
     <button style="height: 24px;" class="bg-white border-0 border-transparent focus:border-transparent focus:ring-0" on:click={openFilter}><span class="material-symbols-outlined">settings</span></button>
     { #if changed && filterBool }
         {returnNada(handleSubmit())}
-        {changed = false}
+        {returnNada(changed = false)}
     { /if }
     { #if open}
         <div>
