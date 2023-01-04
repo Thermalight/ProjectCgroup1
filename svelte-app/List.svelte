@@ -36,12 +36,14 @@
         .then(response => response.json())
         .then(data => {
             notifications = data
+            addNotifs(notifications, true)
             changed = true
         })
         .then(() => {
             loading = false;
             changed = true
-            refreshRate = 60000;
+            refreshRate = 10000;
+            
         })
     }
 
