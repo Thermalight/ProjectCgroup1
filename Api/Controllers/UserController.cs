@@ -29,9 +29,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(422)]
     [Route("/users")]
-    public async Task<IActionResult> AddUser([FromBody] GetUser user)
+    public IActionResult AddUser([FromBody] GetUser user)
     {
-        var result = await _databaseService.AddUser(user);
+        var result = _databaseService.AddUser(user);
         if (result)
             return Ok();
         return UnprocessableEntity();
@@ -42,9 +42,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [Route("/{guid}")]
-    public async Task<IActionResult> DeleteUser(Guid guid)
+    public IActionResult DeleteUser(Guid guid)
     {
-        var result = await _databaseService.DeleteUser(guid);
+        var result = _databaseService.DeleteUser(guid);
         if (result)
             return Ok();
         return NotFound();
@@ -54,9 +54,9 @@ public class UserController : ControllerBase
     [Authorize("Admin")]
     [ProducesResponseType(200)]
     [ProducesResponseType(422)]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUser user)
+    public IActionResult UpdateUser([FromBody] UpdateUser user)
     {
-        var result = await _databaseService.UpdateUser(user);
+        var result = _databaseService.UpdateUser(user);
         if (result)
             return Ok();
         return UnprocessableEntity();

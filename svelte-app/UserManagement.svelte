@@ -130,9 +130,3 @@
         </div>
     {/if}
 </div>
-<style>
-    #users{
-        width: inherit;
-        height: inherit;
-    }
-</style>

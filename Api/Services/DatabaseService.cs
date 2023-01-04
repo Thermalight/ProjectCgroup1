@@ -72,34 +72,34 @@ public class DatabaseService
         return false;
     }
 
-    public async Task<IResult> UpdateNotificationStatusAsync(Guid id, int status) {
+    public IResult UpdateNotificationStatus(Guid id, int status) {
         var DbContext = new SqliteDbContext();
-        var notification = await DbContext.Notifications.FindAsync(id);
+        var notification = DbContext.Notifications.Find(id);
         if (notification == null)
             return Results.NotFound();
 
         notification.StatusID = status;
-        await DbContext.SaveChangesAsync();
+        DbContext.SaveChanges();
 
         return Results.NoContent();
     }
 
-    public async Task<bool> AddUser(GetUser newUser)
+    public bool AddUser(GetUser newUser)
     {
         var dbContext = new SqliteDbContext();
         User User = new(newUser);
         User.Password = Bcrypt.HashPassword(User.Password);
         dbContext.Add(User);
-        var result = await dbContext.SaveChangesAsync();
+        var result = dbContext.SaveChanges();
 
         if (result == 1)
             return true;
         return false;
     }
 
-    public async Task<bool> DeleteUser(Guid userGuid)
+    public bool DeleteUser(Guid userGuid)
     {
-        var dbContext = new SqliteDbContext();
+        SqliteDbContext dbContext = new SqliteDbContext();
         User? User = dbContext.Users.Where(u => u.GUID == userGuid).FirstOrDefault();
         if (User == null)
             return false;
@@ -108,7 +108,7 @@ public class DatabaseService
         return true;
     }
 
-    public async Task<bool> UpdateUser(UpdateUser updatedUser)
+    public bool UpdateUser(UpdateUser updatedUser)
     {
         var dbContext = new SqliteDbContext();
 
@@ -133,7 +133,7 @@ public class DatabaseService
             updatedUser.Email = targetUser.Email;
 
         dbContext.Entry(targetUser).CurrentValues.SetValues(updatedUser);
-        var result = await dbContext.SaveChangesAsync();
+        var result = dbContext.SaveChanges();
 
         if (result == 1)
             return true;

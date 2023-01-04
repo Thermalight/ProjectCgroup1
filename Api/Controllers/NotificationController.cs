@@ -15,9 +15,9 @@ public class NotificationController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<IResult> UpdateNotification(string id, int status)
+    public IResult UpdateNotification(string id, int status)
     {
-        var res = await _databaseService.UpdateNotificationStatusAsync(Guid.Parse(id), status);
+        var res = _databaseService.UpdateNotificationStatus(Guid.Parse(id), status);
         return res;
     }
 
