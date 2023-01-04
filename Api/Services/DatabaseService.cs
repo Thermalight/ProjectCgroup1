@@ -156,7 +156,7 @@ public class DatabaseService
         return users;
     }
 
-    public User VerifyUserLogin(string email, string password)
+    public User? VerifyUserLogin(string email, string password)
     {
         var DbContext = new SqliteDbContext();
         var user = DbContext.Users.FirstOrDefault(u => u.Email == email);

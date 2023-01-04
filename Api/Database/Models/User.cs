@@ -6,9 +6,9 @@ public class User
 {
     [Key]
     public Guid GUID { get; set; } = Guid.NewGuid();
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public string Email { get; set; }
+    public string Username { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public string Email { get; set; } = null!;
     public bool IsAdmin { get; set; } = false;
     public Subscriber? Subscriber { get; set; } = null;
 
@@ -24,10 +24,14 @@ public class User
 
     public User(UpdateUser updatedUser)
     {
-        GUID = updatedUser.GUID;
-        Username = updatedUser.Username;
-        Password = updatedUser.Password;
-        Email = updatedUser.Email;
-        IsAdmin = updatedUser.IsAdmin;
+        if (updatedUser != null)
+        {
+            GUID = updatedUser.GUID;
+            Username = updatedUser.Username;
+            Password = updatedUser.Password;
+            Email = updatedUser.Email;
+            IsAdmin = updatedUser.IsAdmin;
+        }
+        
     }
 }
