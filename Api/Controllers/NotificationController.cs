@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ChengetaWebApp.Api.Services;
+using ChengetaWebApp.Api.Database.Models;
 
-[Route("")]
+[Route("notifications")]
 [ApiController]
 public class NotificationController : ControllerBase
 {
@@ -12,22 +13,21 @@ public class NotificationController : ControllerBase
         _databaseService = databaseService;
     }
 
-    [HttpGet]
-    [Authorize]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [Route("/notifications")]
-    public IActionResult GetNotifications()
-    {
-        return Ok(_databaseService.GetAllNotifications());
-    }
-
     [HttpPost]
     [Authorize]
-    [Route("/notifications")]
     public async Task<IResult> UpdateNotification(string id, int status)
     {
         var res = await _databaseService.UpdateNotificationStatusAsync(Guid.Parse(id), status);
         return res;
+    }
+
+    /// <summary>
+    /// Get all notifications with a limit
+    /// </summary>
+    [HttpGet]
+    [Authorize]
+    public IEnumerable<Notification> GetNotifications([FromQuery] int limit = -1)
+    {
+        return _databaseService.GetAllNotifications(limit);
     }
 }

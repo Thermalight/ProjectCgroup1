@@ -25,10 +25,9 @@ public class RootController : ControllerBase
         };
     }
 
-    [HttpGet]
+    [HttpGet("/{**any}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    [Route("/{**any}")]
     public ContentResult GetSpecified()
     {
         return new ContentResult

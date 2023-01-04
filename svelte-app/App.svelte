@@ -15,9 +15,14 @@
         "usermanagement": UserManagement,
         "": Root
     }
-
+    
     $currentPage = location.pathname.split(/[/?#]/g)[1];
     $: document.title = ($currentPage || "home");
+
+    if (!location.pathname.startsWith("/login") && !localStorage.getItem("token")) {
+        window.location.pathname = "/login";
+    }
+
 </script>
 <style global lang="postcss">
 

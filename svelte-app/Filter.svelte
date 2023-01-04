@@ -9,18 +9,18 @@
     
     const returnNada = () => '';
     function getEvents() {
-        fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
+        fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: useRange ? range : 10
         }), {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
             },
         })
         .then(response => response.json())
         .then(data => notifications = data)
         .then(() => changed = true)
-
     }
 
     function openFilter(){

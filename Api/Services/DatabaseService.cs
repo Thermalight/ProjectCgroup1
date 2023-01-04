@@ -37,21 +37,26 @@ public class DatabaseService
 
     public async Task AddNotificationAsync(Notification notification)
     {
-        await using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         await DbContext.AddAsync(notification);
         await DbContext.SaveChangesAsync();
     }
 
-    public List<Notification> GetAllNotifications()
+    public IEnumerable<Notification> GetAllNotifications(int limit = -1)
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var notifications = DbContext.Notifications.ToList();
-        return notifications.OrderByDescending(x => x.Time).ToList();
+
+        IEnumerable<Notification> sorted = notifications.OrderByDescending(x => x.Time);
+        if (limit < notifications.Count() && limit > 0)
+            sorted = sorted.Take(limit);
+        
+        return sorted;
     }
 
     public bool UserAuthentication(string FunctionUsername, string FunctionPassword, HttpContext context)
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var user = (from item in DbContext.Users
                     where item.Email == FunctionUsername
                     select item).FirstOrDefault();
@@ -137,7 +142,7 @@ public class DatabaseService
 
     public List<UserDto> GetAllUsers()
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var queriable = DbContext.Users.AsQueryable();
 
         var users = queriable.Select(u => new UserDto() {
@@ -154,7 +159,7 @@ public class DatabaseService
     public User VerifyUserLogin(string email, string password)
     {
         var DbContext = new SqliteDbContext();
-        var user = DbContext.Users.Single(u => u.Email == email);
+        var user = DbContext.Users.FirstOrDefault(u => u.Email == email);
         if (user != null && Bcrypt.Verify(password, user.Password))
             return new User()
             {

@@ -6,8 +6,8 @@
     let updateUserFormOpen = false
     let addUserFormOpen = false
     let formsClosed = true;
-    let UserJson = {username : "", password: "", email: "", IsAdmin: false};
-    let updateUserJson = {username : "", password: "", email: "", IsAdmin: false};
+    let UserJson = {username : "", password: "", email: "", isAdmin: false};
+    let updateUserJson = {username : "", password: "", email: "", isAdmin: false};
 	
 	async function submitHandler() {
         if (UserJson.username && UserJson.password && UserJson.email) {
@@ -15,6 +15,7 @@
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
             },
             body: JSON.stringify(UserJson),
         });
@@ -28,6 +29,7 @@
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
             },
         });
         return await response.json();
@@ -35,13 +37,17 @@
 
     async function deleteUser(guid) {
 		const response = await fetch("https://" + window.location.host + "/user/" + guid, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
+            },
             method: "DELETE",
         });
         return await response.json();
 	}
 
     function updateFormHandler(user) {
-        updateUserJson = {username: user.Username, email: user.Email, IsAdmin: user.IsAdmin, Guid: user.Guid};
+        updateUserJson = {username: user.username, email: user.email, isAdmin: user.isAdmin, Guid: user.guid};
         updateUserFormOpen = !updateUserFormOpen;
         formsClosed = !formsClosed;
     }
@@ -76,7 +82,7 @@
                     <Input type="password" label="Password" bind:value={UserJson.password} />
                     <Input type="email" label="Email" bind:value={UserJson.email}/>
                     <label class="text-white" for="isadmin">Is Admin: </label>
-                    <input type="checkbox" label="isAdmin" bind:checked={UserJson.IsAdmin}/><br>
+                    <input type="checkbox" label="isAdmin" bind:checked={UserJson.isAdmin}/><br>
                     <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
                 </form>
             </div>
@@ -108,10 +114,10 @@
             {:then data}
             <div class="user overflow-auto">
                 {#each data as user}
-                    {#if user.Username.toLowerCase().includes(searchTerm.toLowerCase())}
+                    {#if user.username.toLowerCase().includes(searchTerm.toLowerCase())}
                         <div class="userEntry p-4 text-white bg-primary-dark mb-2 mt-2 rounded-lg">
                             <User user={user} />
-                            <button class="text-white border-transparent focus:border-transparent focus:ring-0" type="submit" on:click={() => deleteUser(user.Guid)}><span class="material-symbols-outlined">delete</span></button>
+                            <button class="text-white border-transparent focus:border-transparent focus:ring-0" type="submit" on:click={() => deleteUser(user.guid)}><span class="material-symbols-outlined">delete</span></button>
                             <button class="text-white border-transparent focus:border-transparent focus:ring-0 pl-5" type="submit"on:click={() => updateFormHandler(user)}><span class="material-symbols-outlined">manage_accounts</span></button> 
                         </div>
                     {/if}

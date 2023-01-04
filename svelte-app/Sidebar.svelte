@@ -1,5 +1,7 @@
 <script>
     import Link from "./Link.svelte"
+    import jwt_decode from "jwt-decode";
+    
     function getCookie(name) {
         const cDecoded = decodeURIComponent(document.cookie);
         const cArray = cDecoded.split("; ")
@@ -29,7 +31,7 @@
                 <li>
                     <Link on:click={close} href="notificationpage">Notifications</Link>
                 </li>
-                {#if getCookie("Admin") == "True"}
+                {#if jwt_decode(localStorage.getItem("token")).admin == "True"}
                     <li>
                         <Link on:click={close} href="usermanagement">User Management</Link>
                     </li>
