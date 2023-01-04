@@ -32,6 +32,7 @@ app.Services.GetRequiredService<DatabaseService>().Setup();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseEndpoints(endpoints =>
@@ -39,6 +40,11 @@ app.UseEndpoints(endpoints =>
     var _databaseService = app.Services.GetRequiredService<DatabaseService>();
 
     endpoints.MapGet("/", async context =>
+    {
+        context.Response.Headers.Add("Content-Type", "text/html");
+        await context.Response.WriteAsync(System.IO.File.ReadAllText(@"./wwwroot/index.html"));
+    });
+    endpoints.MapGet("/{**any}", async context =>
     {
         context.Response.Headers.Add("Content-Type", "text/html");
         await context.Response.WriteAsync(System.IO.File.ReadAllText(@"./wwwroot/index.html"));
