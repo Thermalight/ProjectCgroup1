@@ -6,20 +6,31 @@
     let updateUserFormOpen = false
     let addUserFormOpen = false
     let formsClosed = true;
-    let UserJson = {username : "", password: "", email: "", isAdmin: false};
+    let UserJson = {
+        username : "", 
+        password: "", 
+        email: "", 
+        isAdmin: false
+    };
+    let data;
     let updateUserJson = {username : "", password: "", email: "", isAdmin: false};
+
+    async function reload(){
+        data = await loadUsers();
+    }
 	
 	async function submitHandler() {
         if (UserJson.username && UserJson.password && UserJson.email) {
-            const response = await fetch("https://" + window.location.host + "/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + localStorage.getItem("token")
-            },
-            body: JSON.stringify(UserJson),
-        });
-        return await response.json();
+                const response = await fetch("https://" + window.location.host + "/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + localStorage.getItem("token")
+                },
+                body: JSON.stringify(UserJson),
+            });
+            reload();
+            return await response.json();
         }
         return;
 	}
@@ -36,13 +47,14 @@
     }
 
     async function deleteUser(guid) {
-		const response = await fetch("https://" + window.location.host + "/user/" + guid, {
+		const response = await fetch("https://" + window.location.host + "/users/" + guid, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + localStorage.getItem("token")
             },
             method: "DELETE",
         });
+        reload();
         return await response.json();
 	}
 
@@ -109,9 +121,9 @@
     {#if formsClosed}
         <div style="background-color:#363e4c; height: 55%;" class="m-6 mb-0 content-center overflow-auto">
             <!-- display users -->
-            {#await loadUsers()}
+            {#await reload()}
                 <p class="text-white">waiting...</p>
-            {:then data}
+            {:then}
             <div class="user overflow-auto">
                 {#each data as user}
                     {#if user.username.toLowerCase().includes(searchTerm.toLowerCase())}

@@ -31,6 +31,12 @@ public class UserController : ControllerBase
     [Route("/users")]
     public IActionResult AddUser([FromBody] GetUser user)
     {
+        // log all the user fields
+        Console.WriteLine(user.Username);
+        Console.WriteLine(user.Password);
+        Console.WriteLine(user.Email);
+        Console.WriteLine(user.IsAdmin);
+
         var result = _databaseService.AddUser(user);
         if (result)
             return Ok();
@@ -41,10 +47,10 @@ public class UserController : ControllerBase
     [Authorize("Admin")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    [Route("/{guid}")]
-    public IActionResult DeleteUser(Guid guid)
+    [Route("{guid}")]
+    public IActionResult DeleteUser(string guid)
     {
-        var result = _databaseService.DeleteUser(guid);
+        var result = _databaseService.DeleteUser(Guid.Parse(guid));
         if (result)
             return Ok();
         return NotFound();
