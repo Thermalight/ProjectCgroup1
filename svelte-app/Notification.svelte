@@ -42,12 +42,12 @@
 
                 <p class="font-bold">{event.sound_type}</p>
                 <Status status={event.StatusID} GUID={event.Guid}/>
-                <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
-                <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
+                <p class="text-gray-400">Probability: {event.Probability}%</p>
+                <p class="text-gray-400">Node: {event.NodeID}</p>
                 {#if open}
                     <div transition:slide>
-                        <p class="text-gray-400">Probability: {event.Probability}</p>
-                        <p class="text-gray-400">Node: {event.NodeID}</p>
+                        <p class="text-gray-400">latitude: {round(event.Latitude)}</p>
+                        <p class="text-gray-400">longitude: {round(event.Longitude)}</p>
                     </div>
                 {/if}
                 <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
