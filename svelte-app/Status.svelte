@@ -19,7 +19,7 @@
 
     function changeStatus() {
         status = 1 + status % getDictLength(table);
-        fetch(`https://localhost/notifications?id=${GUID}&status=${status}`, {
+        fetch("https://" + window.location.host + `/notifications?id=${GUID}&status=${status}`, {
             method: 'POST',
         });
     }

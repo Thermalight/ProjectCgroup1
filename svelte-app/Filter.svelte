@@ -6,7 +6,7 @@
     export let changed
 
     function getEvents() {
-        fetch("https://localhost/limitnotifications?"+ new URLSearchParams({
+        fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
             limit: useRange ? range : 10
         }), {
             method: 'GET',
