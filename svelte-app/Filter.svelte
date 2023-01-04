@@ -53,6 +53,6 @@
         </div>
         <button class="bg-white" on:click={() => {
             onSave()
-        }}>Reload</button>
+        }}>Save</button>
     { /if }
 </div>
