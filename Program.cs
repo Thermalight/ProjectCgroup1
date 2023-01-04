@@ -3,8 +3,6 @@ using ChengetaWebApp.Api.Database.Models;
 using ChengetaWebApp.Api.Services.MqttHandler;
 using System.Text.Json;
 
-using Bcrypt = BCrypt.Net.BCrypt;
-
 if (File.Exists("./.env"))
 {
     foreach (var line in File.ReadAllLines("./.env"))
@@ -41,6 +39,11 @@ app.UseEndpoints(endpoints =>
     var _databaseService = app.Services.GetRequiredService<DatabaseService>();
 
     endpoints.MapGet("/", async context =>
+    {
+        context.Response.Headers.Add("Content-Type", "text/html");
+        await context.Response.WriteAsync(System.IO.File.ReadAllText(@"./wwwroot/index.html"));
+    });
+    endpoints.MapGet("/{**any}", async context =>
     {
         context.Response.Headers.Add("Content-Type", "text/html");
         await context.Response.WriteAsync(System.IO.File.ReadAllText(@"./wwwroot/index.html"));
