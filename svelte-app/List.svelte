@@ -11,8 +11,9 @@
     export let addNotifs
     let changed
     let filterBool = false
+    let range = 10;
 
-    let handleSubmit = () =>{
+    let handleSubmit = () => {
         addNotifs(notifications, true)
         changed = !changed
     }
@@ -24,7 +25,9 @@
     }
 
     function getEvents() {
-        fetch("https://" + window.location.host + "/notifications", {
+        fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
+            limit: range
+        }), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +51,7 @@
 </script>
 <div class="list" transition:slide>
     {#if notifications != null && !loading}
-        <Filter bind:notifications={notifications} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
+        <Filter bind:notifications={notifications} bind:range={range} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
         {#if changed && !filterBool}
             {handleSubmit()}
         {/if}
