@@ -150,4 +150,19 @@ public class DatabaseService
 
         return users;
     }
+
+    public User VerifyUserLogin(string email, string password)
+    {
+        var DbContext = new SqliteDbContext();
+        var user = DbContext.Users.Single(u => u.Email == email);
+        if (user != null && Bcrypt.Verify(password, user.Password))
+            return new User()
+            {
+                GUID = user.GUID,
+                Username = user.Username,
+                Email = user.Email,
+                IsAdmin = user.IsAdmin
+            };
+        return null;
+    }
 }
