@@ -17,6 +17,7 @@ public class MqttService
 
     private async Task HandleMessages()
     {
+        System.Console.WriteLine("starting mqtt service");
         var mqttFactory = new MqttFactory();
         using (var mqttClient = mqttFactory.CreateMqttClient())
         {

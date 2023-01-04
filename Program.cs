@@ -3,8 +3,6 @@ using ChengetaWebApp.Api.Database.Models;
 using ChengetaWebApp.Api.Services.MqttHandler;
 using System.Text.Json;
 
-using Bcrypt = BCrypt.Net.BCrypt;
-
 if (File.Exists("./.env"))
 {
     foreach (var line in File.ReadAllLines("./.env"))
