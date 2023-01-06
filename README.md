@@ -32,7 +32,7 @@ npm run dev
 - [Xunit](https://xunit.net/)
 
 ## website:
-[https://www.thechengeta.com/](https://www.thechengeta.com/)
+[https://www.thechengeta.tech/](https://www.thechengeta.tech/)
 
 ## how to deploy:
 ```
