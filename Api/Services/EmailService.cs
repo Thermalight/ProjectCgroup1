@@ -26,6 +26,8 @@ public class EmailService
 
         foreach (var subscriber in context.Subscribers)
         {
+            if (subscriber?.User?.Email == null)
+                continue;
             mail.To.Add(subscriber.User.Email);
         }
 

@@ -4,10 +4,10 @@
 {#if user}
     <div>
         <div class="content text-white">
-            <p>username: {user.Username}</p>
-            <p>email: {user.Email}</p>
-            <p>admin: {user.IsAdmin ? "True" : "False"}</p>
-            <p>subscribed: {user.Subscriber ? "True" : "False"}</p>
+            <p>username: {user.username}</p>
+            <p>email: {user.email}</p>
+            <p>admin: {user.isAdmin ? "True" : "False"}</p>
+            <p>subscribed: {user.subscriber ? "True" : "False"}</p>
         </div>
     </div>
 {/if}

@@ -6,21 +6,22 @@
     export let filterBool = false
     export let handleSubmit
     export let range
+    import { currentPage } from "./stores.js";
     
     const returnNada = () => '';
     function getEvents() {
-        fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
+        fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: useRange ? range : 10
         }), {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
             },
         })
         .then(response => response.json())
         .then(data => notifications = data)
         .then(() => changed = true)
-
     }
 
     function openFilter(){
@@ -49,7 +50,11 @@
     { #if open}
         <div>
             <input type="checkbox" bind:checked={useRange}>
-            <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { #if $currentPage == "notificationpage" }
+                <input type="number" min="1" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { :else }
+                <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { /if }
         </div>
         <button class="bg-white" on:click={() => {
             onSave()

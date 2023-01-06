@@ -20,6 +20,10 @@
     function changeStatus() {
         status = 1 + status % getDictLength(table);
         fetch("https://" + window.location.host + `/notifications?id=${GUID}&status=${status}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
+            },
             method: 'POST',
         });
     }

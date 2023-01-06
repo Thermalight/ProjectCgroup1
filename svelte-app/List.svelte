@@ -5,7 +5,7 @@
     import Filter from "./Filter.svelte"
     export let mapComponent
 
-    let notifications;
+    let notifications = [];
     let loading = true;
     let refreshRate = 1000;
     export let addNotifs
@@ -25,25 +25,27 @@
     }
 
     function getEvents() {
-        fetch("https://" + window.location.host + "/limitnotifications?"+ new URLSearchParams({
-            limit: range
+        fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
+            limit: range,
         }), {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + localStorage.getItem("token")
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            notifications = data
-            addNotifs(notifications, true)
-            changed = true
+        .then(response => {
+            response.json()
+            .then(data => {
+                notifications = data
+                addNotifs(notifications, true)
+                changed = true
+            })
         })
         .then(() => {
             loading = false;
             changed = true
             refreshRate = 10000;
-            
         })
     }
 
@@ -52,7 +54,7 @@
     });
 </script>
 <div class="list" transition:slide>
-    {#if notifications != null && !loading}
+    {#if notifications && !loading}
         <Filter bind:notifications={notifications} bind:range={range} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
         {#if changed && !filterBool}
             {handleSubmit()}
