@@ -24,9 +24,6 @@ public class TokenController : ControllerBase
     [Route("login")]
     public IActionResult Post([FromBody] Credentials loginCredentials)
     {
-        System.Console.WriteLine(loginCredentials.Email);
-        System.Console.WriteLine(loginCredentials.Password);
-
         if (loginCredentials == null || loginCredentials.Email == null || loginCredentials.Password == null)
             return BadRequest();
 

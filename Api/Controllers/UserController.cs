@@ -58,7 +58,7 @@ public class UserController : ControllerBase
     {
         var result = _databaseService.UpdateUser(user);
         if (result)
-            return Ok();
+            return NoContent();
         return UnprocessableEntity();
     }
 }

@@ -1,4 +1,5 @@
 <script>
+    import jwt_decode from "jwt-decode";
     import Dashboard from "./Dashboard.svelte"
     import List from "./ListDashboard.svelte"
     import Setting from "./Setting.svelte";
@@ -23,10 +24,12 @@
         window.location.pathname = "/login";
     }
 
-</script>
-<style global lang="postcss">
+    if (localStorage.getItem("token") && jwt_decode(localStorage.getItem("token")).exp < Date.now() / 1000) {
+        localStorage.removeItem("token");
+        window.location.pathname = "/login";
+    }
 
-</style>
+</script>
 <header>
     {#if $currentPage.toLowerCase() != "login"}
         <Navbar/>

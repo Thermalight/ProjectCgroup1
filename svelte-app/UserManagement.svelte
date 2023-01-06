@@ -59,7 +59,7 @@
 	}
 
     function updateFormHandler(user) {
-        updateUserJson = {username: user.username, email: user.email, isAdmin: user.isAdmin, Guid: user.guid};
+        updateUserJson = {username: user.username, email: user.email, isAdmin: user.isAdmin, guid: user.guid};
         updateUserFormOpen = !updateUserFormOpen;
         formsClosed = !formsClosed;
     }

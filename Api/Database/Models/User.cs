@@ -26,7 +26,7 @@ public class User
     {
         if (updatedUser != null)
         {
-            GUID = updatedUser.GUID;
+            GUID = updatedUser.Guid;
             Username = updatedUser.Username;
             Password = updatedUser.Password;
             Email = updatedUser.Email;

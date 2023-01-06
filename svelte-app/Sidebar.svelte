@@ -16,6 +16,7 @@
     export let open;
 
     const close = () => open = false;
+    const logout = () => localStorage.removeItem("token");
 </script>
 
 <div class="z-50">
@@ -38,6 +39,9 @@
                 {/if}
                 <li>
                     <Link on:click={close} href="settings">Settings</Link>
+                </li>
+                <li>
+                    <Link on:click={logout} href="login">Log Out</Link>
                 </li>
             </ul>
         </nav>

@@ -6,6 +6,7 @@
     export let filterBool = false
     export let handleSubmit
     export let range
+    import { currentPage } from "./stores.js";
     
     const returnNada = () => '';
     function getEvents() {
@@ -49,7 +50,11 @@
     { #if open}
         <div>
             <input type="checkbox" bind:checked={useRange}>
-            <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { #if $currentPage == "notificationpage" }
+                <input type="number" min="1" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { :else }
+                <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
+            { /if }
         </div>
         <button class="bg-white" on:click={() => {
             onSave()

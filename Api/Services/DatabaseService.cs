@@ -112,7 +112,7 @@ public class DatabaseService
     {
         var dbContext = new SqliteDbContext();
 
-        User UserUpdated = new(updatedUser);
+        User UserUpdated = new User(updatedUser);
         User targetUser = dbContext.Users.Single(user => user.GUID == UserUpdated.GUID);
 
         if (targetUser == null)
@@ -135,9 +135,7 @@ public class DatabaseService
         dbContext.Entry(targetUser).CurrentValues.SetValues(updatedUser);
         var result = dbContext.SaveChanges();
 
-        if (result == 1)
-            return true;
-        return false;
+        return true;
     }
 
     public List<UserDto> GetAllUsers()
