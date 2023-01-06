@@ -37,21 +37,26 @@ public class DatabaseService
 
     public async Task AddNotificationAsync(Notification notification)
     {
-        await using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         await DbContext.AddAsync(notification);
         await DbContext.SaveChangesAsync();
     }
 
-    public List<Notification> GetAllNotifications()
+    public IEnumerable<Notification> GetAllNotifications(int limit = -1)
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var notifications = DbContext.Notifications.ToList();
-        return notifications.OrderByDescending(x => x.Time).ToList();
+
+        IEnumerable<Notification> sorted = notifications.OrderByDescending(x => x.Time);
+        if (limit < notifications.Count() && limit > 0)
+            sorted = sorted.Take(limit);
+        
+        return sorted;
     }
 
     public bool UserAuthentication(string FunctionUsername, string FunctionPassword, HttpContext context)
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var user = (from item in DbContext.Users
                     where item.Email == FunctionUsername
                     select item).FirstOrDefault();
@@ -67,34 +72,34 @@ public class DatabaseService
         return false;
     }
 
-    public async Task<IResult> UpdateNotificationStatusAsync(Guid id, int status) {
+    public IResult UpdateNotificationStatus(Guid id, int status) {
         var DbContext = new SqliteDbContext();
-        var notification = await DbContext.Notifications.FindAsync(id);
+        var notification = DbContext.Notifications.Find(id);
         if (notification == null)
             return Results.NotFound();
 
         notification.StatusID = status;
-        await DbContext.SaveChangesAsync();
+        DbContext.SaveChanges();
 
         return Results.NoContent();
     }
 
-    public async Task<bool> AddUser(GetUser newUser)
+    public bool AddUser(GetUser newUser)
     {
         var dbContext = new SqliteDbContext();
         User User = new(newUser);
         User.Password = Bcrypt.HashPassword(User.Password);
         dbContext.Add(User);
-        var result = await dbContext.SaveChangesAsync();
+        var result = dbContext.SaveChanges();
 
         if (result == 1)
             return true;
         return false;
     }
 
-    public async Task<bool> DeleteUser(Guid userGuid)
+    public bool DeleteUser(Guid userGuid)
     {
-        var dbContext = new SqliteDbContext();
+        SqliteDbContext dbContext = new SqliteDbContext();
         User? User = dbContext.Users.Where(u => u.GUID == userGuid).FirstOrDefault();
         if (User == null)
             return false;
@@ -103,11 +108,11 @@ public class DatabaseService
         return true;
     }
 
-    public async Task<bool> UpdateUser(UpdateUser updatedUser)
+    public bool UpdateUser(UpdateUser updatedUser)
     {
         var dbContext = new SqliteDbContext();
 
-        User UserUpdated = new(updatedUser);
+        User UserUpdated = new User(updatedUser);
         User targetUser = dbContext.Users.Single(user => user.GUID == UserUpdated.GUID);
 
         if (targetUser == null)
@@ -128,16 +133,14 @@ public class DatabaseService
             updatedUser.Email = targetUser.Email;
 
         dbContext.Entry(targetUser).CurrentValues.SetValues(updatedUser);
-        var result = await dbContext.SaveChangesAsync();
+        var result = dbContext.SaveChanges();
 
-        if (result == 1)
-            return true;
-        return false;
+        return true;
     }
 
     public List<UserDto> GetAllUsers()
     {
-        using var DbContext = new SqliteDbContext();
+        var DbContext = new SqliteDbContext();
         var queriable = DbContext.Users.AsQueryable();
 
         var users = queriable.Select(u => new UserDto() {
@@ -149,5 +152,20 @@ public class DatabaseService
         }).ToList();
 
         return users;
+    }
+
+    public User? VerifyUserLogin(string email, string password)
+    {
+        var DbContext = new SqliteDbContext();
+        var user = DbContext.Users.FirstOrDefault(u => u.Email == email);
+        if (user != null && Bcrypt.Verify(password, user.Password))
+            return new User()
+            {
+                GUID = user.GUID,
+                Username = user.Username,
+                Email = user.Email,
+                IsAdmin = user.IsAdmin
+            };
+        return null;
     }
 }

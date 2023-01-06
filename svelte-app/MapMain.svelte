@@ -94,16 +94,16 @@ function checkColor(functionColor){
     {/if}
     {#if notifications != null}
         {#each notifications as notification}
-            {#if array.includes(notification.Guid) && statusDict[notification.Guid] != checkStatus(notification.StatusID)}
-                {returnNada(mapDict[notification.Guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID)).update())}
-                {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
+            {#if array.includes(notification.guid) && statusDict[notification.guid] != checkStatus(notification.statusID)}
+                {returnNada(mapDict[notification.guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.probability+"% status is "+checkStatus(notification.statusID)).update())}
+                {returnNada(statusDict[notification.guid] = checkStatus(notification.statusID))}
             {/if}
-            {#if !array.includes(notification.Guid)}
-                {returnNada(marker = (L.marker([notification.Latitude, notification.Longitude],{icon: checkColor(notification.sound_type)}).bindPopup(notification.sound_type+" with probablity of "+notification.Probability+"% status is "+checkStatus(notification.StatusID))).addTo(map))}
+            {#if !array.includes(notification.guid)}
+                {returnNada(marker = (L.marker([notification.latitude, notification.longitude],{icon: checkColor(notification.sound_type)}).bindPopup(notification.sound_type+" with probablity of "+notification.probability+"% status is "+checkStatus(notification.statusID))).addTo(map))}
                 {returnNada(arrayPins.push(marker))}
-                {returnNada(array.push(notification.Guid))}
-                {returnNada(mapDict[notification.Guid] = marker)}
-                {returnNada(statusDict[notification.Guid] = checkStatus(notification.StatusID))}
+                {returnNada(array.push(notification.guid))}
+                {returnNada(mapDict[notification.guid] = marker)}
+                {returnNada(statusDict[notification.guid] = checkStatus(notification.statusID))}
             {/if}
         {/each}
     {/if}

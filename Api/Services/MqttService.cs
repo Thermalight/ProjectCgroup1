@@ -13,7 +13,7 @@ public class MqttService
     {
         _databaseService = databaseService;
     }
-    public void Start() => HandleMessages();
+    public async void Start() => await HandleMessages();
 
     private async Task HandleMessages()
     {
