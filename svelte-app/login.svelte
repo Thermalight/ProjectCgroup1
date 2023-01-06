@@ -20,7 +20,6 @@
     }
 
     function submit() {
-        console.log(state);
         fetch("https://" + window.location.host + "/login", {
             method: "POST",
             body: JSON.stringify(state),

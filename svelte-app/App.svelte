@@ -29,6 +29,12 @@
         window.location.pathname = "/login";
     }
 
+    // send the user to the dashboard if the user is not an admin
+    if (location.pathname.startsWith("/usermanagement") && jwt_decode(localStorage.getItem("token")).admin != "True") {
+        window.location.pathname = "/dashboard";
+        $currentPage = "dashboard";
+    }
+
 </script>
 <header>
     {#if $currentPage.toLowerCase() != "login"}

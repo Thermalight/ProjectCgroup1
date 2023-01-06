@@ -26,7 +26,7 @@
 
     function getEvents() {
         fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
-            limit: range
+            limit: range,
         }), {
             method: 'GET',
             headers: {

@@ -35,7 +35,7 @@
             {/if}
             <Input type="email" label="Email" bind:value={user.email}/>
             <label class="text-white" for="isadmin">Is Admin: </label>
-            <input type="checkbox" label="isAdmin" bind:checked={user.IsAdmin}/><br>
+            <input type="checkbox" label="isAdmin" bind:checked={user.isAdmin}/><br>
             <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
         </form>
     </aside>
