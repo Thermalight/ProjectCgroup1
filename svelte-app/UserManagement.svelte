@@ -1,5 +1,4 @@
 <script>
-    import jwt_decode from 'jwt-decode';
     import User from './User.svelte';
     import Input from './Input.svelte';
     import UpdateUserForm from './UpdateUserForm.svelte';
