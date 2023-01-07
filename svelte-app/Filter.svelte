@@ -29,7 +29,7 @@
     }
     
     function onSave(){
-        notifications = getEvents()
+        getEvents()
         filterBool = true
     }
 

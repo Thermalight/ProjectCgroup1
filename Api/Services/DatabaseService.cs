@@ -7,7 +7,6 @@ namespace ChengetaWebApp.Api.Services;
 public class DatabaseService
 {
     private string DBLocation = "./Database.db";
-
     public async void Setup()
     {
         if(File.Exists(DBLocation))
@@ -157,7 +156,7 @@ public class DatabaseService
     public User? VerifyUserLogin(string email, string password)
     {
         var DbContext = new SqliteDbContext();
-        var user = DbContext.Users.FirstOrDefault(u => u.Email == email);
+        var user = DbContext.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
         if (user != null && Bcrypt.Verify(password, user.Password))
             return new User()
             {
