@@ -1,18 +1,6 @@
 <script>
     import Link from "./Link.svelte"
     import jwt_decode from "jwt-decode";
-    
-    function getCookie(name) {
-        const cDecoded = decodeURIComponent(document.cookie);
-        const cArray = cDecoded.split("; ")
-        let result = null;
-        cArray.forEach(Element =>{
-            if (Element.indexOf(name) == 0) {
-                result = Element.substring(name.length+1);
-            }
-        })
-        return result;
-    }
     export let open;
 
     const close = () => open = false;
