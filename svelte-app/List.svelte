@@ -12,6 +12,8 @@
     let changed
     let filterBool = false
     let range = 10;
+    let priority = -1;
+    let soundType = "";
 
     let handleSubmit = () => {
         addNotifs(notifications, true)
@@ -27,6 +29,8 @@
     function getEvents() {
         fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: range,
+            soundType: soundType,
+            priority: priority
         }), {
             method: 'GET',
             headers: {
@@ -55,7 +59,7 @@
 </script>
 <div class="list" transition:slide>
     {#if notifications && !loading}
-        <Filter bind:notifications={notifications} bind:range={range} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
+        <Filter bind:notifications={notifications} bind:range={range} bind:priority={priority} bind:soundType={soundType} bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
         {#if changed && !filterBool}
             {handleSubmit()}
         {/if}
