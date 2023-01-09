@@ -74,6 +74,10 @@
         border-bottom: 2px solid rgb(249, 249, 130);
     }
 
+    .thunder {
+        border-bottom: 2px solid #4B4BFF;
+    }
+
     .unknown {
         border-bottom: 2px solid grey;
     }
