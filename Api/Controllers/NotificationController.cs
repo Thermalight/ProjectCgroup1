@@ -26,8 +26,8 @@ public class NotificationController : ControllerBase
     /// </summary>
     [HttpGet]
     [Authorize]
-    public IEnumerable<Notification> GetNotifications([FromQuery] int limit = -1)
+    public IEnumerable<Notification> GetNotifications([FromQuery] GetNotificationsDto dto)
     {
-        return _databaseService.GetAllNotifications(limit);
+        return _databaseService.GetAllNotifications(dto);
     }
 }
