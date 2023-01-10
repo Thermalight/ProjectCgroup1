@@ -11,9 +11,14 @@
     { #if open }
     <div class="w-screen h-screen absolute -z-10 bg-black opacity-60 top-0 left-0" on:click={close} />
     { /if }
-    <aside class="absolute bg-gray-200 w-200 h-full top-0 bottom-0" class:open>
-        <nav class="p-12 text-xl">
+    <aside style="background-color:#111727" class="absolute w-200 h-full top-0 bottom-0" class:open>
+        <nav class="p-12 text-xl font-mono">
             <ul>
+                <li class="text-white font-bold pb-10">
+                    <p>
+                        Navigation
+                    </p>
+                </li>
                 <li>
                     <Link on:click={close} href="/">Dashboard</Link>
                 </li>
