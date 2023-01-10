@@ -42,7 +42,7 @@
 
 <div class="mb-3">
     <p class="text-white">Max notifications: {range}</p>
-    <button style="height: 24px;" on:click={openFilter} class="border-0 focus:border-transparent focus:ring-0">
+    <button style="height: 24px;" on:click={openFilter} class="border-0 focus:border-transparent focus:ring-0 active:!bg-transparent">
         <span class="material-symbols-outlined text-white bg-primary-dark p-3 rounded-full">
             settings
         </span>

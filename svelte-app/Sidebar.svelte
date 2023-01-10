@@ -11,7 +11,7 @@
     { #if open }
     <div style="z-index: 50;" class="w-screen h-screen absolute bg-black opacity-60 top-0 left-0" on:click={close} />
     { /if }
-    <aside style="background-color:#111727; z-index: 100;" class="absolute max-w-max h-full top-0 bottom-0" class:open>
+    <aside style="background-color:#111727; z-index: 100; box-shadow: -20px 0 0 0 #111727;" class="absolute max-w-max h-full top-0 bottom-0" class:open>
         <nav class="p-12 pt-8 pl-6 text-xl font-mono">
             <span class="text-white material-symbols-outlined absolute -right-3 top-6 bg-primary-light p-3 rounded-full shadow-2xl" on:click={close}>
                 arrow_back
@@ -71,13 +71,13 @@
 
 <style>
     aside {
-        left: -100%;
-        transition: left 0.3s ease-in-out;
+        transform: translateX(-120%);
+        transition: transform 0.3s ease-in-out;
         border-radius: 0 40px 0 0;
     }
     
     .open {
-        left: 0;
+        transform: initial;
     }
 
     span {

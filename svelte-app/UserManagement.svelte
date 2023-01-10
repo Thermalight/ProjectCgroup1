@@ -94,32 +94,30 @@
                         <Input type="text" icon="person" label="Username" bind:value={UserJson.username} />
                         <Input type="password" icon="lock" label="Password" bind:value={UserJson.password} />
                         <Input type="email" icon="mail" label="Email" bind:value={UserJson.email}/>
-                        <p class="text-white mb-1">Account Type:</p>
+                        <p class="text-white">Account Type:</p>
                         <div class="pr-1 relative">
                             <span class="material-symbols-outlined text-white relative top-1 -left-1">
                                 shield
                             </span>
-                            <select bind:value={UserJson.isAdmin} class="mb-5">
+                            <select bind:value={UserJson.isAdmin} class="mt-2 mb-5 p-2 px-3 text-white bg-gray-800 border-0 rounded-full">
                                 <option value={false}>User</option>
                                 <option value={true}>Admin</option>
                             </select>
                         </div>
                         <br>
-                        <button style="transform: translate(-50%, 0);" class="absolute left-1/2 bg-white px-8 py-2 border-none border-r-4 text-gray-800">submit</button>
+                        <button style="transform: translate(-50%, 0);" class="absolute left-1/2 bg-gray-800 px-8 py-2 border-0 text-white rounded-md">submit</button>
                     </form>
                 </div>
             </div>
         { :else }
             <div>
                 <!-- input field to filter users -->
-                <div class="mx-6 mt-6 grid rounded-2xl content-center relative bg-white">
-                    <label class="p-auto m-auto content-center absolute top-2 left-3" for>
-                        <span class="material-symbols-outlined">
-                            search
-                        </span>
-                    </label>
-                    <input class="p-2 w-9/12 m-auto border-none focus:outline-none" bind:value={searchTerm} type="text" placeholder="Username"/>
-                </div>
+                <label class="flex mx-6 mt-6 rounded-2xl content-center relative bg-white items-center">
+                    <span class="material-symbols-outlined ml-2">
+                        search
+                    </span>
+                    <input class="flex-grow-[1] p-2 w-full bg-transparent border-none focus:outline-none" bind:value={searchTerm} type="text" placeholder="Username"/>
+                </label>
             </div>
         { /if }
     </div>
