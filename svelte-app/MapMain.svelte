@@ -48,37 +48,31 @@ function removeAllLocations(){
     
 }
 function checkStatus(status){
-    if (status == 1){
-        return "Not handled"
-    }
-    else if (status == 2){
-        return "Being handled"
-    }
-    else if (status == 3){
-
-        return "Handled"
-    }
-    else if (status == 4){
-        return "False alarm"
-    }
-    else{
-        return "Not handled"
+    switch (status) {
+        case 1:
+            return "Not handled"
+        case 2:
+            return "Being handled"
+        case 3:
+            return "Handled"
+        case 4:
+            return "False alarm"
+        default:
+            return "Not handled"
     }
 }
 function checkColor(functionColor){
-    if (functionColor == "gunshot"){
-        return redIcon
-    }
-    else if (functionColor == "animal"){
-        return yellowIcon
-    }
-    else if (functionColor == "vehicle"){
-        return orangeIcon
-    }else if (functionColor == "thunder"){
-        return blueIcon
-    }
-    else{
-        return greyIcon
+    switch (functionColor) {
+        case "gunshot":
+            return redIcon
+        case "animal":
+            return yellowIcon
+        case "vehicle":
+            return orangeIcon
+        case "thunder":
+            return blueIcon
+        default:
+            return greyIcon
     }
 }
 </script>
