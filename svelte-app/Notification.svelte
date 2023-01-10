@@ -30,7 +30,7 @@
 {#if event != null}
     <div on:click={mapComponent.flyToLocation(event.latitude, event.longitude)}>
         <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
-            <div class="content">
+            <div class="content relative">
                 <button 
                 on:click={toggleSound} 
                 class="border-transparent focus:border-transparent focus:ring-0">
@@ -38,7 +38,7 @@
                 </button>
 
                 <p class="font-bold">{event.sound_type}</p>
-                <Status status={event.statusID} GUID={event.guid}/>
+                <Status status={event.statusID} GUID={event.guid} class="-mt-4"/>
                 <p class="text-gray-400">Probability: {event.probability}%</p>
                 <p class="text-gray-400">Node: {event.nodeID}</p>
                 {#if open}
