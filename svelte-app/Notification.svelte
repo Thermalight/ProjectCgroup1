@@ -33,20 +33,22 @@
             <div class="content relative">
                 <button 
                 on:click={toggleSound} 
-                class="border-transparent focus:border-transparent focus:ring-0">
+                class="border-transparent focus:border-transparent focus:ring-0 absolute top-0 left-2">
                         <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
                 </button>
 
-                <p class="font-bold">{event.sound_type}</p>
-                <Status status={event.statusID} GUID={event.guid} class="-mt-4"/>
-                <p class="text-gray-400">Probability: {event.probability}%</p>
-                <p class="text-gray-400">Node: {event.nodeID}</p>
-                {#if open}
-                    <div transition:slide>
-                        <p class="text-gray-400">latitude: {round(event.latitude)}</p>
-                        <p class="text-gray-400">longitude: {round(event.longitude)}</p>
-                    </div>
-                {/if}
+                <Status status={event.statusID} GUID={event.guid}/>
+                <div class="relative left-8">
+                    <p class="font-bold">{event.sound_type}</p>
+                    <p class="text-gray-400">Probability: {event.probability}%</p>
+                    <p class="text-gray-400">Node: {event.nodeID}</p>
+                    {#if open}
+                        <div transition:slide>
+                            <p class="text-gray-400">latitude: {round(event.latitude)}</p>
+                            <p class="text-gray-400">longitude: {round(event.longitude)}</p>
+                        </div>
+                    {/if}
+                </div>
                 <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
                 <p class="text-right">{new Date(event.time*1000).getHours()}:{new Date(event.time*1000).getMinutes() < 10 ? "0" + new Date(event.time*1000).getMinutes() : new Date(event.time*1000).getMinutes()}</p>
             </div>
