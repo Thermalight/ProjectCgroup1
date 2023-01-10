@@ -1,20 +1,19 @@
 <script>
     import { slide } from 'svelte/transition';
     import { onDestroy, onMount } from 'svelte';
-    import { priority, soundType, notification_count, notifications } from "./stores.js";
+    import { probability, soundType, notification_count, notifications, changedNotifications } from "./stores.js";
     import Notification from "./Notification.svelte"
     import Filter from "./Filter.svelte"
     export let mapComponent
 
     let loading = true;
     let refreshRate = 1000;
-    export let addNotifs
-    let changed
+    let changed = false;
     let filterBool = false
 
     let handleSubmit = () => {
-        addNotifs($notifications, true)
-        changed = !changed
+        $changedNotifications = true
+        changed = true;
     }
 
     let clear
@@ -27,7 +26,7 @@
         fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: $notification_count,
             soundType: $soundType,
-            priority: $priority
+            probability: $probability
         }), {
             method: 'GET',
             headers: {
@@ -39,8 +38,8 @@
             response.json()
             .then(data => {
                 $notifications = data
-                addNotifs($notifications, true)
                 changed = true
+                $changedNotifications = true
             })
         })
         .then(() => {
@@ -58,7 +57,7 @@
     {#if $notifications && !loading}
         <Filter bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
         {#if changed && !filterBool}
-            {handleSubmit()}
+            {handleSubmit() ? "" : ""}
         {/if}
         {#each $notifications as event}
             <div transition:slide>
