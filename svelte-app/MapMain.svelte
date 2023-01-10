@@ -1,7 +1,7 @@
 <script >
 import L from "leaflet";
 import { onMount } from 'svelte';
-import { redIcon, orangeIcon, yellowIcon, greyIcon } from './leaflet-color-markers'
+import { redIcon, orangeIcon, yellowIcon, greyIcon, blueIcon} from './leaflet-color-markers'
 
 export let notifications;
 export let changedNotifications = false
@@ -74,6 +74,8 @@ function checkColor(functionColor){
     }
     else if (functionColor == "vehicle"){
         return orangeIcon
+    }else if (functionColor == "thunder"){
+        return blueIcon
     }
     else{
         return greyIcon
