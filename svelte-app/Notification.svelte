@@ -25,6 +25,10 @@
             audio.currentTime = 0;
         }
     }
+
+    audio.onended = function() {
+        play = false
+    }
 </script>
 
 {#if event != null}
@@ -32,7 +36,7 @@
         <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
             <div class="content">
                 <button 
-                on:click={toggleSound} 
+                on:click|stopPropagation={toggleSound} 
                 class="border-transparent focus:border-transparent focus:ring-0">
                         <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
                 </button>
