@@ -30,6 +30,7 @@
                 body: JSON.stringify(UserJson),
             });
             reload();
+            UserJson = {username : "", password: "", email: "", isAdmin: false};
             return await response.json();
         }
         return;
@@ -75,40 +76,51 @@
     }
 </script>
 
-<div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
-    <div style="background-color:#111727;"class="flex justify-center h-16 rounded-t-2xl p-auto">
+<div style="background-color:#363e4c; height: 100%;" class="m-auto">
+    <div style="background-color:#111727;"class="flex justify-center h-16 p-auto">
         <h1 class="text-2xl text-white m-auto">User management</h1>
     </div>
    
     <div>
         <!-- input form to add users -->
-        <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none ml-6 mt-6 p-auto" type="submit"on:click={() => addUserForm()}>add user</button>
+        <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none ml-6 mt-6 p-auto" type="submit"on:click={() => addUserForm()}>{addUserFormOpen ? "Back " : "Add user"}</button>
         {#if updateUserFormOpen}
             <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none mr-6 mt-6 p-auto" type="submit"on:click={() => cancel()}>cancel changes</button>
         {/if}
         {#if addUserFormOpen}
-            <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-                <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Add User</p>
-                <form on:submit|preventDefault={submitHandler} class="pl-4 my-6 mr-6">
-                    <Input type="text" label="Username" bind:value={UserJson.username} />
-                    <Input type="password" label="Password" bind:value={UserJson.password} />
-                    <Input type="email" label="Email" bind:value={UserJson.email}/>
-                    <label class="text-white" for="isadmin">Is Admin: </label>
-                    <input type="checkbox" label="isAdmin" bind:checked={UserJson.isAdmin}/><br>
-                    <button class="bg-white px-8 py-2 mt-1 border-none border-r-4 text-gray-800">submit</button>
-                </form>
+            <p class="mb-2 text-xl font-medium dark:text-white text-white text-center m-auto w-full">Create account</p>
+            <div class="p-4">
+                <div style="background-color:#111727;" class="grid rounded-2xl content-center relative w-full">
+                    <form on:submit|preventDefault={submitHandler} class="px-12 pt-12 pb-16 w-full relative">
+                        <Input type="text" icon="person" label="Username" bind:value={UserJson.username} />
+                        <Input type="password" icon="lock" label="Password" bind:value={UserJson.password} />
+                        <Input type="email" icon="mail" label="Email" bind:value={UserJson.email}/>
+                        <p class="text-white">Account Type:</p>
+                        <div class="pr-1 relative">
+                            <span class="material-symbols-outlined text-white relative top-1 -left-1">
+                                shield
+                            </span>
+                            <select bind:value={UserJson.isAdmin} class="mt-2 mb-5 p-2 px-3 text-white bg-gray-800 border-0 rounded-full">
+                                <option value={false}>User</option>
+                                <option value={true}>Admin</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button style="transform: translate(-50%, 0);" class="absolute left-1/2 bg-gray-800 px-8 py-2 border-0 text-white rounded-md">submit</button>
+                    </form>
+                </div>
             </div>
-        {/if}
-        <div>
-            <!-- input field to filter users -->
-            <div style="background-color:#111727;" class="mx-6 mt-6 grid rounded-2xl content-center">
-                <p class="block mb-2 font-medium dark:text-white text-white text-center">Filter by name </p>
-                <label class="p-auto m-auto content-center" for="">
-                    <p class="text-white text-center text-sm">Type in username:</p>
-                    <input class="mb-2" bind:value={searchTerm} type="text" />
+        { :else }
+            <div>
+                <!-- input field to filter users -->
+                <label class="flex mx-6 mt-6 rounded-2xl content-center relative bg-white items-center">
+                    <span class="material-symbols-outlined ml-2">
+                        search
+                    </span>
+                    <input class="flex-grow-[1] p-2 w-full bg-transparent border-none focus:outline-none" bind:value={searchTerm} type="text" placeholder="Username"/>
                 </label>
             </div>
-        </div>
+        { /if }
     </div>
 
     {#if updateUserFormOpen}
@@ -119,12 +131,12 @@
     {/if}
 
     {#if formsClosed}
-        <div style="background-color:#363e4c; height: 55%;" class="m-6 mb-0 content-center overflow-auto">
+        <div style="background-color:#363e4c; height: 100%;" class="m-6 mb-0 content-center overflow-auto">
             <!-- display users -->
             {#await reload()}
                 <p class="text-white">waiting...</p>
             {:then}
-            <div class="user overflow-auto">
+            <div class="user overflow-auto pb-72">
                 {#each data as user}
                     {#if user.username.toLowerCase().includes(searchTerm.toLowerCase())}
                         <div class="userEntry p-4 text-white bg-primary-dark mb-2 mt-2 rounded-lg">
@@ -142,3 +154,9 @@
         </div>
     {/if}
 </div>
+<style>
+    form > * {
+        margin: auto;
+        text-align: center;
+    }
+</style>

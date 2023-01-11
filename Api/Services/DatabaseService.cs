@@ -79,7 +79,12 @@ public class DatabaseService
     {
         var dbContext = new SqliteDbContext();
         User User = new(newUser);
+        // check if user already exists
+        if (dbContext.Users.Where(u => u.Email == User.Email).FirstOrDefault() != null)
+            return false;
+        // hash the given password
         User.Password = Bcrypt.HashPassword(User.Password);
+        // add the user to the database and save
         dbContext.Add(User);
         var result = dbContext.SaveChanges();
 

@@ -50,15 +50,18 @@
     }
 </script>
 
-<div>
-    
-    <button style="height: 24px;" class="bg-white border-0 border-transparent focus:border-transparent focus:ring-0" on:click={openFilter}><span class="material-symbols-outlined">settings</span></button>
+<div class="mb-3">
+    <button style="height: 24px;" on:click={openFilter} class="border-0 focus:border-transparent focus:ring-0 active:!bg-transparent">
+        <span class="material-symbols-outlined text-white bg-primary-dark p-3 rounded-full">
+            settings
+        </span>
+    </button>
     { #if changed && filterBool }
         {returnNada(handleSubmit())}
         {returnNada(changed = false)}
     { /if }
     { #if open}
-        <div>
+        <div class="mt-3">
             <p class="text-white">Max notifications: {$notification_count}</p>
             <input type="checkbox" bind:checked={useRange}>
             { #if $currentPage == "notificationpage" }
@@ -80,7 +83,7 @@
                 <option value="unknown">Unknown</option>
             </select>
         </div>
-        <button class="bg-white" on:click={() => {
+        <button class="text-white mt-2 bg-primary-dark p-2 border-0 focus:border-transparent focus:ring-0 rounded-md" on:click={() => {
             onSave()
         }}>Save</button>
     { /if }

@@ -42,7 +42,7 @@
     {/if}
 </header>
 
-<main class="h-screen w-screen">
+<main style="z-index: -1;" class="h-screen w-screen">
     <svelte:component this={routes[$currentPage.toLowerCase()]} />
 </main>
 

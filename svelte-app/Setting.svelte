@@ -1,6 +1,6 @@
 <div class="h-full w-full">
-    <div style="background-color:#363e4c; height: 90%;" class="w-5/6 m-auto rounded-2xl">
-        <div style="background-color:#111727;"class="flex justify-center   h-16 rounded-t-2xl p-auto">
+    <div style="background-color:#363e4c; height: 100%;" class="m-auto">
+        <div style="background-color:#111727;"class="flex justify-center h-16 p-auto">
             <h1 class="text-2xl text-white m-auto">Settings</h1>
         </div>
         <form method="POST" action="/settings" name="settings">
