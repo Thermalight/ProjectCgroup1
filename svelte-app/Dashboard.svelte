@@ -18,7 +18,7 @@
             <div class="w-screen h-1/2 z-0">
                 <MapMain bind:this={mapComponent} bind:notifications={notifications} bind:changedNotifications={changedNotifications}/>
             </div>
-            <div style="height: 50%; Width: 100%;" class="overflow-auto" >
+            <div style="height: 50%; Width: 100%;" class="overflow-auto pb-8" >
                 <List {mapComponent} addNotifs={addNotifs}/>
             </div>
         </div>
