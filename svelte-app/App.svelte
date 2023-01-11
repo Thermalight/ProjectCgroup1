@@ -37,6 +37,13 @@
         $currentPage = "dashboard";
     }
 
+    $: {
+        $currentPage;
+        if ($currentPage == "notificationpage" || $currentPage == "dashboard") {
+            $unread = 0;
+        }
+    }
+
     function getNew() {
         if ($currentPage == "notificationpage" || $currentPage == "dashboard") {
             $unread = 0;
