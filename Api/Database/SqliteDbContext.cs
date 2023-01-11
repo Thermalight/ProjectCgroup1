@@ -5,6 +5,11 @@ namespace ChengetaWebApp.Api.Database
 {
     public class SqliteDbContext : DbContext
     {
+        public string ConnectionString;
+        public SqliteDbContext(string connectionString = "./Database.db")
+        {
+            ConnectionString = connectionString;
+        }
         public DbSet<Notification> Notifications { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Subscriber> Subscribers { get; set; } = null!;
@@ -38,6 +43,6 @@ namespace ChengetaWebApp.Api.Database
             => new();
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source=Database.db");
+            => options.UseSqlite($"Data Source={ConnectionString}");
     }
 }

@@ -29,7 +29,7 @@
     }
     
     function onSave(){
-        notifications = getEvents()
+        getEvents()
         filterBool = true
     }
 
@@ -40,15 +40,19 @@
     }
 </script>
 
-<div>
+<div class="mb-3">
     <p class="text-white">Max notifications: {range}</p>
-    <button style="height: 24px;" class="bg-white border-0 border-transparent focus:border-transparent focus:ring-0" on:click={openFilter}><span class="material-symbols-outlined">settings</span></button>
+    <button style="height: 24px;" on:click={openFilter} class="border-0 focus:border-transparent focus:ring-0 active:!bg-transparent">
+        <span class="material-symbols-outlined text-white bg-primary-dark p-3 rounded-full">
+            settings
+        </span>
+    </button>
     { #if changed && filterBool }
         {returnNada(handleSubmit())}
         {returnNada(changed = false)}
     { /if }
     { #if open}
-        <div>
+        <div class="mt-3">
             <input type="checkbox" bind:checked={useRange}>
             { #if $currentPage == "notificationpage" }
                 <input type="number" min="1" disabled={useRange ? "" : "disabled" } bind:value={range}>
@@ -56,7 +60,7 @@
                 <input type="range" min="1" max="10" disabled={useRange ? "" : "disabled" } bind:value={range}>
             { /if }
         </div>
-        <button class="bg-white" on:click={() => {
+        <button class="text-white mt-2 bg-primary-dark p-2 border-0 focus:border-transparent focus:ring-0 rounded-md" on:click={() => {
             onSave()
         }}>Save</button>
     { /if }
