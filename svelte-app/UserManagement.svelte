@@ -30,6 +30,7 @@
                 body: JSON.stringify(UserJson),
             });
             reload();
+            UserJson = {username : "", password: "", email: "", isAdmin: false};
             return await response.json();
         }
         return;
