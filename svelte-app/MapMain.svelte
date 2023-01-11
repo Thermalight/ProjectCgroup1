@@ -2,7 +2,7 @@
 import L from "leaflet";
 import { onMount } from 'svelte';
 import { redIcon, orangeIcon, yellowIcon, greyIcon, blueIcon} from './leaflet-color-markers'
-import { notifications, changedNotifications } from "./stores";
+import { notifications } from "./stores";
 
 let array = []
 let arrayPins = []
@@ -32,19 +32,19 @@ onMount(() => {
 export function flyToLocation(Latitude,Longitude){
     map.flyTo([Latitude, Longitude],9);
 }
+
 function removeAllLocations(){
     if (arrayPins){
-        arrayPins.forEach(element => {
-            map.removeLayer(element)
+        arrayPins.forEach(pin => {
+            map.removeLayer(pin)
         });
     }
     array = []
     arrayPins = []
     mapDict = {};
     statusDict = {};
-    $changedNotifications = false
-    
 }
+
 function checkStatus(status){
     switch (status) {
         case 1:
@@ -59,6 +59,7 @@ function checkStatus(status){
             return "Not handled"
     }
 }
+
 function checkColor(functionColor){
     switch (functionColor) {
         case "gunshot":
@@ -73,6 +74,11 @@ function checkColor(functionColor){
             return greyIcon
     }
 }
+
+$: {
+    $notifications
+    removeAllLocations();
+}
 </script>
 
 <style>
@@ -82,10 +88,6 @@ function checkColor(functionColor){
     }
 </style>
 <div class="map rounded-lg" bind:this="{mapContainer}"></div>
-
-    {#if $changedNotifications}
-        {removeAllLocations()}
-    {/if}
     {#if $notifications != null}
         {#each $notifications as notification}
             {#if array.includes(notification.guid) && statusDict[notification.guid] != checkStatus(notification.statusID)}

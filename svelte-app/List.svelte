@@ -1,25 +1,17 @@
 <script>
     import { slide } from 'svelte/transition';
-    import { onDestroy, onMount } from 'svelte';
-    import { probability, soundType, notification_count, notifications, changedNotifications } from "./stores.js";
+    import { onDestroy } from 'svelte';
+    import { probability, soundType, notification_count, notifications, refreshRate, unread } from "./stores.js";
     import Notification from "./Notification.svelte"
     import Filter from "./Filter.svelte"
+    import isEqual from 'lodash.isequal';
+
     export let mapComponent
-
-    let loading = true;
-    let refreshRate = 1000;
-    let changed = false;
-    let filterBool = false
-
-    let handleSubmit = () => {
-        $changedNotifications = true
-        changed = true;
-    }
 
     let clear
     $: {
         clearInterval(clear)
-        clear = setInterval(getEvents, refreshRate)
+        clear = setInterval(getEvents, $refreshRate)
     }
 
     function getEvents() {
@@ -37,15 +29,12 @@
         .then(response => {
             response.json()
             .then(data => {
-                $notifications = data
-                changed = true
-                $changedNotifications = true
+                if (!isEqual($notifications, data)){
+                    $notifications = data;
+                }
+                    
+                $refreshRate = 10000;
             })
-        })
-        .then(() => {
-            loading = false;
-            changed = true
-            refreshRate = 10000;
         })
     }
 
@@ -54,11 +43,8 @@
     });
 </script>
 <div class="list" transition:slide>
-    {#if $notifications && !loading}
-        <Filter bind:changed={changed} bind:filterBool={filterBool} bind:handleSubmit={handleSubmit} />
-        {#if changed && !filterBool}
-            {handleSubmit() ? "" : ""}
-        {/if}
+    {#if $notifications }
+        <Filter />
         {#each $notifications as event}
             <div transition:slide>
                 <Notification {mapComponent} event={event} />

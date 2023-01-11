@@ -5,12 +5,7 @@
     let useRange = false;
     let useProbability = false;
     let useSoundType = false;
-
-    export let changed
-    export let filterBool = false
-    export let handleSubmit
     
-    const returnNada = () => '';
     function getEvents() {
         fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: useRange ? $notification_count : 10,
@@ -24,17 +19,14 @@
             },
         })
         .then(response => response.json())
-        .then(data => $notifications = data)
-        .then(() => changed = true)
+        .then(data => {
+            if ($notifications != data)
+                $notifications = data
+        })
     }
 
     function openFilter(){
         open = !open;
-    }
-    
-    function onSave(){
-        getEvents()
-        filterBool = true
     }
 
     $: {
@@ -56,11 +48,7 @@
             settings
         </span>
     </button>
-    { #if changed && filterBool }
-        {returnNada(handleSubmit())}
-        {returnNada(changed = false)}
-    { /if }
-    { #if open}
+    { #if open }
         <div class="mt-3">
             <p class="text-white">Max notifications: {$notification_count}</p>
             <input type="checkbox" bind:checked={useRange}>
@@ -84,7 +72,7 @@
             </select>
         </div>
         <button class="text-white mt-2 bg-primary-dark p-2 border-0 focus:border-transparent focus:ring-0 rounded-md" on:click={() => {
-            onSave()
+            getEvents()
         }}>Save</button>
     { /if }
 </div>
