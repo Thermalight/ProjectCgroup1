@@ -38,6 +38,14 @@
     }
 
     $: {
+        localStorage.getItem("token");
+        if (localStorage.getItem("token") && jwt_decode(localStorage.getItem("token")).exp < Date.now() / 1000) {
+            localStorage.removeItem("token");
+            window.location.pathname = "/login";
+        }
+    }
+
+    $: {
         $currentPage;
         if ($currentPage == "notificationpage" || $currentPage == "dashboard") {
             $unread = 0;
@@ -45,11 +53,9 @@
     }
 
     function getNew() {
-        if ($currentPage == "notificationpage" || $currentPage == "dashboard") {
-            $unread = 0;
+        if (!localStorage.getItem("token")) {
             return;
         }
-
         fetch("https://" + window.location.host + "/notifications?"+ new URLSearchParams({
             limit: $notification_count,
             soundType: $soundType,
@@ -66,7 +72,10 @@
             .then(data => {
                 if (!isEqual($notifications, data)){
                     $notifications = data
-                    unread.update(u => u+1);
+                    if ($currentPage == "notificationpage" || $currentPage == "dashboard")
+                        $unread = 0;
+                    else
+                        unread.update(u => u+1);
                 }
                     
                 $refreshRate = 10000;
