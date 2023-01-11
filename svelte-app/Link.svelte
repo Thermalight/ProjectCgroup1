@@ -3,7 +3,7 @@
     import { createEventDispatcher } from "svelte";
 
     export let href;
-    export let unread;
+    export let unread = undefined;
 
     const dispatch = createEventDispatcher();
 
