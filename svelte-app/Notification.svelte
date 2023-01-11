@@ -33,16 +33,16 @@
 
 {#if event != null}
     <div on:click={mapComponent.flyToLocation(event.latitude, event.longitude)}>
-        <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
-            <div class="content relative">
+        <div on:click|stopPropagation={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
+            <div on:click|stopPropagation={toggle} class="content relative">
                 <button 
                 on:click|stopPropagation={toggleSound} 
-                class="border-transparent focus:border-transparent focus:ring-0 absolute top-0 left-2">
-                        <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
+                class="border-transparent focus:border-transparent focus:ring-0 absolute left-1">
+                        <span class="material-symbols-outlined absolute left-1">{ play ? "pause_circle" : "play_circle" }</span>
                 </button>
 
                 <Status status={event.statusID} GUID={event.guid}/>
-                <div class="relative left-8">
+                <div class="relative left-8 max-w-max">
                     <p class="font-bold">{event.sound_type}</p>
                     <p class="text-gray-400">Probability: {event.probability}%</p>
                     <p class="text-gray-400">Node: {event.nodeID}</p>
