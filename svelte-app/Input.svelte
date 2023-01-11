@@ -1,5 +1,5 @@
 <script>
-    export let value, label, type, icon;
+    export let value, label, type, icon = undefined;
     function typeAction(node)
     {
         node.type = type;
@@ -28,6 +28,5 @@
 
     ::placeholder {
         color: white;
-
     }
 </style>
