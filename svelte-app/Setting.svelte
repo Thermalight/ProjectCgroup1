@@ -1,9 +1,25 @@
+<script>
+    import { prevent_default } from "svelte/internal";
+    let receiveEmails = false;
+    let email = "";
+    
+    fetch("https://" + window.location.host + "/subscribers?email=" + email)
+        .then((response) => response.json())
+        .then((data) => {
+            receiveEmails = data.isSubscribed;
+        })
+
+    function saveSettings() {
+        prevent_default();
+        return;
+    }
+</script>
 <div class="h-full w-full">
     <div style="background-color:#363e4c; height: 100%;" class="m-auto">
         <div style="background-color:#111727;"class="flex justify-center h-16 p-auto">
             <h1 class="text-2xl text-white m-auto">Settings</h1>
         </div>
-        <form method="POST" action="/settings" name="settings">
+        <form name="settings" on:submit={saveSettings}>
             <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
                 <label for="large-range" class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Sound <p id="soundValue" class="text-white inline-block">50</p></label>
                 <input  id="medium-range" type="range" oninput="soundValue.innerText = this.value"min="0" max="100" value="50" step="1" class="range m-auto w-5/6 h-2 mb-6 rounded-lg ">
@@ -28,7 +44,7 @@
                 </select>
             </div>
             <div class="flex items-center justify-center ">
-                <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="link-checkbox" bind:checked={receiveEmails} type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                 <label for="link-checkbox" class="ml-2 text-sm font-medium text-white">receive email notifications.</label>
             </div>
             <div class="flex align-items justify-content mt-10">
