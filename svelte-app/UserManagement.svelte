@@ -83,11 +83,12 @@
    
     <div>
         <!-- input form to add users -->
-        <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none ml-6 mt-6 p-auto" type="submit"on:click={() => addUserForm()}>{addUserFormOpen ? "Back " : "Add user"}</button>
         {#if updateUserFormOpen}
-            <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none mr-6 mt-6 p-auto" type="submit"on:click={() => cancel()}>cancel changes</button>
+            <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none ml-6 mt-6 p-auto" type="submit"on:click={() => cancel()}>Back</button>
+        { :else }
+            <button style="background-color:#111727" class="text-white font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center border-none ml-6 mt-6 p-auto" type="submit"on:click={() => addUserForm()}>{addUserFormOpen ? "Back " : "Add user"}</button>
         {/if}
-        {#if addUserFormOpen}
+        {#if addUserFormOpen }
             <p class="mb-2 text-xl font-medium dark:text-white text-white text-center m-auto w-full">Create account</p>
             <div class="p-4">
                 <div style="background-color:#111727;" class="grid rounded-2xl content-center relative w-full">
@@ -110,7 +111,7 @@
                     </form>
                 </div>
             </div>
-        { :else }
+        { :else if !updateUserFormOpen }
             <div>
                 <!-- input field to filter users -->
                 <label class="flex mx-6 mt-6 rounded-2xl content-center relative bg-white items-center">
@@ -124,8 +125,8 @@
     </div>
 
     {#if updateUserFormOpen}
+        <p class="mb-2 text-xl font-medium dark:text-white text-white text-center m-auto w-full">Update user </p>
         <div style="background-color:#111727;" class="m-6 grid rounded-2xl content-center">
-            <p class="block mb-2 text-sm font-medium dark:text-white text-white text-center">Update user </p>
             <UpdateUserForm user={updateUserJson}/>
         </div>
     {/if}

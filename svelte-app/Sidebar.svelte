@@ -2,6 +2,7 @@
     import Link from "./Link.svelte"
     import jwt_decode from "jwt-decode";
     export let open;
+    import { unread } from './stores.js'
 
     const close = () => open = false;
     const logout = () => localStorage.removeItem("token");
@@ -26,7 +27,7 @@
                     <span class="material-symbols-outlined relative top-1 mr-1">
                         home
                     </span>
-                    <Link on:click={close} href="/">
+                    <Link on:click={close} unread={$unread} href="/">
                         Dashboard
                     </Link>
                 </li>
