@@ -172,4 +172,26 @@ public class DatabaseService
             };
         return null;
     }
+
+    public bool IsSubscribed(string email)
+    {
+        var DbContext = new SqliteDbContext();
+        return DbContext.Users.Any(u => u.Email.ToLower() == email.ToLower() && u.Subscriber != null);
+    }
+
+    public bool Subscribe(string email)
+    {
+        var DbContext = new SqliteDbContext();
+        var user = DbContext.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
+        if (user == null)
+            return false;
+
+        if (user.Subscriber != null)
+            DbContext.Remove(user.Subscriber);
+        else
+            DbContext.Add(new Subscriber() { User = user });
+            
+        DbContext.SaveChanges();
+        return true;
+    }
 }

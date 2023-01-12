@@ -61,4 +61,28 @@ public class UserController : ControllerBase
             return NoContent();
         return UnprocessableEntity();
     }
+
+    // subscriber managers
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [Route("/subscribers/{email}")]
+    public IActionResult IsSubscribed(string email)
+    {
+        return Ok(_databaseService.IsSubscribed(email));
+    }
+
+    [HttpPost]
+    [Authorize("Admin")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(422)]
+    [Route("/subscribers/{email}")]
+    public IActionResult Subscribe(string email)
+    {
+        var result = _databaseService.Subscribe(email);
+        if (result)
+            return NoContent();
+        return UnprocessableEntity();
+    }
 }
