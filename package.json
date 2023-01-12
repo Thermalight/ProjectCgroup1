@@ -42,6 +42,7 @@
     "jest-environment-jsdom": "^29.1.2",
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.9.2",
+    "lodash.isequal": "^4.5.0",
     "sirv-cli": "^2.0.0"
   }
 }

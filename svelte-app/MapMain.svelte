@@ -1,10 +1,8 @@
 <script >
 import L from "leaflet";
 import { onMount } from 'svelte';
-import { redIcon, orangeIcon, yellowIcon, greyIcon } from './leaflet-color-markers'
-
-export let notifications;
-export let changedNotifications = false
+import { redIcon, orangeIcon, yellowIcon, greyIcon, blueIcon} from './leaflet-color-markers'
+import { notifications } from "./stores";
 
 let array = []
 let arrayPins = []
@@ -34,50 +32,52 @@ onMount(() => {
 export function flyToLocation(Latitude,Longitude){
     map.flyTo([Latitude, Longitude],9);
 }
+
 function removeAllLocations(){
-    if (arrayPins != null){
-        arrayPins.forEach(element => {
-            map.removeLayer(element)
+    if (arrayPins){
+        arrayPins.forEach(pin => {
+            map.removeLayer(pin)
         });
     }
     array = []
     arrayPins = []
     mapDict = {};
     statusDict = {};
-    changedNotifications = false
-    
 }
-function checkStatus(status){
-    if (status == 1){
-        return "Not handled"
-    }
-    else if (status == 2){
-        return "Being handled"
-    }
-    else if (status == 3){
 
-        return "Handled"
-    }
-    else if (status == 4){
-        return "False alarm"
-    }
-    else{
-        return "Not handled"
+function checkStatus(status){
+    switch (status) {
+        case 1:
+            return "Not handled"
+        case 2:
+            return "Being handled"
+        case 3:
+            return "Handled"
+        case 4:
+            return "False alarm"
+        default:
+            return "Not handled"
     }
 }
+
 function checkColor(functionColor){
-    if (functionColor == "gunshot"){
-        return redIcon
+    switch (functionColor) {
+        case "gunshot":
+            return redIcon
+        case "animal":
+            return yellowIcon
+        case "vehicle":
+            return orangeIcon
+        case "thunder":
+            return blueIcon
+        default:
+            return greyIcon
     }
-    else if (functionColor == "animal"){
-        return yellowIcon
-    }
-    else if (functionColor == "vehicle"){
-        return orangeIcon
-    }
-    else{
-        return greyIcon
-    }
+}
+
+$: {
+    $notifications
+    removeAllLocations();
 }
 </script>
 
@@ -88,12 +88,8 @@ function checkColor(functionColor){
     }
 </style>
 <div class="map rounded-lg" bind:this="{mapContainer}"></div>
-
-    {#if changedNotifications}
-        {removeAllLocations()}
-    {/if}
-    {#if notifications != null}
-        {#each notifications as notification}
+    {#if $notifications != null}
+        {#each $notifications as notification}
             {#if array.includes(notification.guid) && statusDict[notification.guid] != checkStatus(notification.statusID)}
                 {returnNada(mapDict[notification.guid].getPopup().setContent(notification.sound_type+" with probablity of "+notification.probability+"% status is "+checkStatus(notification.statusID)).update())}
                 {returnNada(statusDict[notification.guid] = checkStatus(notification.statusID))}

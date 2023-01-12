@@ -2,12 +2,6 @@
     import List from './List.svelte';
 
     let mapComponent
-    let notifications
-    let changedNotifications
-    let addNotifs = (content,changed) =>{
-        notifications = content
-        changedNotifications = changed
-    }
 </script>
 <div class="h-full w-full">
     <div style="background-color:#363e4c; height: 100%;" class="w-screen m-auto relative">
@@ -16,7 +10,7 @@
         </div>
         <div style="height: 100%;Width: 100%;"class="flex flex-col">
             <div style="height: 100%; Width: 100%;" class="relative overflow-auto pb-14" >
-                <List {mapComponent} addNotifs={addNotifs}/>
+                <List {mapComponent}/>
             </div>
         </div>
     </div>
