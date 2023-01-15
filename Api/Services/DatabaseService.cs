@@ -18,9 +18,11 @@ public class DatabaseService
 
         // create all priorities
         await dbContext.AddAsync(new SoundPriority(){SoundType="gunshot", Priority=1});
-        await dbContext.AddAsync(new SoundPriority(){SoundType="vehicle", Priority=2});
-        await dbContext.AddAsync(new SoundPriority(){SoundType="animal", Priority=3});
-        await dbContext.AddAsync(new SoundPriority(){SoundType="unknown", Priority=4});
+        await dbContext.AddAsync(new SoundPriority(){SoundType="thunder", Priority=2});
+        await dbContext.AddAsync(new SoundPriority(){SoundType="vehicle", Priority=3});
+        await dbContext.AddAsync(new SoundPriority(){SoundType="animal", Priority=4});
+        await dbContext.AddAsync(new SoundPriority(){SoundType="unknown", Priority=5});
+
 
         // create all statustypes
         await dbContext.AddAsync(new Status(){Description="The notification is not being handled yet", Name="Not handled"});
@@ -41,34 +43,24 @@ public class DatabaseService
         await DbContext.SaveChangesAsync();
     }
 
-    public IEnumerable<Notification> GetAllNotifications(int limit = -1)
+    public IEnumerable<Notification> GetAllNotifications(GetNotificationsDto dto)
     {
         var DbContext = new SqliteDbContext();
-        var notifications = DbContext.Notifications.ToList();
+        var queriable = DbContext.Notifications.AsQueryable();
+
+        if (dto.Probability != null)
+            queriable = queriable.Where(n => n.Probability >= dto.Probability);
+        if (dto.SoundType != null)
+            queriable = queriable.Where(n => n.SoundType == dto.SoundType);
+        
+
+        var notifications = queriable.ToList();
 
         IEnumerable<Notification> sorted = notifications.OrderByDescending(x => x.Time);
-        if (limit < notifications.Count() && limit > 0)
-            sorted = sorted.Take(limit);
+        if (dto.Limit < notifications.Count() && dto.Limit != null && dto.Limit > 0)
+            sorted = sorted.Take((int)dto.Limit);
         
         return sorted;
-    }
-
-    public bool UserAuthentication(string FunctionUsername, string FunctionPassword, HttpContext context)
-    {
-        var DbContext = new SqliteDbContext();
-        var user = (from item in DbContext.Users
-                    where item.Email == FunctionUsername
-                    select item).FirstOrDefault();
-        if (user != null && Bcrypt.Verify(FunctionPassword,user.Password))
-        {
-            context.Response.Cookies.Append("Username",FunctionUsername);
-            context.Response.Cookies.Append("Admin",user.IsAdmin.ToString());
-            context.Response.Cookies.Append("LoggedIn","True");
-            return true;
-        }
-        context.Response.Cookies.Append("LoggedIn","False");
-        
-        return false;
     }
 
     public IResult UpdateNotificationStatus(Guid id, int status) {
@@ -87,7 +79,12 @@ public class DatabaseService
     {
         var dbContext = new SqliteDbContext();
         User User = new(newUser);
+        // check if user already exists
+        if (dbContext.Users.Where(u => u.Email == User.Email).FirstOrDefault() != null)
+            return false;
+        // hash the given password
         User.Password = Bcrypt.HashPassword(User.Password);
+        // add the user to the database and save
         dbContext.Add(User);
         var result = dbContext.SaveChanges();
 
@@ -162,7 +159,7 @@ public class DatabaseService
             {
                 GUID = user.GUID,
                 Username = user.Username,
-                Email = user.Email,
+                Email = user.Email.ToLower(),
                 IsAdmin = user.IsAdmin
             };
         return null;

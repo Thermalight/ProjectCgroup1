@@ -25,28 +25,34 @@
             audio.currentTime = 0;
         }
     }
+
+    audio.onended = function() {
+        play = false
+    }
 </script>
 
 {#if event != null}
     <div on:click={mapComponent.flyToLocation(event.latitude, event.longitude)}>
-        <div on:click={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
-            <div class="content">
+        <div on:click|stopPropagation={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
+            <div on:click|stopPropagation={toggle} class="content relative">
                 <button 
-                on:click={toggleSound} 
-                class="border-transparent focus:border-transparent focus:ring-0">
-                        <span class="material-symbols-outlined">{ play ? "pause_circle" : "play_circle" }</span>
+                on:click|stopPropagation={toggleSound} 
+                class="border-transparent focus:border-transparent focus:ring-0 absolute left-1">
+                        <span class="material-symbols-outlined absolute left-1">{ play ? "pause_circle" : "play_circle" }</span>
                 </button>
 
-                <p class="font-bold">{event.sound_type}</p>
                 <Status status={event.statusID} GUID={event.guid}/>
-                <p class="text-gray-400">Probability: {event.probability}%</p>
-                <p class="text-gray-400">Node: {event.nodeID}</p>
-                {#if open}
-                    <div transition:slide>
-                        <p class="text-gray-400">latitude: {round(event.latitude)}</p>
-                        <p class="text-gray-400">longitude: {round(event.longitude)}</p>
-                    </div>
-                {/if}
+                <div class="relative left-8 max-w-max">
+                    <p class="font-bold">{event.sound_type}</p>
+                    <p class="text-gray-400">Probability: {event.probability}%</p>
+                    <p class="text-gray-400">Node: {event.nodeID}</p>
+                    {#if open}
+                        <div transition:slide>
+                            <p class="text-gray-400">latitude: {round(event.latitude)}</p>
+                            <p class="text-gray-400">longitude: {round(event.longitude)}</p>
+                        </div>
+                    {/if}
+                </div>
                 <span transition:slide class="absolute left-1/2 pt-3 material-symbols-outlined">{ open? "expand_less" : "expand_more"}</span>
                 <p class="text-right">{new Date(event.time*1000).getHours()}:{new Date(event.time*1000).getMinutes() < 10 ? "0" + new Date(event.time*1000).getMinutes() : new Date(event.time*1000).getMinutes()}</p>
             </div>
@@ -72,6 +78,10 @@
 
     .animal {
         border-bottom: 2px solid rgb(249, 249, 130);
+    }
+
+    .thunder {
+        border-bottom: 2px solid #4B4BFF;
     }
 
     .unknown {

@@ -22,10 +22,6 @@ a:hover {
 	text-decoration: underline;
 }
 
-a:visited {
-	color: rgb(0,80,160);
-}
-
 label {
 	display: block;
 }
@@ -54,10 +50,17 @@ button:disabled {
 	color: #999;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
-}
-
 button:focus {
 	border-color: #666;
+}
+
+select {
+	margin-top: 0.5em;
+	margin-bottom: 1.25em;
+	padding: 0.5em 0.75em;
+	color: white !important; 
+	background-color: #333;
+	border: 0px;
+	border-radius: 5em;
+	margin-left: 0.75em;
 }

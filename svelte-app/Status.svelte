@@ -28,7 +28,7 @@
         });
     }
 </script>
-<p on:click|stopPropagation={changeStatus} class="{table[status]} status absolute right-6 px-2 rounded-full">{table[status]}</p>
+<p on:click|self|stopPropagation={changeStatus} class="{table[status]} status absolute -right-1 top-8 px-2 rounded-full">{table[status]}</p>
 
 <style>
     .status {

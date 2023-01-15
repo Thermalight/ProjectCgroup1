@@ -3,6 +3,7 @@
     import { createEventDispatcher } from "svelte";
 
     export let href;
+    export let unread = undefined;
 
     const dispatch = createEventDispatcher();
 
@@ -13,6 +14,13 @@
     }
 </script>
 
-<a {href} on:click={handleClick} title={href} draggable="false">
+<a class="text-white" {href} on:click={handleClick} title={href} draggable="false">
     <slot />
+    { #if unread }
+        { #if unread > 0 }
+            <span class="px-2 text-white bg-red-500 border-1 rounded-full">
+                { unread }
+            </span>
+        { /if }
+    { /if }
 </a>
