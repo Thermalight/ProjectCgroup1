@@ -79,11 +79,6 @@
                         {/if}
                     </button>
                 </div>
-                <div align="right ">
-
-                    <a href="#!"  class="right-0 underline text-xs duration-200 transition ease-in-out ">Forgot password?</a>
-                
-                </div>
                 <div class="flex align-items justify-content mt-10">
                     <button style="background-color:#111727"type="submit" class="  text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 border-none m-auto p-auto" on:click|preventDefault={submit}>Submit</button>
                 </div>
