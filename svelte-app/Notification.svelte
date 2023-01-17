@@ -14,6 +14,10 @@
 
     function toggle() {
         open = !open
+        if (open) {
+            mapComponent.flyToLocation(event.latitude, event.longitude)
+        }
+            
     }
     function toggleSound() {
         play = !play
@@ -32,7 +36,7 @@
 </script>
 
 {#if event != null}
-    <div on:click={mapComponent.flyToLocation(event.latitude, event.longitude)}>
+    <div>
         <div on:click|stopPropagation={toggle} class="{event.sound_type} p-4 text-white bg-primary-dark mb-2 rounded-lg">
             <div on:click|stopPropagation={toggle} class="content relative">
                 <button 
